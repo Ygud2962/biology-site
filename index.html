@@ -46,6 +46,12 @@
             text-align: center;
             color: var(--white);
             padding: 2rem;
+            animation: fadeIn 1s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         .hero h1 {
@@ -53,6 +59,7 @@
             margin-bottom: 1rem;
             font-weight: 700;
             letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
 
         .hero .subtitle {
@@ -261,7 +268,7 @@
             </a>
 
             <a href="plan.html" class="section-card">
-                <div class="section-icon"></div>
+                <div class="section-icon">📅</div>
                 <h3>План занятий</h3>
                 <p>Расписание уроков и контрольных работ</p>
             </a>
@@ -273,7 +280,7 @@
             </a>
 
             <a href="olimpiads.html" class="section-card">
-                <div class="section-icon">🏆</div>
+                <div class="section-icon"></div>
                 <h3>Олимпиады прошлых лет</h3>
                 <p>Задания и решения олимпиад разных лет</p>
             </a>
