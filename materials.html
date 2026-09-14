@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Материалы для самоподготовки</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Материалы для самоподготовки - Ресурсный центр "Биология"</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -16,9 +16,14 @@
             --primary: #0D3B2E;
             --primary-light: #1B5E5B;
             --accent: #C9A961;
+            --accent-light: #D4B570;
             --bg: #FAFAF7;
             --text: #2B2D42;
             --white: #FFFFFF;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
@@ -32,30 +37,17 @@
             font-family: 'Playfair Display', serif;
         }
 
-        .header {
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
-            color: var(--white);
-            padding: 3rem 2rem;
-            text-align: center;
-        }
-
-        .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .header p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-        }
-
+        /* Navigation - Premium */
         .nav {
-            background: var(--white);
-            padding: 1rem 2rem;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            position: sticky;
+            position: fixed;
             top: 0;
-            z-index: 100;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(15px);
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 20px rgba(13,59,46,0.1);
+            z-index: 1000;
         }
 
         .nav-container {
@@ -66,21 +58,184 @@
             align-items: center;
         }
 
-        .nav a {
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
             color: var(--primary);
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.3s;
+            letter-spacing: 1px;
+            z-index: 1001;
         }
 
-        .nav a:hover {
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover {
             color: var(--accent);
         }
 
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+
+        /* Burger Menu */
+        .burger {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 28px;
+            height: 20px;
+            cursor: pointer;
+            z-index: 1001;
+            background: none;
+            border: none;
+            padding: 0;
+        }
+
+        .burger span {
+            display: block;
+            width: 100%;
+            height: 2px;
+            background: var(--primary);
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .burger.active span:nth-child(1) {
+            transform: translateY(9px) rotate(45deg);
+        }
+
+        .burger.active span:nth-child(2) {
+            opacity: 0;
+            transform: translateX(-10px);
+        }
+
+        .burger.active span:nth-child(3) {
+            transform: translateY(-9px) rotate(-45deg);
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            z-index: 999;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .mobile-menu.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .mobile-menu ul {
+            list-style: none;
+            text-align: center;
+        }
+
+        .mobile-menu li {
+            margin: 1.5rem 0;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+
+        .mobile-menu.active li {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .mobile-menu.active li:nth-child(1) { transition-delay: 0.1s; }
+        .mobile-menu.active li:nth-child(2) { transition-delay: 0.2s; }
+        .mobile-menu.active li:nth-child(3) { transition-delay: 0.3s; }
+        .mobile-menu.active li:nth-child(4) { transition-delay: 0.4s; }
+
+        .mobile-menu a {
+            color: var(--white);
+            text-decoration: none;
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .mobile-menu a:hover {
+            color: var(--accent);
+        }
+
+        .mobile-menu a:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s;
+        }
+
+        .mobile-menu a:hover:after {
+            width: 60%;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: var(--white);
+            padding: 8rem 2rem 4rem; /* Увеличен отступ сверху, чтобы меню не перекрывало текст */
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            font-weight: 300;
+        }
+
+        /* Content and Cards */
         .content {
             max-width: 1200px;
-            margin: 3rem auto;
-            padding: 0 2rem;
+            margin: 0 auto;
+            padding: 4rem 2rem;
         }
 
         .topics-grid {
@@ -96,35 +251,48 @@
             padding: 2.5rem 2rem;
             text-decoration: none;
             color: var(--text);
-            transition: all 0.3s ease;
-            border: 3px solid transparent;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid transparent;
+            box-shadow: 0 10px 30px rgba(13,59,46,0.08);
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .topic-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .topic-card:hover:before {
+            transform: scaleX(1);
         }
 
         .topic-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 20px 50px rgba(13,59,46,0.2);
+            box-shadow: 0 20px 50px rgba(13,59,46,0.15);
+            border-color: var(--accent);
         }
 
-        /* Цвета для каждой карточки */
-        .topic-card.botany { border-color: #4CAF50; }
-        .topic-card.botany:hover { background: linear-gradient(135deg, #e8f5e9, #fff); }
-        
-        .topic-card.zoology { border-color: #FF9800; }
-        .topic-card.zoology:hover { background: linear-gradient(135deg, #fff3e0, #fff); }
-        
-        .topic-card.anatomy { border-color: #E91E63; }
-        .topic-card.anatomy:hover { background: linear-gradient(135deg, #fce4ec, #fff); }
-        
-        .topic-card.general { border-color: #2196F3; }
-        .topic-card.general:hover { background: linear-gradient(135deg, #e3f2fd, #fff); }
-
         .topic-emoji {
-            font-size: 5rem;
+            font-size: 4.5rem;
             margin-bottom: 1.5rem;
             display: block;
             line-height: 1;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+            transition: transform 0.3s ease;
+        }
+
+        .topic-card:hover .topic-emoji {
+            transform: scale(1.15) rotate(5deg);
         }
 
         .topic-card h3 {
@@ -135,17 +303,18 @@
         }
 
         .topic-card > p {
-            font-size: 0.95rem;
+            font-size: 1rem;
             opacity: 0.85;
             margin-bottom: 1.5rem;
             color: var(--text);
+            line-height: 1.6;
         }
 
         .topic-card ul {
             list-style: none;
             padding: 0;
             text-align: left;
-            max-width: 250px;
+            max-width: 280px;
             margin: 0 auto;
         }
 
@@ -153,7 +322,7 @@
             padding: 0.6rem 0;
             padding-left: 2rem;
             position: relative;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             border-bottom: 1px solid #f0f0f0;
         }
 
@@ -171,17 +340,61 @@
         }
 
         footer {
-            background: var(--text);
+            background: linear-gradient(135deg, var(--text), #1a1a2e);
             color: var(--white);
             text-align: center;
-            padding: 2rem;
+            padding: 2.5rem;
             margin-top: 5rem;
+            position: relative;
         }
 
+        footer:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-light));
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
+            .nav {
+                padding: 1rem 1.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .burger {
+                display: flex;
+            }
+
+            .header {
+                padding: 6.5rem 1.5rem 3rem; /* Защита от перекрытия на мобильных */
+            }
+
+            .header h1 {
+                font-size: 2.2rem;
+            }
+
+            .header p {
+                font-size: 1rem;
+            }
+
+            .content {
+                padding: 3rem 1.5rem;
+            }
+
             .topics-grid {
                 grid-template-columns: 1fr;
                 gap: 2rem;
+            }
+
+            .topic-card {
+                padding: 2.5rem 2rem;
             }
 
             .topic-emoji {
@@ -192,22 +405,37 @@
 </head>
 <body>
 
-    <div class="header">
-        <h1> Материалы для самоподготовки</h1>
-        <p>Выберите тему для изучения</p>
-    </div>
-
     <nav class="nav">
-    <div class="nav-container">
-        <div class="nav-logo">🌿 БИОЛОГИЯ</div>
-        <ul class="nav-links">
-            <li><a href="index.html">Главная</a></li>
-            <li><a href="index.html#about">О центре</a></li>
-            <li><a href="index.html#sections">Разделы</a></li>
-            <li><a href="contacts.html">Контакты</a></li>
+        <div class="nav-container">
+            <div class="nav-logo">🌿 БИОЛОГИЯ</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="index.html#about">О центре</a></li>
+                <li><a href="index.html#sections">Разделы</a></li>
+                <li><a href="contacts.html">Контакты</a></li>
+            </ul>
+            <button class="burger" id="burger" aria-label="Меню">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Мобильное меню -->
+    <div class="mobile-menu" id="mobileMenu">
+        <ul>
+            <li><a href="index.html" class="mobile-link">Главная</a></li>
+            <li><a href="index.html#about" class="mobile-link">О центре</a></li>
+            <li><a href="index.html#sections" class="mobile-link">Разделы</a></li>
+            <li><a href="contacts.html" class="mobile-link">Контакты</a></li>
         </ul>
     </div>
-</nav>
+
+    <div class="header">
+        <h1>📚 Материалы для самоподготовки</h1>
+        <p>Выберите тему для углубленного изучения и подготовки к олимпиадам</p>
+    </div>
 
     <div class="content">
         <div class="topics-grid">
@@ -266,8 +494,32 @@
     </div>
 
     <footer>
-        <p>© 2026 Ресурсный центр «Биология»</p>
+        <p>© 2026 Ресурсный центр «Биология» | Даниленко А.А.</p>
+        <p>Email: zz999an@yandex.by | г. Хойники, школа №3</p>
     </footer>
+
+    <script>
+        // Burger Menu Logic
+        const burger = document.getElementById('burger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        if (burger) {
+            burger.addEventListener('click', () => {
+                burger.classList.toggle('active');
+                mobileMenu.classList.toggle('active');
+                document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+            });
+
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    burger.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            });
+        }
+    </script>
 
 </body>
 </html>
