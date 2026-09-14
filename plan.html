@@ -22,6 +22,10 @@
             --white: #FFFFFF;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: 'Raleway', sans-serif;
             background: var(--bg);
@@ -36,25 +40,13 @@
 
         /* Animations */
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(-40px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes gradientShift {
@@ -63,15 +55,17 @@
             100% { background-position: 0% 50%; }
         }
 
+        /* Navigation - Premium */
         .nav {
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(20px) saturate(180%);
-            padding: 1.2rem 2rem;
-            box-shadow: 0 4px 30px rgba(0,0,0,0.1);
-            position: sticky;
+            position: fixed;
             top: 0;
-            z-index: 100;
-            border-bottom: 1px solid rgba(255,255,255,0.3);
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(15px);
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 20px rgba(13,59,46,0.1);
+            z-index: 1000;
             animation: fadeInDown 0.8s ease;
         }
 
@@ -83,48 +77,166 @@
             align-items: center;
         }
 
-        .nav a {
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
             color: var(--primary);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            padding: 0.5rem 1rem;
-            border-radius: 25px;
+            letter-spacing: 1px;
+            z-index: 1001;
         }
 
-        .nav a:before {
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:after {
             content: '';
             position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+
+        /* Burger Menu */
+        .burger {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 28px;
+            height: 20px;
+            cursor: pointer;
+            z-index: 1001;
+            background: none;
+            border: none;
+            padding: 0;
+        }
+
+        .burger span {
+            display: block;
+            width: 100%;
+            height: 2px;
+            background: var(--primary);
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .burger.active span:nth-child(1) {
+            transform: translateY(9px) rotate(45deg);
+        }
+
+        .burger.active span:nth-child(2) {
+            opacity: 0;
+            transform: translateX(-10px);
+        }
+
+        .burger.active span:nth-child(3) {
+            transform: translateY(-9px) rotate(-45deg);
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(135deg, var(--accent), var(--accent-light));
-            border-radius: 25px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            z-index: 999;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             opacity: 0;
-            transform: scale(0.8);
-            transition: all 0.3s;
-            z-index: -1;
+            transition: opacity 0.4s ease;
         }
 
-        .nav a:hover:before {
+        .mobile-menu.active {
+            display: flex;
             opacity: 1;
-            transform: scale(1);
         }
 
-        .nav a:hover {
+        .mobile-menu ul {
+            list-style: none;
+            text-align: center;
+        }
+
+        .mobile-menu li {
+            margin: 1.5rem 0;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+
+        .mobile-menu.active li {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .mobile-menu.active li:nth-child(1) { transition-delay: 0.1s; }
+        .mobile-menu.active li:nth-child(2) { transition-delay: 0.2s; }
+        .mobile-menu.active li:nth-child(3) { transition-delay: 0.3s; }
+        .mobile-menu.active li:nth-child(4) { transition-delay: 0.4s; }
+
+        .mobile-menu a {
             color: var(--white);
-            transform: translateY(-2px);
+            text-decoration: none;
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+            position: relative;
         }
 
+        .mobile-menu a:hover {
+            color: var(--accent);
+        }
+
+        .mobile-menu a:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s;
+        }
+
+        .mobile-menu a:hover:after {
+            width: 60%;
+        }
+
+        /* Header */
         .header {
             background: linear-gradient(-45deg, var(--primary), var(--primary-light), #0f4d45, #1a5f5a);
             background-size: 400% 400%;
             animation: gradientShift 15s ease infinite;
             color: var(--white);
-            padding: 4rem 2rem 3rem;
+            padding: 8rem 2rem 4rem; /* Увеличен отступ сверху, чтобы меню не перекрывало текст */
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -171,7 +283,7 @@
         .content {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 3rem 2rem;
+            padding: 4rem 2rem;
         }
 
         .info-box {
@@ -425,9 +537,30 @@
             background: linear-gradient(90deg, var(--accent), var(--accent-light));
         }
 
+        /* Responsive */
         @media (max-width: 768px) {
+            .nav {
+                padding: 1rem 1.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .burger {
+                display: flex;
+            }
+
+            .header {
+                padding: 6.5rem 1.5rem 3rem; /* Защита от перекрытия на мобильных */
+            }
+
             .header h1 {
-                font-size: 2rem;
+                font-size: 2.2rem;
+            }
+
+            .header p {
+                font-size: 1rem;
             }
 
             .lessons-grid {
@@ -440,7 +573,7 @@
             }
 
             .content {
-                padding: 2rem 1.2rem;
+                padding: 3rem 1.5rem;
             }
         }
 
@@ -459,16 +592,31 @@
 <body>
 
     <nav class="nav">
-    <div class="nav-container">
-        <div class="nav-logo">🌿 БИОЛОГИЯ</div>
-        <ul class="nav-links">
-            <li><a href="index.html">Главная</a></li>
-            <li><a href="index.html#about">О центре</a></li>
-            <li><a href="index.html#sections">Разделы</a></li>
-            <li><a href="contacts.html">Контакты</a></li>
+        <div class="nav-container">
+            <div class="nav-logo">🌿 БИОЛОГИЯ</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="programma.html">Программа</a></li>
+                <li><a href="plan.html">План</a></li>
+                <li><a href="contacts.html">Контакты</a></li>
+            </ul>
+            <button class="burger" id="burger" aria-label="Меню">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Мобильное меню -->
+    <div class="mobile-menu" id="mobileMenu">
+        <ul>
+            <li><a href="index.html" class="mobile-link">Главная</a></li>
+            <li><a href="programma.html" class="mobile-link">Программа</a></li>
+            <li><a href="plan.html" class="mobile-link">План</a></li>
+            <li><a href="contacts.html" class="mobile-link">Контакты</a></li>
         </ul>
     </div>
-</nav>
 
     <div class="header">
         <h1>📅 План занятий</h1>
@@ -493,7 +641,7 @@
                     <span>Сентябрь 2026 - Май 2027</span>
                 </div>
                 <div class="info-item">
-                    <strong> Кабинет</strong>
+                    <strong>🚪 Кабинет</strong>
                     <span>3-1</span>
                 </div>
             </div>
@@ -918,7 +1066,7 @@
                         <span class="lesson-date">21.11</span>
                     </div>
                     <div class="lesson-content">
-                        <p><strong>Основное содержание:</strong> Двукрылые и перепончатокрылый насекомые</p>
+                        <p><strong>Основное содержание:</strong> Двукрылые и перепончатокрылые насекомые</p>
                         <div class="lesson-form">
                             <strong>Форма работы:</strong>
                             Решение задач на типы развития насекомых. Роль вредителей сельскохозяйственных культур
@@ -1339,7 +1487,7 @@
 
                 <div class="lesson-card scroll-animate">
                     <div class="lesson-header">
-                        <div class="lesson-number">45</div>
+                        <div class="lesson-number">46</div>
                         <h3 class="lesson-title">Обмен веществ</h3>
                     </div>
                     <div class="lesson-meta">
@@ -1357,7 +1505,7 @@
 
                 <div class="lesson-card scroll-animate">
                     <div class="lesson-header">
-                        <div class="lesson-number">46</div>
+                        <div class="lesson-number">47</div>
                         <h3 class="lesson-title">Выделительная система</h3>
                     </div>
                     <div class="lesson-meta">
@@ -1375,7 +1523,7 @@
 
                 <div class="lesson-card scroll-animate">
                     <div class="lesson-header">
-                        <div class="lesson-number">47</div>
+                        <div class="lesson-number">48</div>
                         <h3 class="lesson-title">Покровная система (кожа)</h3>
                     </div>
                     <div class="lesson-meta">
@@ -1393,7 +1541,7 @@
 
                 <div class="lesson-card scroll-animate">
                     <div class="lesson-header">
-                        <div class="lesson-number">48</div>
+                        <div class="lesson-number">49</div>
                         <h3 class="lesson-title">Репродуктивная система. Онтогенез человека</h3>
                     </div>
                     <div class="lesson-meta">
@@ -1404,14 +1552,14 @@
                         <p><strong>Основное содержание:</strong> Образование половых клеток. Строение яйцеклетки и сперматозоида</p>
                         <div class="lesson-form">
                             <strong>Форма работы:</strong>
-                            Решение задач на определение плоидности половых клетках
+                            Решение задач на определение плоидности половых клеток
                         </div>
                     </div>
                 </div>
 
                 <div class="lesson-card scroll-animate">
                     <div class="lesson-header">
-                        <div class="lesson-number">49</div>
+                        <div class="lesson-number">50</div>
                         <h3 class="lesson-title">Сенсорные системы</h3>
                     </div>
                     <div class="lesson-meta">
@@ -1429,7 +1577,7 @@
 
                 <div class="lesson-card scroll-animate">
                     <div class="lesson-header">
-                        <div class="lesson-number">50</div>
+                        <div class="lesson-number">51</div>
                         <h3 class="lesson-title">Поведение и психика. Высшая нервная деятельность</h3>
                     </div>
                     <div class="lesson-meta">
@@ -1447,7 +1595,7 @@
 
                 <div class="lesson-card scroll-animate">
                     <div class="lesson-header">
-                        <div class="lesson-number">51</div>
+                        <div class="lesson-number">52</div>
                         <h3 class="lesson-title">Решение задач по физиологии человека</h3>
                     </div>
                     <div class="lesson-meta">
@@ -1470,7 +1618,7 @@
             <div class="lessons-grid">
                 <div class="lesson-card scroll-animate">
                     <div class="lesson-header">
-                        <div class="lesson-number">52</div>
+                        <div class="lesson-number">53</div>
                         <h3 class="lesson-title">Свойства живых организмов</h3>
                     </div>
                     <div class="lesson-meta">
@@ -1488,7 +1636,7 @@
 
                 <div class="lesson-card scroll-animate">
                     <div class="lesson-header">
-                        <div class="lesson-number">53</div>
+                        <div class="lesson-number">54</div>
                         <h3 class="lesson-title">Химия клетки: вода и минеральные вещества</h3>
                     </div>
                     <div class="lesson-meta">
@@ -1506,7 +1654,7 @@
 
                 <div class="lesson-card scroll-animate">
                     <div class="lesson-header">
-                        <div class="lesson-number">54</div>
+                        <div class="lesson-number">55</div>
                         <h3 class="lesson-title">Белки. Углеводы</h3>
                     </div>
                     <div class="lesson-meta">
@@ -1524,7 +1672,7 @@
 
                 <div class="lesson-card scroll-animate">
                     <div class="lesson-header">
-                        <div class="lesson-number">55</div>
+                        <div class="lesson-number">56</div>
                         <h3 class="lesson-title">Липиды. Нуклеиновые кислоты</h3>
                     </div>
                     <div class="lesson-meta">
@@ -1535,14 +1683,14 @@
                         <p><strong>Основное содержание:</strong> Жиры. ДНК и РНК. Правила Чаргаффа. АТФ</p>
                         <div class="lesson-form">
                             <strong>Форма работы:</strong>
-                            Решение задач на комплиментарность ДНК
+                            Решение задач на комплементарность ДНК
                         </div>
                     </div>
                 </div>
 
                 <div class="lesson-card scroll-animate">
                     <div class="lesson-header">
-                        <div class="lesson-number">56</div>
+                        <div class="lesson-number">57</div>
                         <h3 class="lesson-title">Цитология. Цитоплазматические мембраны</h3>
                     </div>
                     <div class="lesson-meta">
@@ -1560,7 +1708,7 @@
 
                 <div class="lesson-card scroll-animate">
                     <div class="lesson-header">
-                        <div class="lesson-number">57</div>
+                        <div class="lesson-number">58</div>
                         <h3 class="lesson-title">Органоиды клетки</h3>
                     </div>
                     <div class="lesson-meta">
@@ -1578,7 +1726,7 @@
 
                 <div class="lesson-card scroll-animate">
                     <div class="lesson-header">
-                        <div class="lesson-number">58</div>
+                        <div class="lesson-number">59</div>
                         <h3 class="lesson-title">Деление клетки</h3>
                     </div>
                     <div class="lesson-meta">
@@ -1596,7 +1744,7 @@
 
                 <div class="lesson-card scroll-animate">
                     <div class="lesson-header">
-                        <div class="lesson-number">59</div>
+                        <div class="lesson-number">60</div>
                         <h3 class="lesson-title">Обмен веществ и энергии. Энергетический обмен</h3>
                     </div>
                     <div class="lesson-meta">
@@ -1614,7 +1762,7 @@
 
                 <div class="lesson-card scroll-animate">
                     <div class="lesson-header">
-                        <div class="lesson-number">60</div>
+                        <div class="lesson-number">61</div>
                         <h3 class="lesson-title">Фотосинтез. Биосинтез белка</h3>
                     </div>
                     <div class="lesson-meta">
@@ -1632,7 +1780,7 @@
 
                 <div class="lesson-card scroll-animate">
                     <div class="lesson-header">
-                        <div class="lesson-number">61</div>
+                        <div class="lesson-number">62</div>
                         <h3 class="lesson-title">Трансляция и реализация наследственной информации</h3>
                     </div>
                     <div class="lesson-meta">
@@ -1650,7 +1798,7 @@
 
                 <div class="lesson-card scroll-animate">
                     <div class="lesson-header">
-                        <div class="lesson-number">62</div>
+                        <div class="lesson-number">63</div>
                         <h3 class="lesson-title">Размножение живых организмов</h3>
                     </div>
                     <div class="lesson-meta">
@@ -1668,7 +1816,7 @@
 
                 <div class="lesson-card scroll-animate">
                     <div class="lesson-header">
-                        <div class="lesson-number">63</div>
+                        <div class="lesson-number">64</div>
                         <h3 class="lesson-title">Индивидуальное развитие (онтогенез)</h3>
                     </div>
                     <div class="lesson-meta">
@@ -1686,7 +1834,7 @@
 
                 <div class="lesson-card scroll-animate">
                     <div class="lesson-header">
-                        <div class="lesson-number">64</div>
+                        <div class="lesson-number">65</div>
                         <h3 class="lesson-title">Наследственность и изменчивость организмов. Законы Г. Менделя</h3>
                     </div>
                     <div class="lesson-meta">
@@ -1704,7 +1852,7 @@
 
                 <div class="lesson-card scroll-animate">
                     <div class="lesson-header">
-                        <div class="lesson-number">65</div>
+                        <div class="lesson-number">66</div>
                         <h3 class="lesson-title">Взаимодействие аллельных и неаллельных генов. Сцепленное наследование</h3>
                     </div>
                     <div class="lesson-meta">
@@ -1722,7 +1870,7 @@
 
                 <div class="lesson-card scroll-animate">
                     <div class="lesson-header">
-                        <div class="lesson-number">66</div>
+                        <div class="lesson-number">67</div>
                         <h3 class="lesson-title">Изменчивость. Мутации</h3>
                     </div>
                     <div class="lesson-meta">
@@ -1740,7 +1888,7 @@
 
                 <div class="lesson-card scroll-animate">
                     <div class="lesson-header">
-                        <div class="lesson-number">67</div>
+                        <div class="lesson-number">68</div>
                         <h3 class="lesson-title">Методы изучения наследственности и изменчивости человека. Селекция</h3>
                     </div>
                     <div class="lesson-meta">
@@ -1758,7 +1906,7 @@
 
                 <div class="lesson-card scroll-animate">
                     <div class="lesson-header">
-                        <div class="lesson-number">68</div>
+                        <div class="lesson-number">69</div>
                         <h3 class="lesson-title">Биотехнология</h3>
                     </div>
                     <div class="lesson-meta">
@@ -1776,7 +1924,7 @@
 
                 <div class="lesson-card scroll-animate">
                     <div class="lesson-header">
-                        <div class="lesson-number">69</div>
+                        <div class="lesson-number">70</div>
                         <h3 class="lesson-title">Генная инженерия</h3>
                     </div>
                     <div class="lesson-meta">
@@ -1794,7 +1942,7 @@
 
                 <div class="lesson-card scroll-animate">
                     <div class="lesson-header">
-                        <div class="lesson-number">70</div>
+                        <div class="lesson-number">71</div>
                         <h3 class="lesson-title">Итоговая проверочная работа</h3>
                     </div>
                     <div class="lesson-meta">
@@ -1815,9 +1963,31 @@
 
     <footer>
         <p>© 2026 Ресурсный центр «Биология» | Даниленко А.А.</p>
+        <p>Email: zz999an@yandex.by | г. Хойники, школа №3</p>
     </footer>
 
     <script>
+        // Burger Menu Logic
+        const burger = document.getElementById('burger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        if (burger) {
+            burger.addEventListener('click', () => {
+                burger.classList.toggle('active');
+                mobileMenu.classList.toggle('active');
+                document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+            });
+
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    burger.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            });
+        }
+
         // Intersection Observer for animations
         const observerOptions = {
             threshold: 0.1,
@@ -1834,32 +2004,8 @@
             });
         }, observerOptions);
 
-        // Observe all animated elements
-        document.querySelectorAll('[data-animate], .scroll-animate').forEach((el) => {
+        document.querySelectorAll('.scroll-animate').forEach((el) => {
             observer.observe(el);
-        });
-
-        // Smooth scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Parallax effect for header
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const header = document.querySelector('.header');
-            if (header) {
-                header.style.transform = `translateY(${scrolled * 0.5}px)`;
-            }
         });
     </script>
 
