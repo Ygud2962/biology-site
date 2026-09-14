@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>План занятий</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0D3B2E;
+            --primary-light: #1B5E5B;
+            --accent: #C9A961;
+            --bg: #FAFAF7;
+            --text: #2B2D42;
+            --white: #FFFFFF;
+        }
+
+        body {
+            font-family: 'Raleway', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: var(--white);
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .nav {
+            background: var(--white);
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .nav a:hover {
+            color: var(--accent);
+        }
+
+        .content {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        .schedule-table {
+            width: 100%;
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .schedule-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .schedule-table th {
+            background: var(--primary);
+            color: var(--white);
+            padding: 1rem;
+            text-align: left;
+        }
+
+        .schedule-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .schedule-table tr:hover {
+            background: var(--bg);
+        }
+
+        footer {
+            background: var(--text);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 5rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>📅 План занятий</h1>
+        <p>Расписание уроков и контрольных работ</p>
+    </div>
+
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html">← На главную</a>
+            <a href="index.html#sections">Все разделы</a>
+        </div>
+    </nav>
+
+    <div class="content">
+        <div class="schedule-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Дата</th>
+                        <th>Тема урока</th>
+                        <th>Класс</th>
+                        <th>Тип занятия</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>15 сентября</td>
+                        <td>Введение в биологию</td>
+                        <td>5 класс</td>
+                        <td>Лекция</td>
+                    </tr>
+                    <tr>
+                        <td>17 сентября</td>
+                        <td>Строение клетки</td>
+                        <td>5 класс</td>
+                        <td>Практика</td>
+                    </tr>
+                    <tr>
+                        <td>20 сентября</td>
+                        <td>Фотосинтез</td>
+                        <td>6 класс</td>
+                        <td>Лекция</td>
+                    </tr>
+                    <tr>
+                        <td>22 сентября</td>
+                        <td>Контрольная работа</td>
+                        <td>6 класс</td>
+                        <td>Контроль</td>
+                    </tr>
+                    <tr>
+                        <td>25 сентября</td>
+                        <td>Беспозвоночные животные</td>
+                        <td>7 класс</td>
+                        <td>Лекция</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 Ресурсный центр «Биология»</p>
+    </footer>
+
+</body>
+</html>
