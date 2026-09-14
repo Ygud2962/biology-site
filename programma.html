@@ -28,11 +28,10 @@
             line-height: 1.6;
         }
 
-        h1, h2, h3 {
+        h1, h2, h3, h4 {
             font-family: 'Playfair Display', serif;
         }
 
-        /* Navigation */
         .nav {
             background: var(--white);
             padding: 1.2rem 2rem;
@@ -61,7 +60,6 @@
             color: var(--accent);
         }
 
-        /* Header */
         .header {
             background: linear-gradient(135deg, var(--primary), var(--primary-light));
             color: var(--white);
@@ -70,7 +68,7 @@
         }
 
         .header h1 {
-            font-size: 2.8rem;
+            font-size: 2.5rem;
             margin-bottom: 1rem;
             letter-spacing: 2px;
         }
@@ -79,9 +77,10 @@
             font-size: 1.1rem;
             opacity: 0.9;
             font-weight: 300;
+            max-width: 800px;
+            margin: 0 auto;
         }
 
-        /* Content */
         .content {
             max-width: 1200px;
             margin: 0 auto;
@@ -89,28 +88,52 @@
         }
 
         .intro {
-            text-align: center;
-            margin-bottom: 4rem;
-            padding: 2rem;
             background: var(--white);
+            padding: 3rem;
             border-radius: 15px;
+            margin-bottom: 3rem;
             box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            border-left: 5px solid var(--accent);
         }
 
         .intro h2 {
             color: var(--primary);
             font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .intro-section {
+            margin-bottom: 2rem;
+        }
+
+        .intro-section h3 {
+            color: var(--primary);
+            font-size: 1.3rem;
             margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
-        .intro p {
-            font-size: 1.05rem;
-            opacity: 0.85;
-            max-width: 800px;
-            margin: 0 auto;
+        .intro-section ul {
+            list-style: none;
+            padding-left: 1.5rem;
         }
 
-        /* PDF Download Button */
+        .intro-section li {
+            padding: 0.4rem 0;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .intro-section li:before {
+            content: "•";
+            color: var(--accent);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
         .pdf-download {
             text-align: center;
             margin: 3rem 0;
@@ -146,90 +169,131 @@
             background: #d4b570;
         }
 
-        .pdf-icon {
-            font-size: 3rem;
+        .program-blocks {
+            margin-top: 4rem;
+        }
+
+        .block-title {
+            text-align: center;
+            font-size: 2.2rem;
+            color: var(--primary);
             margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid var(--accent);
         }
 
-        /* Grades Grid */
-        .grades-grid {
+        .block-subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            opacity: 0.8;
+            margin-bottom: 3rem;
+        }
+
+        .topics-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 2rem;
-            margin-top: 3rem;
+            margin-bottom: 4rem;
         }
 
-        .grade-card {
+        .topic-card {
             background: var(--white);
             border-radius: 15px;
-            padding: 2.5rem 2rem;
-            text-align: center;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
+            padding: 2rem;
             box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border-top: 4px solid var(--accent);
         }
 
-        .grade-card:hover {
-            transform: translateY(-8px);
-            border-color: var(--accent);
+        .topic-card:hover {
+            transform: translateY(-5px);
             box-shadow: 0 15px 40px rgba(13,59,46,0.15);
         }
 
-        .grade-number {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+        .topic-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--bg);
+        }
+
+        .topic-number {
+            background: var(--primary);
             color: var(--white);
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2.5rem;
             font-weight: 700;
-            margin: 0 auto 1.5rem;
-            font-family: 'Playfair Display', serif;
+            flex-shrink: 0;
         }
 
-        .grade-card h3 {
+        .topic-card h3 {
             color: var(--primary);
-            font-size: 1.4rem;
-            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            flex: 1;
         }
 
-        .grade-card p {
-            font-size: 0.95rem;
-            opacity: 0.8;
-            margin-bottom: 1.5rem;
+        .topic-hours {
+            background: var(--accent);
+            color: var(--primary);
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
         }
 
-        .grade-topics {
+        .topic-content h4 {
+            color: var(--primary);
+            font-size: 1rem;
+            margin: 1rem 0 0.5rem;
+            font-family: 'Raleway', sans-serif;
+            font-weight: 600;
+        }
+
+        .topic-content p, .topic-content ul {
+            font-size: 0.9rem;
+            margin-bottom: 0.8rem;
+            line-height: 1.6;
+        }
+
+        .topic-content ul {
             list-style: none;
-            text-align: left;
-            padding: 0;
+            padding-left: 0;
         }
 
-        .grade-topics li {
-            padding: 0.7rem 0;
-            padding-left: 2rem;
+        .topic-content li {
+            padding: 0.3rem 0;
+            padding-left: 1.5rem;
             position: relative;
-            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .topic-content li:before {
+            content: "–";
+            color: var(--accent);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .objects-list {
+            background: var(--bg);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+
+        .objects-list strong {
+            color: var(--primary);
+            display: block;
+            margin-bottom: 0.5rem;
             font-size: 0.9rem;
         }
 
-        .grade-topics li:last-child {
-            border-bottom: none;
-        }
-
-        .grade-topics li:before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            color: var(--accent);
-            font-weight: bold;
-            font-size: 1.1rem;
-        }
-
-        /* Footer */
         footer {
             background: var(--text);
             color: var(--white);
@@ -239,28 +303,23 @@
             font-size: 0.9rem;
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
             .header h1 {
-                font-size: 2rem;
+                font-size: 1.8rem;
             }
 
-            .grades-grid {
+            .topics-grid {
                 grid-template-columns: 1fr;
-                gap: 1.5rem;
             }
 
-            .grade-number {
-                width: 70px;
-                height: 70px;
-                font-size: 2rem;
+            .intro {
+                padding: 2rem 1.5rem;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- Navigation -->
     <nav class="nav">
         <div class="nav-container">
             <a href="index.html">← На главную</a>
@@ -268,23 +327,31 @@
         </div>
     </nav>
 
-    <!-- Header -->
     <div class="header">
-        <h1>📋 Программа занятий</h1>
-        <p>Учебная программа по биологии для 5-8 классов</p>
+        <h1> Программа занятий</h1>
+        <p>Районный ресурсный центр по подготовке к заключительному этапу республиканской олимпиады по биологии</p>
     </div>
 
-    <!-- Content -->
     <div class="content">
-        <!-- Intro -->
         <div class="intro">
-            <h2>Учебная программа</h2>
-            <p>Программа разработана в соответствии с требованиями образовательного стандарта и охватывает все основные разделы биологии для средней школы.</p>
+            <h2>Цель и задачи программы</h2>
+            
+            <div class="intro-section">
+                <h3>🎯 Цель:</h3>
+                <p>Организация работы с одаренными и высокомотивированными учащимися по вовлечению их в олимпиадное движение, повышение качества образования.</p>
+            </div>
+
+            <div class="intro-section">
+                <h3>📌 Задачи:</h3>
+                <ul>
+                    <li>Совершенствовать знания, умения и навыки учащихся в процессе выполнения различных видов заданий повышенного уровня</li>
+                    <li>Совершенствование навыков решения расчетных задач, включающих все типы расчетов, предусмотренные настоящей учебной программой</li>
+                </ul>
+            </div>
         </div>
 
-        <!-- PDF Download -->
         <div class="pdf-download">
-            <div class="pdf-icon">📄</div>
+            <div style="font-size: 3rem; margin-bottom: 1rem;"></div>
             <h3>Скачать полную программу</h3>
             <p style="margin-bottom: 1.5rem; opacity: 0.8;">Официальный документ в формате PDF</p>
             <a href="http://s3-minsk.cloud.mts.by/datastorage/sh3hoiniki/library/%D0%9F%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B0_%D0%B7%D0%B0%D0%BD%D1%8F%D1%82%D0%B8%D0%B9.pdf?AWSAccessKeyId=3b68d8fb703f1d7de071&Signature=%2BMC4uj2yRO1KuRQgwIzxmmZDfdY%3D&Expires=2103697969" 
@@ -294,76 +361,484 @@
             </a>
         </div>
 
-        <!-- Grades -->
-        <h2 style="text-align: center; color: var(--primary); font-size: 2.2rem; margin-bottom: 1rem;">Программа по классам</h2>
-        <p style="text-align: center; opacity: 0.8; margin-bottom: 3rem;">Подробная разбивка тем для каждого класса</p>
+        <div class="program-blocks">
+            <h2 class="block-title">IX–XI классы</h2>
+            <p class="block-subtitle">Общий объем: 70 часов</p>
 
-        <div class="grades-grid">
-            <!-- 5 класс -->
-            <div class="grade-card">
-                <div class="grade-number">5</div>
-                <h3>5 класс</h3>
-                <p>Введение в биологию. Начальные представления о живой природе</p>
-                <ul class="grade-topics">
-                    <li>Что изучает биология</li>
-                    <li>Методы изучения природы</li>
-                    <li>Царства живой природы</li>
-                    <li>Клетка — основа жизни</li>
-                    <li>Бактерии и грибы</li>
-                    <li>Растения вокруг нас</li>
-                </ul>
+            <div class="topics-grid">
+                <div class="topic-card">
+                    <div class="topic-header">
+                        <div class="topic-number">1</div>
+                        <h3>Многообразие органического мира</h3>
+                        <span class="topic-hours">1 час</span>
+                    </div>
+                    <div class="topic-content">
+                        <p><strong>Классификация организмов.</strong> Основные систематические категории: вид, род, семейство, отряд, класс, тип (отдел), царство.</p>
+                        <p><strong>Царства живых организмов:</strong> Бактерии, Протисты, Грибы, Растения, Животные.</p>
+                    </div>
+                </div>
+
+                <div class="topic-card">
+                    <div class="topic-header">
+                        <div class="topic-number">2</div>
+                        <h3>Доядерные организмы (прокариоты)</h3>
+                        <span class="topic-hours">1 час</span>
+                    </div>
+                    <div class="topic-content">
+                        <p><strong>Бактерии:</strong> распространение, строение и процессы жизнедеятельности. Роль бактерий в природе и жизни человека. Практическое использование бактерий. Бактерии как возбудители болезней.</p>
+                        <p><strong>Цианобактерии.</strong> Особенности их строения и жизнедеятельности.</p>
+                    </div>
+                </div>
+
+                <div class="topic-card">
+                    <div class="topic-header">
+                        <div class="topic-number">3</div>
+                        <h3>Протисты</h3>
+                        <span class="topic-hours">2 часа</span>
+                    </div>
+                    <div class="topic-content">
+                        <p>Особенности среды обитания, внешнего и внутреннего строения, процессов жизнедеятельности протистов.</p>
+                        <h4>Гетеротрофные организмы:</h4>
+                        <ul>
+                            <li>Амеба обыкновенная</li>
+                            <li>Инфузория туфелька</li>
+                        </ul>
+                        <h4>Автотрофные и автогетеротрофные:</h4>
+                        <ul>
+                            <li>Хлорелла (автотрофная)</li>
+                            <li>Эвглена зеленая (автогетеротрофная)</li>
+                        </ul>
+                        <div class="objects-list">
+                            <strong>Биологические объекты:</strong>
+                            амеба обыкновенная, инфузория туфелька, хлорелла, эвглена зеленая, вольвокс, улотрикс, спирогира, ламинария
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic-card">
+                    <div class="topic-header">
+                        <div class="topic-number">4</div>
+                        <h3>Грибы</h3>
+                        <span class="topic-hours">1 час</span>
+                    </div>
+                    <div class="topic-content">
+                        <p>Общая характеристика грибов. Среда обитания, строение и жизнедеятельность.</p>
+                        <h4>Плесневые грибы:</h4>
+                        <ul>
+                            <li>Мукор</li>
+                            <li>Пеницилл</li>
+                            <li>Дрожжи</li>
+                        </ul>
+                        <h4>Шляпочные грибы:</h4>
+                        <ul>
+                            <li>Съедобные и ядовитые грибы</li>
+                        </ul>
+                        <h4>Грибы-паразиты:</h4>
+                        <ul>
+                            <li>Трутовик, головня, спорынья</li>
+                        </ul>
+                        <div class="objects-list">
+                            <strong>Биологические объекты:</strong>
+                            мукор, пеницилл, дрожжи, белый гриб, подосиновик, подберезовик, сыроежка, мухомор, бледная поганка, спорынья, головня, трутовик
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic-card">
+                    <div class="topic-header">
+                        <div class="topic-number">5</div>
+                        <h3>Лишайники</h3>
+                        <span class="topic-hours">1 час</span>
+                    </div>
+                    <div class="topic-content">
+                        <p>Лишайники – симбиотические организмы. Строение, питание и размножение лишайников. Роль лишайников в природе.</p>
+                        <div class="objects-list">
+                            <strong>Биологические объекты:</strong>
+                            цетрария исландская, кладония
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic-card">
+                    <div class="topic-header">
+                        <div class="topic-number">6</div>
+                        <h3>Растения</h3>
+                        <span class="topic-hours">12 часов</span>
+                    </div>
+                    <div class="topic-content">
+                        <h4>Общая характеристика растений (1 час)</h4>
+                        <p>Жизненные формы растений. Ткани и органы растений. Значение растений в природе и жизни человека.</p>
+                        
+                        <h4>Вегетативные органы растений (5 часов)</h4>
+                        <ul>
+                            <li><strong>Корень:</strong> функции, виды корней, корневые системы, строение, зоны корня, видоизменения</li>
+                            <li><strong>Побег:</strong> функции, части побега, почки, развитие побега</li>
+                            <li><strong>Стебель:</strong> разнообразие, рост, внутреннее строение, годичные кольца</li>
+                            <li><strong>Лист:</strong> функции, строение, жилкование, простые и сложные листья</li>
+                            <li><strong>Видоизменения побега:</strong> корневище, клубень, луковица</li>
+                            <li><strong>Вегетативное размножение</strong></li>
+                        </ul>
+
+                        <h4>Споровые растения (1 час)</h4>
+                        <ul>
+                            <li><strong>Мхи:</strong> кукушкин лен, сфагновые мхи</li>
+                            <li><strong>Папоротники:</strong> щитовник мужской</li>
+                        </ul>
+
+                        <h4>Семенные растения (5 часов)</h4>
+                        <ul>
+                            <li><strong>Голосеменные:</strong> сосна, ель, пихта, можжевельник, лиственница</li>
+                            <li><strong>Покрытосеменные:</strong> цветок, соцветия, опыление, двойное оплодотворение</li>
+                            <li><strong>Плоды и семена:</strong> строение, классификация, распространение</li>
+                            <li><strong>Семейства:</strong> Крестоцветные, Розоцветные, Пасленовые, Бобовые, Злаки</li>
+                        </ul>
+
+                        <div class="objects-list">
+                            <strong>Биологические объекты:</strong>
+                            кукушкин лен, сфагнум, щитовник мужской, орляк, сальвиния, сосна, ель, береза, дуб, сирень, смородина, черника, клюква, брусника, горох, фасоль, огурец, капуста, редька, редис, яблоня, груша, вишня, земляника, картофель, перец, томат, кукуруза, пшеница, рожь, ячмень
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic-card" style="grid-column: 1 / -1;">
+                    <div class="topic-header">
+                        <div class="topic-number">7</div>
+                        <h3>Животные</h3>
+                        <span class="topic-hours">17 часов</span>
+                    </div>
+                    <div class="topic-content">
+                        <h4>Общая характеристика и разнообразие животных (1 час)</h4>
+                        
+                        <h4>Тип Кишечнополостные (1 час)</h4>
+                        <p>Пресноводный полип гидра. Многообразие: медузы, коралловые полипы.</p>
+                        <div class="objects-list">
+                            <strong>Объекты:</strong> гидра, аурелия, актиния, коралл
+                        </div>
+
+                        <h4>Тип Плоские черви (1 час)</h4>
+                        <p>Белая планария. Паразитические черви: печеночный сосальщик, бычий цепень.</p>
+                        <div class="objects-list">
+                            <strong>Объекты:</strong> планария, печеночный сосальщик, бычий цепень
+                        </div>
+
+                        <h4>Тип Круглые черви (1 час)</h4>
+                        <p>Аскарида человеческая, детская острица.</p>
+                        <div class="objects-list">
+                            <strong>Объекты:</strong> аскарида, острица, власоглав, трихинелла
+                        </div>
+
+                        <h4>Тип Кольчатые черви (1 час)</h4>
+                        <p>Дождевой червь. Роль в почвообразовании.</p>
+                        <div class="objects-list">
+                            <strong>Объекты:</strong> дождевой червь, пескожил, нереис, медицинская пиявка
+                        </div>
+
+                        <h4>Тип Моллюски (1 час)</h4>
+                        <p>Многообразие моллюсков.</p>
+                        <div class="objects-list">
+                            <strong>Объекты:</strong> прудовик, беззубка, кальмар, слизень
+                        </div>
+
+                        <h4>Тип Членистоногие (3 часа)</h4>
+                        <ul>
+                            <li><strong>Класс Ракообразные:</strong> речной рак, краб, креветка, дафния</li>
+                            <li><strong>Класс Паукообразные:</strong> паук-крестовик, скорпион, клещи</li>
+                            <li><strong>Класс Насекомые:</strong> майский жук, отряды насекомых</li>
+                        </ul>
+                        <div class="objects-list">
+                            <strong>Объекты:</strong> речной рак, паук-крестовик, зеленый кузнечик, саранча, майский жук, колорадский жук, божья коровка, капустная белянка, медоносная пчела, оса, шмель, муравей
+                        </div>
+
+                        <h4>Тип Хордовые (8 часов)</h4>
+                        <ul>
+                            <li><strong>Подтип Бесчерепные:</strong> ланцетник</li>
+                            <li><strong>Надкласс Рыбы:</strong> хрящевые и костные рыбы</li>
+                            <li><strong>Класс Земноводные:</strong> лягушка, тритон</li>
+                            <li><strong>Класс Пресмыкающиеся:</strong> ящерица, змеи, черепахи</li>
+                            <li><strong>Класс Птицы:</strong> экологические группы птиц</li>
+                            <li><strong>Класс Млекопитающие:</strong> отряды млекопитающих</li>
+                        </ul>
+                        <div class="objects-list">
+                            <strong>Объекты:</strong> ланцетник, акула, скат, горбуша, кета, осетр, сельдь, карась, лягушка, жаба, тритон, ящерица, змеи, черепаха, дятел, тетерев, глухарь, соловей, страус, журавль, кряква, аист, лебедь, синица, скворец, голубь, ворона, воробей, сокол, орел, сова, собака, волк, лисица, медведь, кит, дельфин, обезьяны
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <!-- 6 класс -->
-            <div class="grade-card">
-                <div class="grade-number">6</div>
-                <h3>6 класс</h3>
-                <p>Ботаника — наука о растениях</p>
-                <ul class="grade-topics">
-                    <li>Строение растений</li>
-                    <li>Корень и побег</li>
-                    <li>Лист и фотосинтез</li>
-                    <li>Цветок и плод</li>
-                    <li>Размножение растений</li>
-                    <li>Классификация растений</li>
-                </ul>
+            <h2 class="block-title" style="margin-top: 5rem;">Блок 1. Человек</h2>
+            <p class="block-subtitle">17 часов</p>
+
+            <div class="topics-grid">
+                <div class="topic-card">
+                    <div class="topic-header">
+                        <div class="topic-number">1</div>
+                        <h3>Общий обзор организма</h3>
+                        <span class="topic-hours">1 час</span>
+                    </div>
+                    <div class="topic-content">
+                        <p>Ткани, их классификация и принципы организации. Органы и системы органов.</p>
+                    </div>
+                </div>
+
+                <div class="topic-card">
+                    <div class="topic-header">
+                        <div class="topic-number">2</div>
+                        <h3>Регуляция функций</h3>
+                        <span class="topic-hours">1 час</span>
+                    </div>
+                    <div class="topic-content">
+                        <p>Нервная, гуморальная и нейрогуморальная регуляция. Саморегуляция. Понятие о гомеостазе.</p>
+                    </div>
+                </div>
+
+                <div class="topic-card">
+                    <div class="topic-header">
+                        <div class="topic-number">3</div>
+                        <h3>Нервная система</h3>
+                        <span class="topic-hours">2 часа</span>
+                    </div>
+                    <div class="topic-content">
+                        <p>Строение и виды нейронов. Рефлекс. Рефлекторная дуга. Спинной и головной мозг. Вегетативная нервная система. Гигиена нервной системы.</p>
+                    </div>
+                </div>
+
+                <div class="topic-card">
+                    <div class="topic-header">
+                        <div class="topic-number">4</div>
+                        <h3>Эндокринная система</h3>
+                        <span class="topic-hours">1 час</span>
+                    </div>
+                    <div class="topic-content">
+                        <p>Гормоны. Железы внутренней секреции: гипофиз, щитовидная железа, надпочечники, поджелудочная железа, половые железы.</p>
+                    </div>
+                </div>
+
+                <div class="topic-card">
+                    <div class="topic-header">
+                        <div class="topic-number">5</div>
+                        <h3>Опорно-двигательная система</h3>
+                        <span class="topic-hours">1 час</span>
+                    </div>
+                    <div class="topic-content">
+                        <p>Строение костей. Отделы скелета. Строение и функции мышц. Осанка. Плоскостопие. Первая помощь.</p>
+                    </div>
+                </div>
+
+                <div class="topic-card">
+                    <div class="topic-header">
+                        <div class="topic-number">6</div>
+                        <h3>Внутренняя среда организма</h3>
+                        <span class="topic-hours">1 час</span>
+                    </div>
+                    <div class="topic-content">
+                        <p>Кровь, тканевая жидкость, лимфа. Состав крови. Эритроциты, лейкоциты, тромбоциты. Иммунитет. Вакцинация.</p>
+                    </div>
+                </div>
+
+                <div class="topic-card">
+                    <div class="topic-header">
+                        <div class="topic-number">7</div>
+                        <h3>Сердечно-сосудистая система</h3>
+                        <span class="topic-hours">1 час</span>
+                    </div>
+                    <div class="topic-content">
+                        <p>Сердце. Кровообращение. Большой и малый круги. Кровяное давление. Лимфатическая система.</p>
+                    </div>
+                </div>
+
+                <div class="topic-card">
+                    <div class="topic-header">
+                        <div class="topic-number">8</div>
+                        <h3>Дыхательная система</h3>
+                        <span class="topic-hours">1 час</span>
+                    </div>
+                    <div class="topic-content">
+                        <p>Строение дыхательных путей и легких. Газообмен. Регуляция дыхания. Гигиена дыхания.</p>
+                    </div>
+                </div>
+
+                <div class="topic-card">
+                    <div class="topic-header">
+                        <div class="topic-number">9</div>
+                        <h3>Пищеварительная система. Обмен веществ</h3>
+                        <span class="topic-hours">2 часа</span>
+                    </div>
+                    <div class="topic-content">
+                        <p>Органы пищеварения. Пищеварительные процессы. Обмен белков, жиров и углеводов. Витамины.</p>
+                    </div>
+                </div>
+
+                <div class="topic-card">
+                    <div class="topic-header">
+                        <div class="topic-number">10</div>
+                        <h3>Выделительная система</h3>
+                        <span class="topic-hours">1 час</span>
+                    </div>
+                    <div class="topic-content">
+                        <p>Почки. Нефрон. Образование мочи. Гигиена мочевыделительной системы.</p>
+                    </div>
+                </div>
+
+                <div class="topic-card">
+                    <div class="topic-header">
+                        <div class="topic-number">11</div>
+                        <h3>Покровная система. Кожа</h3>
+                        <span class="topic-hours">1 час</span>
+                    </div>
+                    <div class="topic-content">
+                        <p>Строение кожи. Функции. Терморегуляция. Первая помощь.</p>
+                    </div>
+                </div>
+
+                <div class="topic-card">
+                    <div class="topic-header">
+                        <div class="topic-number">12</div>
+                        <h3>Репродуктивная система</h3>
+                        <span class="topic-hours">1 час</span>
+                    </div>
+                    <div class="topic-content">
+                        <p>Половые системы. Оплодотворение. Беременность. Роды.</p>
+                    </div>
+                </div>
+
+                <div class="topic-card">
+                    <div class="topic-header">
+                        <div class="topic-number">13</div>
+                        <h3>Сенсорные системы</h3>
+                        <span class="topic-hours">1 час</span>
+                    </div>
+                    <div class="topic-content">
+                        <p>Зрительная и слуховая системы. Строение глаза и уха. Гигиена зрения и слуха.</p>
+                    </div>
+                </div>
+
+                <div class="topic-card">
+                    <div class="topic-header">
+                        <div class="topic-number">14</div>
+                        <h3>Поведение и психика</h3>
+                        <span class="topic-hours">1 час</span>
+                    </div>
+                    <div class="topic-content">
+                        <p>Безусловные и условные рефлексы. Сон. Память. Речь и мышление.</p>
+                    </div>
+                </div>
             </div>
 
-            <!-- 7 класс -->
-            <div class="grade-card">
-                <div class="grade-number">7</div>
-                <h3>7 класс</h3>
-                <p>Зоология — наука о животных</p>
-                <ul class="grade-topics">
-                    <li>Простейшие организмы</li>
-                    <li>Беспозвоночные животные</li>
-                    <li>Членистоногие</li>
-                    <li>Моллюски</li>
-                    <li>Позвоночные животные</li>
-                    <li>Рыбы, земноводные, пресмыкающиеся</li>
-                    <li>Птицы и млекопитающие</li>
-                </ul>
-            </div>
+            <h2 class="block-title" style="margin-top: 5rem;">Блок 2. Общая биология</h2>
+            <p class="block-subtitle">18 часов</p>
 
-            <!-- 8 класс -->
-            <div class="grade-card">
-                <div class="grade-number">8</div>
-                <h3>8 класс</h3>
-                <p>Анатомия и физиология человека</p>
-                <ul class="grade-topics">
-                    <li>Строение организма человека</li>
-                    <li>Клетка и ткани</li>
-                    <li>Опорно-двигательная система</li>
-                    <li>Кровеносная система</li>
-                    <li>Дыхательная система</li>
-                    <li>Пищеварительная система</li>
-                    <li>Нервная система</li>
-                </ul>
+            <div class="topics-grid">
+                <div class="topic-card">
+                    <div class="topic-header">
+                        <div class="topic-number">1</div>
+                        <h3>Разнообразие живых организмов</h3>
+                        <span class="topic-hours">1 час</span>
+                    </div>
+                    <div class="topic-content">
+                        <p>Общие свойства живых организмов: клеточное строение, обмен веществ, размножение, наследственность, адаптация.</p>
+                    </div>
+                </div>
+
+                <div class="topic-card">
+                    <div class="topic-header">
+                        <div class="topic-number">2</div>
+                        <h3>Химические компоненты живых организмов</h3>
+                        <span class="topic-hours">4 часа</span>
+                    </div>
+                    <div class="topic-content">
+                        <h4>Неорганические вещества:</h4>
+                        <ul>
+                            <li>Вода и ее роль</li>
+                            <li>Минеральные соли</li>
+                        </ul>
+                        <h4>Органические вещества:</h4>
+                        <ul>
+                            <li><strong>Белки:</strong> аминокислоты, структура, функции</li>
+                            <li><strong>Углеводы:</strong> моносахариды, полисахариды</li>
+                            <li><strong>Липиды:</strong> жиры, фосфолипиды</li>
+                            <li><strong>Нуклеиновые кислоты:</strong> ДНК, РНК, АТФ</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="topic-card">
+                    <div class="topic-header">
+                        <div class="topic-number">3</div>
+                        <h3>Клетка – единица живого</h3>
+                        <span class="topic-hours">3 часа</span>
+                    </div>
+                    <div class="topic-content">
+                        <p>Клеточная теория. Строение клетки: мембрана, цитоплазма, ядро. Органоиды: митохондрии, рибосомы, ЭПС, комплекс Гольджи, лизосомы, пластиды.</p>
+                        <p><strong>Деление клетки:</strong> митоз, мейоз, амитоз.</p>
+                    </div>
+                </div>
+
+                <div class="topic-card">
+                    <div class="topic-header">
+                        <div class="topic-number">4</div>
+                        <h3>Обмен веществ и энергия</h3>
+                        <span class="topic-hours">3 часа</span>
+                    </div>
+                    <div class="topic-content">
+                        <p>Этапы энергетического обмена. Гликолиз. Клеточное дыхание. Фотосинтез: световая и темновая фазы.</p>
+                        <p><strong>Биосинтез белка:</strong> транскрипция, трансляция. Генетический код.</p>
+                    </div>
+                </div>
+
+                <div class="topic-card">
+                    <div class="topic-header">
+                        <div class="topic-number">5</div>
+                        <h3>Структурная организация и регуляция</h3>
+                        <span class="topic-hours">1 час</span>
+                    </div>
+                    <div class="topic-content">
+                        <p>Одноклеточные и многоклеточные организмы. Ткани, органы, системы. Нервная и гуморальная регуляция. Иммунитет.</p>
+                    </div>
+                </div>
+
+                <div class="topic-card">
+                    <div class="topic-header">
+                        <div class="topic-number">6</div>
+                        <h3>Размножение и развитие</h3>
+                        <span class="topic-hours">3 часа</span>
+                    </div>
+                    <div class="topic-content">
+                        <p><strong>Бесполое размножение:</strong> деление, спорообразование, почкование.</p>
+                        <p><strong>Половое размножение:</strong> образование половых клеток, оплодотворение.</p>
+                        <p><strong>Онтогенез:</strong> эмбриональное и постэмбриональное развитие.</p>
+                    </div>
+                </div>
+
+                <div class="topic-card">
+                    <div class="topic-header">
+                        <div class="topic-number">7</div>
+                        <h3>Наследственность и изменчивость</h3>
+                        <span class="topic-hours">3 часа</span>
+                    </div>
+                    <div class="topic-content">
+                        <p><strong>Законы Менделя:</strong> моногибридное и дигибридное скрещивание.</p>
+                        <p><strong>Хромосомная теория:</strong> сцепленное наследование, кроссинговер.</p>
+                        <p><strong>Генетика пола</strong></p>
+                        <p><strong>Изменчивость:</strong> модификационная и мутационная.</p>
+                        <p><strong>Наследственные болезни человека</strong></p>
+                    </div>
+                </div>
+
+                <div class="topic-card">
+                    <div class="topic-header">
+                        <div class="topic-number">8</div>
+                        <h3>Селекция и биотехнология</h3>
+                        <span class="topic-hours">1 час</span>
+                    </div>
+                    <div class="topic-content">
+                        <p>Методы селекции: отбор, гибридизация, мутагенез.</p>
+                        <p><strong>Биотехнология:</strong> клеточная и генная инженерия. Трансгенные организмы.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Footer -->
     <footer>
         <p>© 2026 Ресурсный центр «Биология» | Даниленко А.А.</p>
     </footer>
