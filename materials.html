@@ -88,48 +88,59 @@
 
         .topics-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
             margin-top: 2rem;
         }
 
         .topic-card {
             background: var(--white);
-            border-radius: 15px;
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+            transition: all 0.3s ease;
             text-decoration: none;
             color: var(--text);
+            border: 2px solid transparent;
         }
 
         .topic-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            transform: translateY(-10px);
+            border-color: var(--accent);
+            box-shadow: 0 20px 50px rgba(13,59,46,0.2);
+        }
+
+        .topic-image {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .topic-card:hover .topic-image {
+            transform: scale(1.05);
         }
 
         .topic-header {
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
-            color: var(--white);
-            padding: 2rem;
-            text-align: center;
-        }
-
-        .topic-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
+            padding: 1.8rem;
+            background: var(--white);
         }
 
         .topic-header h3 {
             font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 0.8rem;
+            font-weight: 700;
         }
 
         .topic-body {
-            padding: 2rem;
+            padding: 0 1.8rem 1.8rem;
         }
 
         .topic-body p {
             margin-bottom: 1rem;
+            font-size: 0.95rem;
+            opacity: 0.85;
         }
 
         .topic-body ul {
@@ -139,8 +150,9 @@
 
         .topic-body li {
             padding: 0.5rem 0;
-            padding-left: 1.5rem;
+            padding-left: 1.8rem;
             position: relative;
+            font-size: 0.9rem;
         }
 
         .topic-body li:before {
@@ -149,6 +161,7 @@
             left: 0;
             color: var(--accent);
             font-weight: bold;
+            font-size: 1.1rem;
         }
 
         /* Footer */
@@ -158,6 +171,14 @@
             text-align: center;
             padding: 2rem;
             margin-top: 5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .topics-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
         }
     </style>
 </head>
@@ -177,26 +198,11 @@
 
     <div class="content">
         <div class="topics-grid">
-            <a href="materials-anatomy.html" class="topic-card">
-                <div class="topic-header">
-                    <div class="topic-icon"></div>
-                    <h3>Анатомия человека</h3>
-                </div>
-                <div class="topic-body">
-                    <p>Изучение строения человеческого организма</p>
-                    <ul>
-                        <li>Строение клетки</li>
-                        <li>Ткани организма</li>
-                        <li>Системы органов</li>
-                        <li>Физиология</li>
-                    </ul>
-                </div>
-            </a>
-
+            <!-- Ботаника -->
             <a href="materials-botany.html" class="topic-card">
+                <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600&q=80" alt="Ботаника" class="topic-image">
                 <div class="topic-header">
-                    <div class="topic-icon">🌿</div>
-                    <h3>Ботаника</h3>
+                    <h3>🌿 Ботаника</h3>
                 </div>
                 <div class="topic-body">
                     <p>Наука о растениях и их жизнедеятельности</p>
@@ -209,10 +215,11 @@
                 </div>
             </a>
 
+            <!-- Зоология -->
             <a href="materials-zoology.html" class="topic-card">
+                <img src="https://images.unsplash.com/photo-1535083793061-89e24be800d7?w=600&q=80" alt="Зоология" class="topic-image">
                 <div class="topic-header">
-                    <div class="topic-icon"></div>
-                    <h3>Зоология</h3>
+                    <h3> Зоология</h3>
                 </div>
                 <div class="topic-body">
                     <p>Изучение животного мира</p>
@@ -225,10 +232,28 @@
                 </div>
             </a>
 
-            <a href="materials-general.html" class="topic-card">
+            <!-- Анатомия и физиология человека -->
+            <a href="materials-anatomy.html" class="topic-card">
+                <img src="https://images.unsplash.com/photo-1530497610245-279854282a3b?w=600&q=80" alt="Анатомия" class="topic-image">
                 <div class="topic-header">
-                    <div class="topic-icon">🔬</div>
-                    <h3>Общая биология</h3>
+                    <h3>🧬 Анатомия и физиология человека</h3>
+                </div>
+                <div class="topic-body">
+                    <p>Строение и функции человеческого организма</p>
+                    <ul>
+                        <li>Строение клетки</li>
+                        <li>Ткани организма</li>
+                        <li>Системы органов</li>
+                        <li>Физиология</li>
+                    </ul>
+                </div>
+            </a>
+
+            <!-- Общая биология -->
+            <a href="materials-general.html" class="topic-card">
+                <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=600&q=80" alt="Общая биология" class="topic-image">
+                <div class="topic-header">
+                    <h3>🔬 Общая биология</h3>
                 </div>
                 <div class="topic-body">
                     <p>Основы биологических знаний</p>
