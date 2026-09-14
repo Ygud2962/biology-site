@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Программа занятий</title>
+    <title>Программа занятий - Ресурсный центр "Биология"</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         * {
@@ -32,27 +32,11 @@
             font-family: 'Playfair Display', serif;
         }
 
-        .header {
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
-            color: var(--white);
-            padding: 3rem 2rem;
-            text-align: center;
-        }
-
-        .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .header p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-        }
-
+        /* Navigation */
         .nav {
             background: var(--white);
-            padding: 1rem 2rem;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 1.2rem 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
             position: sticky;
             top: 0;
             z-index: 100;
@@ -77,55 +61,206 @@
             color: var(--accent);
         }
 
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: var(--white);
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        /* Content */
         .content {
             max-width: 1200px;
-            margin: 3rem auto;
-            padding: 0 2rem;
+            margin: 0 auto;
+            padding: 4rem 2rem;
         }
 
-        .program-section {
-            background: var(--white);
+        .intro {
+            text-align: center;
+            margin-bottom: 4rem;
             padding: 2rem;
+            background: var(--white);
             border-radius: 15px;
-            margin-bottom: 2rem;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
         }
 
-        .program-section h2 {
+        .intro h2 {
             color: var(--primary);
-            margin-bottom: 1rem;
-            font-size: 1.8rem;
-        }
-
-        .program-section p {
+            font-size: 2rem;
             margin-bottom: 1rem;
         }
 
-        .program-section ul {
-            margin-left: 2rem;
+        .intro p {
+            font-size: 1.05rem;
+            opacity: 0.85;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* PDF Download Button */
+        .pdf-download {
+            text-align: center;
+            margin: 3rem 0;
+            padding: 2.5rem;
+            background: linear-gradient(135deg, rgba(201,169,97,0.1), rgba(13,59,46,0.05));
+            border-radius: 15px;
+            border: 2px dashed var(--accent);
+        }
+
+        .pdf-download h3 {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-pdf {
+            display: inline-block;
+            padding: 1.2rem 3rem;
+            background: var(--accent);
+            color: var(--primary);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(201,169,97,0.3);
+        }
+
+        .btn-pdf:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(201,169,97,0.5);
+            background: #d4b570;
+        }
+
+        .pdf-icon {
+            font-size: 3rem;
             margin-bottom: 1rem;
         }
 
-        .program-section li {
-            margin-bottom: 0.5rem;
+        /* Grades Grid */
+        .grades-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
         }
 
+        .grade-card {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .grade-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent);
+            box-shadow: 0 15px 40px rgba(13,59,46,0.15);
+        }
+
+        .grade-number {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 0 auto 1.5rem;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .grade-card h3 {
+            color: var(--primary);
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+        }
+
+        .grade-card p {
+            font-size: 0.95rem;
+            opacity: 0.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .grade-topics {
+            list-style: none;
+            text-align: left;
+            padding: 0;
+        }
+
+        .grade-topics li {
+            padding: 0.7rem 0;
+            padding-left: 2rem;
+            position: relative;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 0.9rem;
+        }
+
+        .grade-topics li:last-child {
+            border-bottom: none;
+        }
+
+        .grade-topics li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        /* Footer */
         footer {
             background: var(--text);
             color: var(--white);
             text-align: center;
             padding: 2rem;
             margin-top: 5rem;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .grades-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .grade-number {
+                width: 70px;
+                height: 70px;
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <h1>📋 Программа занятий</h1>
-        <p>Учебная программа по биологии</p>
-    </div>
-
+    <!-- Navigation -->
     <nav class="nav">
         <div class="nav-container">
             <a href="index.html">← На главную</a>
@@ -133,54 +268,104 @@
         </div>
     </nav>
 
+    <!-- Header -->
+    <div class="header">
+        <h1>📋 Программа занятий</h1>
+        <p>Учебная программа по биологии для 5-8 классов</p>
+    </div>
+
+    <!-- Content -->
     <div class="content">
-        <div class="program-section">
-            <h2>5 класс</h2>
-            <p><strong>Введение в биологию</strong></p>
-            <ul>
-                <li>Что изучает биология</li>
-                <li>Методы исследования</li>
-                <li>Царства живой природы</li>
-                <li>Клетка — основа жизни</li>
-            </ul>
+        <!-- Intro -->
+        <div class="intro">
+            <h2>Учебная программа</h2>
+            <p>Программа разработана в соответствии с требованиями образовательного стандарта и охватывает все основные разделы биологии для средней школы.</p>
         </div>
 
-        <div class="program-section">
-            <h2>6 класс</h2>
-            <p><strong>Ботаника</strong></p>
-            <ul>
-                <li>Строение растений</li>
-                <li>Фотосинтез и дыхание</li>
-                <li>Размножение растений</li>
-                <li>Классификация растений</li>
-            </ul>
+        <!-- PDF Download -->
+        <div class="pdf-download">
+            <div class="pdf-icon">📄</div>
+            <h3>Скачать полную программу</h3>
+            <p style="margin-bottom: 1.5rem; opacity: 0.8;">Официальный документ в формате PDF</p>
+            <a href="http://s3-minsk.cloud.mts.by/datastorage/sh3hoiniki/library/%D0%9F%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B0_%D0%B7%D0%B0%D0%BD%D1%8F%D1%82%D0%B8%D0%B9.pdf?AWSAccessKeyId=3b68d8fb703f1d7de071&Signature=%2BMC4uj2yRO1KuRQgwIzxmmZDfdY%3D&Expires=2103697969" 
+               class="btn-pdf" 
+               target="_blank">
+                📥 Скачать PDF
+            </a>
         </div>
 
-        <div class="program-section">
-            <h2>7 класс</h2>
-            <p><strong>Зоология</strong></p>
-            <ul>
-                <li>Беспозвоночные животные</li>
-                <li>Позвоночные животные</li>
-                <li>Эволюция животного мира</li>
-                <li>Экология животных</li>
-            </ul>
-        </div>
+        <!-- Grades -->
+        <h2 style="text-align: center; color: var(--primary); font-size: 2.2rem; margin-bottom: 1rem;">Программа по классам</h2>
+        <p style="text-align: center; opacity: 0.8; margin-bottom: 3rem;">Подробная разбивка тем для каждого класса</p>
 
-        <div class="program-section">
-            <h2>8 класс</h2>
-            <p><strong>Анатомия человека</strong></p>
-            <ul>
-                <li>Строение человеческого организма</li>
-                <li>Системы органов</li>
-                <li>Физиология человека</li>
-                <li>Здоровье и болезни</li>
-            </ul>
+        <div class="grades-grid">
+            <!-- 5 класс -->
+            <div class="grade-card">
+                <div class="grade-number">5</div>
+                <h3>5 класс</h3>
+                <p>Введение в биологию. Начальные представления о живой природе</p>
+                <ul class="grade-topics">
+                    <li>Что изучает биология</li>
+                    <li>Методы изучения природы</li>
+                    <li>Царства живой природы</li>
+                    <li>Клетка — основа жизни</li>
+                    <li>Бактерии и грибы</li>
+                    <li>Растения вокруг нас</li>
+                </ul>
+            </div>
+
+            <!-- 6 класс -->
+            <div class="grade-card">
+                <div class="grade-number">6</div>
+                <h3>6 класс</h3>
+                <p>Ботаника — наука о растениях</p>
+                <ul class="grade-topics">
+                    <li>Строение растений</li>
+                    <li>Корень и побег</li>
+                    <li>Лист и фотосинтез</li>
+                    <li>Цветок и плод</li>
+                    <li>Размножение растений</li>
+                    <li>Классификация растений</li>
+                </ul>
+            </div>
+
+            <!-- 7 класс -->
+            <div class="grade-card">
+                <div class="grade-number">7</div>
+                <h3>7 класс</h3>
+                <p>Зоология — наука о животных</p>
+                <ul class="grade-topics">
+                    <li>Простейшие организмы</li>
+                    <li>Беспозвоночные животные</li>
+                    <li>Членистоногие</li>
+                    <li>Моллюски</li>
+                    <li>Позвоночные животные</li>
+                    <li>Рыбы, земноводные, пресмыкающиеся</li>
+                    <li>Птицы и млекопитающие</li>
+                </ul>
+            </div>
+
+            <!-- 8 класс -->
+            <div class="grade-card">
+                <div class="grade-number">8</div>
+                <h3>8 класс</h3>
+                <p>Анатомия и физиология человека</p>
+                <ul class="grade-topics">
+                    <li>Строение организма человека</li>
+                    <li>Клетка и ткани</li>
+                    <li>Опорно-двигательная система</li>
+                    <li>Кровеносная система</li>
+                    <li>Дыхательная система</li>
+                    <li>Пищеварительная система</li>
+                    <li>Нервная система</li>
+                </ul>
+            </div>
         </div>
     </div>
 
+    <!-- Footer -->
     <footer>
-        <p>© 2026 Ресурсный центр «Биология»</p>
+        <p>© 2026 Ресурсный центр «Биология» | Даниленко А.А.</p>
     </footer>
 
 </body>
