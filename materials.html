@@ -93,67 +93,75 @@
         .topic-card {
             background: var(--white);
             border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
-            transition: all 0.3s ease;
+            padding: 2.5rem 2rem;
             text-decoration: none;
             color: var(--text);
-            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            border: 3px solid transparent;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
         }
 
         .topic-card:hover {
             transform: translateY(-10px);
-            border-color: var(--accent);
             box-shadow: 0 20px 50px rgba(13,59,46,0.2);
         }
 
-        .topic-image {
-            width: 100%;
-            height: 220px;
-            object-fit: cover;
-            transition: transform 0.3s ease;
+        /* Цвета для каждой карточки */
+        .topic-card.botany { border-color: #4CAF50; }
+        .topic-card.botany:hover { background: linear-gradient(135deg, #e8f5e9, #fff); }
+        
+        .topic-card.zoology { border-color: #FF9800; }
+        .topic-card.zoology:hover { background: linear-gradient(135deg, #fff3e0, #fff); }
+        
+        .topic-card.anatomy { border-color: #E91E63; }
+        .topic-card.anatomy:hover { background: linear-gradient(135deg, #fce4ec, #fff); }
+        
+        .topic-card.general { border-color: #2196F3; }
+        .topic-card.general:hover { background: linear-gradient(135deg, #e3f2fd, #fff); }
+
+        .topic-emoji {
+            font-size: 5rem;
+            margin-bottom: 1.5rem;
             display: block;
+            line-height: 1;
         }
 
-        .topic-card:hover .topic-image {
-            transform: scale(1.05);
-        }
-
-        .topic-header {
-            padding: 1.8rem;
-            background: var(--white);
-        }
-
-        .topic-header h3 {
-            font-size: 1.5rem;
+        .topic-card h3 {
+            font-size: 1.6rem;
             color: var(--primary);
-            margin-bottom: 0.8rem;
+            margin-bottom: 1rem;
             font-weight: 700;
         }
 
-        .topic-body {
-            padding: 0 1.8rem 1.8rem;
-        }
-
-        .topic-body p {
-            margin-bottom: 1rem;
+        .topic-card > p {
             font-size: 0.95rem;
             opacity: 0.85;
+            margin-bottom: 1.5rem;
+            color: var(--text);
         }
 
-        .topic-body ul {
+        .topic-card ul {
             list-style: none;
-            padding-left: 0;
+            padding: 0;
+            text-align: left;
+            max-width: 250px;
+            margin: 0 auto;
         }
 
-        .topic-body li {
-            padding: 0.5rem 0;
-            padding-left: 1.8rem;
+        .topic-card li {
+            padding: 0.6rem 0;
+            padding-left: 2rem;
             position: relative;
             font-size: 0.9rem;
+            border-bottom: 1px solid #f0f0f0;
         }
 
-        .topic-body li:before {
+        .topic-card li:last-child {
+            border-bottom: none;
+        }
+
+        .topic-card li:before {
             content: "✓";
             position: absolute;
             left: 0;
@@ -175,13 +183,17 @@
                 grid-template-columns: 1fr;
                 gap: 2rem;
             }
+
+            .topic-emoji {
+                font-size: 4rem;
+            }
         }
     </style>
 </head>
 <body>
 
     <div class="header">
-        <h1>📚 Материалы для самоподготовки</h1>
+        <h1> Материалы для самоподготовки</h1>
         <p>Выберите тему для изучения</p>
     </div>
 
@@ -195,71 +207,55 @@
     <div class="content">
         <div class="topics-grid">
             <!-- Ботаника -->
-            <a href="materials-botany.html" class="topic-card">
-                <img src="https://picsum.photos/seed/botany/600/400" alt="Ботаника" class="topic-image">
-                <div class="topic-header">
-                    <h3>🌿 Ботаника</h3>
-                </div>
-                <div class="topic-body">
-                    <p>Наука о растениях и их жизнедеятельности</p>
-                    <ul>
-                        <li>Строение растений</li>
-                        <li>Фотосинтез</li>
-                        <li>Классификация растений</li>
-                        <li>Экология растений</li>
-                    </ul>
-                </div>
+            <a href="materials-botany.html" class="topic-card botany">
+                <span class="topic-emoji">🌿</span>
+                <h3>Ботаника</h3>
+                <p>Наука о растениях и их жизнедеятельности</p>
+                <ul>
+                    <li>Строение растений</li>
+                    <li>Фотосинтез</li>
+                    <li>Классификация растений</li>
+                    <li>Экология растений</li>
+                </ul>
             </a>
 
             <!-- Зоология -->
-            <a href="materials-zoology.html" class="topic-card">
-                <img src="https://picsum.photos/seed/zoology/600/400" alt="Зоология" class="topic-image">
-                <div class="topic-header">
-                    <h3>🦋 Зоология</h3>
-                </div>
-                <div class="topic-body">
-                    <p>Изучение животного мира</p>
-                    <ul>
-                        <li>Беспозвоночные</li>
-                        <li>Позвоночные</li>
-                        <li>Эволюция животных</li>
-                        <li>Поведение животных</li>
-                    </ul>
-                </div>
+            <a href="materials-zoology.html" class="topic-card zoology">
+                <span class="topic-emoji">🦋</span>
+                <h3>Зоология</h3>
+                <p>Изучение животного мира</p>
+                <ul>
+                    <li>Беспозвоночные</li>
+                    <li>Позвоночные</li>
+                    <li>Эволюция животных</li>
+                    <li>Поведение животных</li>
+                </ul>
             </a>
 
             <!-- Анатомия -->
-            <a href="materials-anatomy.html" class="topic-card">
-                <img src="https://picsum.photos/seed/anatomy/600/400" alt="Анатомия" class="topic-image">
-                <div class="topic-header">
-                    <h3>🧬 Анатомия и физиология человека</h3>
-                </div>
-                <div class="topic-body">
-                    <p>Строение и функции человеческого организма</p>
-                    <ul>
-                        <li>Строение клетки</li>
-                        <li>Ткани организма</li>
-                        <li>Системы органов</li>
-                        <li>Физиология</li>
-                    </ul>
-                </div>
+            <a href="materials-anatomy.html" class="topic-card anatomy">
+                <span class="topic-emoji">🧬</span>
+                <h3>Анатомия и физиология человека</h3>
+                <p>Строение и функции человеческого организма</p>
+                <ul>
+                    <li>Строение клетки</li>
+                    <li>Ткани организма</li>
+                    <li>Системы органов</li>
+                    <li>Физиология</li>
+                </ul>
             </a>
 
             <!-- Общая биология -->
-            <a href="materials-general.html" class="topic-card">
-                <img src="https://picsum.photos/seed/biology/600/400" alt="Общая биология" class="topic-image">
-                <div class="topic-header">
-                    <h3>🔬 Общая биология</h3>
-                </div>
-                <div class="topic-body">
-                    <p>Основы биологических знаний</p>
-                    <ul>
-                        <li>Генетика</li>
-                        <li>Эволюция</li>
-                        <li>Экология</li>
-                        <li>Биотехнологии</li>
-                    </ul>
-                </div>
+            <a href="materials-general.html" class="topic-card general">
+                <span class="topic-emoji">🔬</span>
+                <h3>Общая биология</h3>
+                <p>Основы биологических знаний</p>
+                <ul>
+                    <li>Генетика</li>
+                    <li>Эволюция</li>
+                    <li>Экология</li>
+                    <li>Биотехнологии</li>
+                </ul>
             </a>
         </div>
     </div>
