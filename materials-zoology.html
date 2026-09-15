@@ -15,7 +15,6 @@
         body { font-family: 'Raleway', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
         h1, h2, h3 { font-family: 'Playfair Display', serif; }
 
-        /* Navigation */
         .nav {
             position: fixed; top: 0; left: 0; right: 0;
             background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(15px);
@@ -28,22 +27,17 @@
         .nav-links a:after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: var(--accent); transition: width 0.3s; }
         .nav-links a:hover { color: var(--accent); }
         .nav-links a:hover:after { width: 100%; }
-
-        .burger {
-            display: none; flex-direction: column; justify-content: space-between;
-            width: 28px; height: 20px; cursor: pointer; z-index: 1001;
-            background: none; border: none; padding: 0;
-        }
-        .burger span { display: block; width: 100%; height: 2px; background: var(--primary); transition: all 0.3s ease; border-radius: 2px; }
+        
+        .burger { display: none; flex-direction: column; justify-content: space-between; width: 28px; height: 20px; cursor: pointer; z-index: 1001; background: none; border: none; padding: 0; }
+        .burger span { width: 100%; height: 2px; background: var(--primary); transition: all 0.3s ease; border-radius: 2px; }
         .burger.active span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
         .burger.active span:nth-child(2) { opacity: 0; transform: translateX(-10px); }
         .burger.active span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
-
+        
         .mobile-menu {
             display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
-            z-index: 999; flex-direction: column; justify-content: center; align-items: center;
-            opacity: 0; transition: opacity 0.4s ease;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            z-index: 999; flex-direction: column; justify-content: center; align-items: center; opacity: 0; transition: 0.4s;
         }
         .mobile-menu.active { display: flex; opacity: 1; }
         .mobile-menu ul { list-style: none; text-align: center; }
@@ -53,97 +47,52 @@
         .mobile-menu.active li:nth-child(2) { transition-delay: 0.2s; }
         .mobile-menu.active li:nth-child(3) { transition-delay: 0.3s; }
         .mobile-menu.active li:nth-child(4) { transition-delay: 0.4s; }
-        .mobile-menu a {
-            color: var(--white); text-decoration: none;
-            font-family: 'Playfair Display', serif; font-size: 2rem;
-            font-weight: 600; letter-spacing: 1px; transition: color 0.3s; position: relative;
-        }
+        .mobile-menu a { color: var(--white); text-decoration: none; font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 600; letter-spacing: 1px; transition: color 0.3s; position: relative; }
         .mobile-menu a:hover { color: var(--accent); }
 
-        /* Header */
         .header {
             background: linear-gradient(-45deg, var(--primary), var(--primary-light), #0f4d45, #1a5f5a);
             background-size: 400% 400%;
             animation: gradientShift 15s ease infinite;
-            color: var(--white); padding: 8rem 2rem 4rem; text-align: center;
-            position: relative; overflow: hidden;
+            color: var(--white); padding: 8rem 2rem 4rem; text-align: center; position: relative; overflow: hidden;
         }
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        .header:before {
-            content: ''; position: absolute; top: -50%; right: -10%;
-            width: 600px; height: 600px;
-            background: radial-gradient(circle, rgba(201,169,97,0.15) 0%, transparent 70%);
-            border-radius: 50%;
-        }
-        .header h1 {
-            font-size: 2.8rem; margin-bottom: 1rem; letter-spacing: 2px;
-            position: relative; z-index: 1; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-        .header p {
-            font-size: 1.1rem; opacity: 0.95; font-weight: 300;
-            max-width: 800px; margin: 0 auto; position: relative; z-index: 1; line-height: 1.8;
-        }
+        @keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        .header:before { content: ''; position: absolute; top: -50%; right: -10%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(201,169,97,0.15) 0%, transparent 70%); border-radius: 50%; }
+        .header h1 { font-size: 2.8rem; margin-bottom: 1rem; letter-spacing: 2px; position: relative; z-index: 1; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        .header p { font-size: 1.1rem; opacity: 0.95; font-weight: 300; max-width: 800px; margin: 0 auto; position: relative; z-index: 1; line-height: 1.8; }
 
         .content { max-width: 1100px; margin: 0 auto; padding: 4rem 2rem; }
 
-        /* Stats */
-        .stats-bar {
-            display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap;
-            margin-bottom: 3rem; padding: 1.5rem; background: var(--white);
-            border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.06);
-        }
-        .stat-item { text-align: center; }
-        .stat-number {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem; font-weight: 700; color: var(--accent); display: block;
-        }
-        .stat-label { font-size: 0.85rem; opacity: 0.7; text-transform: uppercase; letter-spacing: 1px; }
-
-        /* Section Title */
         .section-title {
-            font-size: 1.8rem; color: var(--primary);
-            margin: 3rem 0 1.5rem; padding-bottom: 0.8rem;
-            border-bottom: 3px solid var(--accent);
-            display: inline-block; position: relative;
+            font-size: 1.8rem; color: var(--primary); margin: 3rem 0 1.5rem; padding-bottom: 0.8rem;
+            border-bottom: 3px solid var(--accent); display: inline-block; position: relative;
         }
-        .section-title:after {
-            content: ''; position: absolute; bottom: -3px; left: 0;
-            width: 100px; height: 3px; background: var(--primary);
-        }
+        .section-title:after { content: ''; position: absolute; bottom: -3px; left: 0; width: 100px; height: 3px; background: var(--primary); }
 
         .material-list { display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 2rem; }
-
+        
         .material-item {
             background: var(--white); border-radius: 15px; padding: 2rem;
             box-shadow: 0 5px 20px rgba(0,0,0,0.06); border-left: 5px solid var(--accent);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            display: flex; flex-direction: column; gap: 1rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); display: flex; flex-direction: column; gap: 1rem;
             opacity: 0; transform: translateY(30px);
         }
         .material-item.visible { opacity: 1; transform: translateY(0); }
-        .material-item:hover {
-            transform: translateX(10px);
-            box-shadow: 0 15px 40px rgba(13,59,46,0.12);
-            border-left-color: var(--primary);
-        }
+        .material-item:hover { transform: translateX(10px); box-shadow: 0 15px 40px rgba(13,59,46,0.12); border-left-color: var(--primary); }
 
         .material-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
         .material-title { font-size: 1.4rem; color: var(--primary); font-weight: 600; flex: 1; }
-        .material-tag {
+        .material-tag { 
             background: linear-gradient(135deg, rgba(201,169,97,0.2), rgba(201,169,97,0.1));
-            color: var(--primary); padding: 0.3rem 1rem; border-radius: 20px;
-            font-size: 0.85rem; font-weight: 600; border: 1px solid rgba(201,169,97,0.3);
+            color: var(--primary); padding: 0.3rem 1rem; border-radius: 20px; font-size: 0.85rem; font-weight: 600; border: 1px solid rgba(201,169,97,0.3);
         }
 
         .material-desc { font-size: 0.95rem; opacity: 0.85; line-height: 1.7; }
         .material-desc strong { color: var(--primary); }
+        .material-desc em { color: var(--primary-light); font-style: italic; }
 
         .material-actions { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 0.5rem; }
-
+        
         .btn {
             display: inline-flex; align-items: center; gap: 0.5rem;
             padding: 0.8rem 1.5rem; border-radius: 30px; text-decoration: none;
@@ -154,21 +103,14 @@
             color: var(--primary); box-shadow: 0 4px 15px rgba(201,169,97,0.3);
         }
         .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(201,169,97,0.5); }
-        .btn-secondary {
-            background: var(--bg); color: var(--primary); border: 1px solid rgba(13,59,46,0.2);
-        }
+        .btn-secondary { background: var(--bg); color: var(--primary); border: 1px solid rgba(13,59,46,0.2); }
         .btn-secondary:hover { background: var(--primary); color: var(--white); }
 
-        /* Footer */
         footer {
             background: linear-gradient(135deg, var(--text), #1a1a2e);
-            color: var(--white); text-align: center; padding: 2.5rem; margin-top: 5rem;
-            font-size: 0.9rem; position: relative; overflow: hidden;
+            color: var(--white); text-align: center; padding: 2.5rem; margin-top: 5rem; font-size: 0.9rem; position: relative; overflow: hidden;
         }
-        footer:before {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-            background: linear-gradient(90deg, var(--accent), var(--accent-light));
-        }
+        footer:before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--accent), var(--accent-light)); }
 
         @media (max-width: 768px) {
             .nav { padding: 1rem 1.5rem; }
@@ -178,8 +120,6 @@
             .header h1 { font-size: 2.2rem; }
             .header p { font-size: 1rem; }
             .material-header { flex-direction: column; align-items: flex-start; }
-            .stats-bar { gap: 1.5rem; padding: 1.2rem; }
-            .stat-number { font-size: 1.5rem; }
             .content { padding: 3rem 1.5rem; }
         }
     </style>
@@ -191,61 +131,70 @@
             <a href="index.html" class="nav-logo">🌿 БИОЛОГИЯ</a>
             <ul class="nav-links">
                 <li><a href="index.html">Главная</a></li>
-                <li><a href="programma.html">Программа</a></li>
-                <li><a href="plan.html">План</a></li>
-                <li><a href="materials.html">← Материалы</a></li>
+                <li><a href="materials.html">← Назад к материалам</a></li>
                 <li><a href="contacts.html">Контакты</a></li>
             </ul>
-            <button class="burger" id="burger" aria-label="Меню">
-                <span></span><span></span><span></span>
-            </button>
+            <button class="burger" id="burger"><span></span><span></span><span></span></button>
         </div>
     </nav>
 
     <div class="mobile-menu" id="mobileMenu">
         <ul>
             <li><a href="index.html">Главная</a></li>
-            <li><a href="programma.html">Программа</a></li>
-            <li><a href="plan.html">План</a></li>
-            <li><a href="materials.html">← Материалы</a></li>
+            <li><a href="materials.html">← Назад к материалам</a></li>
             <li><a href="contacts.html">Контакты</a></li>
         </ul>
     </div>
 
     <div class="header">
         <h1>🦋 Зоология</h1>
-        <p>Многообразие животного мира: от паразитических простейших до земноводных. Теоретические материалы, схемы жизненных циклов и разбор олимпиадных тем.</p>
+        <p>Многообразие животного мира: от паразитических простейших до земноводных. Теоретические материалы, схемы жизненных циклов, практикумы по вскрытиям и разбор олимпиадных тем.</p>
     </div>
 
     <div class="content">
 
-        <!-- Статистика -->
-        <div class="stats-bar">
-            <div class="stat-item">
-                <span class="stat-number">7</span>
-                <span class="stat-label">Материалов</span>
+        <!-- РАЗДЕЛ 1: ПАРАЗИТОЛОГИЯ -->
+        <h2 class="section-title">🦠 Паразитические простейшие и общие вопросы</h2>
+        <div class="material-list">
+            <div class="material-item">
+                <div class="material-header">
+                    <h3 class="material-title">Паразитические простейшие</h3>
+                    <span class="material-tag">Excavata · Alveolata · Apicomplexa</span>
+                </div>
+                <p class="material-desc">
+                    Детальный разбор паразитических протистов: <strong>Трипаносомы</strong> (болезнь Шагаса, сонная болезнь), <strong>Лямблии</strong>, <strong>Лейшмании</strong>. Класс <strong>Apicomplexa</strong>: лейкартовская триада, грегарины, кокцидии (<em>Eimeria</em>), токсоплазма. Малярийный плазмодий (<em>Plasmodium</em>): виды, циклы развития, клиническая картина. Книдоспоридии и микроспоридии.
+                </p>
+                <div class="material-actions">
+                    <a href="files/zoology/protozoa_parasites.pdf" class="btn btn-primary" target="_blank">📥 Скачать PDF</a>
+                    <a href="files/zoology/protozoa_parasites.pdf" class="btn btn-secondary" target="_blank">👁️ Смотреть онлайн</a>
+                </div>
             </div>
-            <div class="stat-item">
-                <span class="stat-number">3</span>
-                <span class="stat-label">Раздела</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-number">50+</span>
-                <span class="stat-label">Видов организмов</span>
+
+            <div class="material-item">
+                <div class="material-header">
+                    <h3 class="material-title">Общая паразитология: от амеб до растений</h3>
+                    <span class="material-tag">Облигатные и факультативные паразиты</span>
+                </div>
+                <p class="material-desc">
+                    Обзор паразитизма как биологического явления. Факультативные паразиты (<em>Naegleria</em> – первичный амебный менингоэнцефалит), облигатные паразиты (дизентерийная амеба). Внутриклеточные паразиты: бактерии <em>Rickettsia</em> (сыпной тиф). Полупаразиты и паразиты среди растений: марьянник дубравный (мирмекохория), заразиха и повилика (гаустории, редукция органов).
+                </p>
+                <div class="material-actions">
+                    <a href="files/zoology/parasites_general.pdf" class="btn btn-primary" target="_blank">📥 Скачать PDF</a>
+                    <a href="files/zoology/parasites_general.pdf" class="btn btn-secondary" target="_blank">👁️ Смотреть онлайн</a>
+                </div>
             </div>
         </div>
 
-        <!-- РАЗДЕЛ 1: ПАРАЗИТИЧЕСКИЕ ЧЕРВИ -->
+        <!-- РАЗДЕЛ 2: ПАРАЗИТИЧЕСКИЕ ЧЕРВИ -->
         <h2 class="section-title">🪱 Паразитические черви</h2>
         <div class="material-list">
-
             <div class="material-item">
                 <div class="material-header">
                     <h3 class="material-title">Паразитические плоские черви</h3>
                     <span class="material-tag">Trematoda · Cestoda · Monogenea</span>
                 </div>
                 <p class="material-desc">
-                    Подробный разбор классов паразитических плоских червей: <strong>Сосальщики</strong> (печёночная двуустка, кошачья двуустка, ланцетовидная двуустка, шистосома), <strong>Ленточные черви</strong> (бычий и свиной цепни, эхинококк, широкий лентец), <strong>Моногенеи</strong> и <strong>Цестодообразные</strong>. Жизненные циклы с чередованием поколений (мариты, спороцисты, редии, церкарии), особенности строения и медицинское значение.
+                    Подробный разбор классов паразитических плоских червей: <strong>Сосальщики</strong> (печёночная двуустка, шистосомы), <strong>Ленточные черви</strong> (бычий и свиной цепни, эхинококк, широкий лентец), <strong>Моногенеи</strong> и <strong>Цестодообразные</strong>. Жизненные циклы с чередованием поколений (мариты, спороцисты, редии, церкарии), особенности строения и медицинское значение.
                 </p>
                 <div class="material-actions">
                     <a href="files/zoology/flatworms_parasites.pdf" class="btn btn-primary" target="_blank">📥 Скачать PDF</a>
@@ -259,54 +208,18 @@
                     <span class="material-tag">Nematoda</span>
                 </div>
                 <p class="material-desc">
-                    Общая характеристика типа Нематоды и детальный разбор наиболее значимых паразитов человека: <strong>человеческая аскарида</strong>, <strong>острица</strong>, <strong>трихинелла</strong>, <strong>власоглав</strong>, <strong>ришта</strong> и <strong>филярия Банкрофта</strong>. Жизненные циклы, клиническая картина заболеваний (аскаридоз, энтеробиоз, трихинеллёз, дракункулёз, элефантиазис), профилактика. Посох Асклепия как прототип ришты.
+                    Общая характеристика типа Нематоды и детальный разбор наиболее значимых паразитов человека: <strong>человеческая аскарида</strong>, <strong>острица</strong>, <strong>трихинелла</strong>, <strong>власоглав</strong>, <strong>ришта</strong> и <strong>филярия Банкрофта</strong>. Жизненные циклы, клиническая картина заболеваний (аскаридоз, энтеробиоз, трихинеллёз, дракункулёз, элефантиазис), профилактика.
                 </p>
                 <div class="material-actions">
                     <a href="files/zoology/nematodes_parasites.pdf" class="btn btn-primary" target="_blank">📥 Скачать PDF</a>
                     <a href="files/zoology/nematodes_parasites.pdf" class="btn btn-secondary" target="_blank">👁️ Смотреть онлайн</a>
                 </div>
             </div>
-
-        </div>
-
-        <!-- РАЗДЕЛ 2: ПАРАЗИТИЧЕСКИЕ ПРОСТЕЙШИЕ -->
-        <h2 class="section-title">🦠 Паразитические простейшие и другие паразиты</h2>
-        <div class="material-list">
-
-            <div class="material-item">
-                <div class="material-header">
-                    <h3 class="material-title">Паразитические простейшие</h3>
-                    <span class="material-tag">Excavata · Alveolata · Apicomplexa</span>
-                </div>
-                <p class="material-desc">
-                    Детальный разбор паразитических протистов по систематическим группам. <strong>Excavata:</strong> трипаносома (болезнь Шагаса, сонная болезнь), лямблия, лейшмания. <strong>Alveolata / Apicomplexa:</strong> апикальный комплекс, лейкартовская триада, грегарины, кокцидии (эймерия, токсоплазма — влияние на поведение хозяев), малярийный плазмодий (3-, 4-, 7-дневные лихорадки). <strong>Книдоспоридии</strong> и <strong>Микроспоридии</strong> — особенности споруляции и эуструзии.
-                </p>
-                <div class="material-actions">
-                    <a href="files/zoology/protozoa_parasites.pdf" class="btn btn-primary" target="_blank">📥 Скачать PDF</a>
-                    <a href="files/zoology/protozoa_parasites.pdf" class="btn btn-secondary" target="_blank">👁️ Смотреть онлайн</a>
-                </div>
-            </div>
-
-            <div class="material-item">
-                <div class="material-header">
-                    <h3 class="material-title">Паразиты: от простейших до растений</h3>
-                    <span class="material-tag">Общая паразитология</span>
-                </div>
-                <p class="material-desc">
-                    Обзорная статья о паразитизме как биологическом явлении. <strong>Облигатные и факультативные паразиты:</strong> амеба <em>Naegleria</em> (первичный амебный менингоэнцефалит), дизентерийная амеба (амебиаз — просветная, тканевая, большая вегетативная формы). <strong>Внутриклеточные паразиты:</strong> бактерии <em>Rickettsia</em> (сыпной тиф, пятнистая лихорадка). <strong>Полупаразиты и паразиты среди растений:</strong> марьянник дубравный (мирмекохория), заразиха и повилика (гаустории, редукция органов).
-                </p>
-                <div class="material-actions">
-                    <a href="files/zoology/parasites_general.pdf" class="btn btn-primary" target="_blank">📥 Скачать PDF</a>
-                    <a href="files/zoology/parasites_general.pdf" class="btn btn-secondary" target="_blank">👁️ Смотреть онлайн</a>
-                </div>
-            </div>
-
         </div>
 
         <!-- РАЗДЕЛ 3: АМФИБИИ -->
         <h2 class="section-title">🐸 Класс Амфибии (Земноводные)</h2>
         <div class="material-list">
-
             <div class="material-item">
                 <div class="material-header">
                     <h3 class="material-title">Обзор отрядов амфибий: Безногие (Червяги)</h3>
@@ -327,7 +240,7 @@
                     <span class="material-tag">Caudata · Urodela</span>
                 </div>
                 <p class="material-desc">
-                    Саламандры, тритоны, протеи, аксолотли. История изучения от Плиния Старшего до наших дней. Кожные желобки для удержания влаги, кожное дыхание, особенности зрения и слуха. Строение позвоночника, плечевого пояса и кровеносной системы (сохранение всех четырёх артериальных дуг, в т.ч. пятой). Брачное поведение, сперматофоры, ритуальные танцы, забота о потомстве и явление <strong>неотении</strong> (аксолотли — неотенические виды амбистом).
+                    Саламандры, тритоны, протеи, аксолотли. Кожные желобки для удержания влаги, кожное дыхание, особенности зрения и слуха. Строение позвоночника, плечевого пояса и кровеносной системы (сохранение всех четырёх артериальных дуг). Брачное поведение, сперматофоры, ритуальные танцы, забота о потомстве и явление <strong>неотении</strong>.
                 </p>
                 <div class="material-actions">
                     <a href="files/zoology/amphibia_caudata.pdf" class="btn btn-primary" target="_blank">📥 Скачать PDF</a>
@@ -341,14 +254,54 @@
                     <span class="material-tag">Anura · Salientia</span>
                 </div>
                 <p class="material-desc">
-                    Самый многочисленный отряд амфибий — более 7000 видов. Специализация скелета к прыжкам (сращение костей, 5 подвижных точек задней конечности, упругая энергия сухожилий — исследования университета Брауна). Строение позвоночника (уростиль), плечевого и тазового поясов. Двухтактный механизм гулярного дыхания. Трёхкамерное сердце и разделение потоков крови в артериальном конусе (спиралевидный клапан, гидродинамика). Размножение, амплексус, метаморфоз головастика под действием <strong>тироксина</strong>.
+                    Самый многочисленный отряд амфибий — более 7000 видов. Специализация скелета к прыжкам (сращение костей, 5 подвижных точек задней конечности, упругая энергия сухожилий). Строение позвоночника, плечевого и тазового поясов. Двухтактный механизм гулярного дыхания. Трёхкамерное сердце и разделение потоков крови в артериальном конусе. Размножение, амплексус, метаморфоз головастика под действием <strong>тироксина</strong>.
                 </p>
                 <div class="material-actions">
                     <a href="files/zoology/amphibia_anura.pdf" class="btn btn-primary" target="_blank">📥 Скачать PDF</a>
                     <a href="files/zoology/amphibia_anura.pdf" class="btn btn-secondary" target="_blank">👁️ Смотреть онлайн</a>
                 </div>
             </div>
+        </div>
 
+        <!-- РАЗДЕЛ 4: ЖИЗНЕННЫЕ ЦИКЛЫ -->
+        <h2 class="section-title">🔄 Закономерности жизненных циклов</h2>
+        <div class="material-list">
+            <div class="material-item">
+                <div class="material-header">
+                    <h3 class="material-title">Типы жизненных циклов и смена поколений</h3>
+                    <span class="material-tag">Гаплофазный · Диплофазный · Гапло-диплофазный</span>
+                </div>
+                <p class="material-desc">
+                    Обобщенные схемы жизненных циклов с чередованием поколений (онтогенезов). Изменение плоидности: гаплофазный цикл с зиготической редукцией, диплофазный с гаметической редукцией, гапло-диплофазный со спорической редукцией. Примеры у простейших, кишечнополостных (метагенез), трематод и других групп.
+                </p>
+                <div class="material-actions">
+                    <a href="files/zoology/life_cycles.pdf" class="btn btn-primary" target="_blank">📥 Скачать PDF</a>
+                    <a href="files/zoology/life_cycles.pdf" class="btn btn-secondary" target="_blank">👁️ Смотреть онлайн</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- РАЗДЕЛ 5: ВСКРЫТИЯ (НОВЫЙ) -->
+        <h2 class="section-title">🔬 Практикум: Вскрытия и морфология</h2>
+        <div class="material-list">
+            <div class="material-item">
+                <div class="material-header">
+                    <h3 class="material-title">Атлас и инструкции по вскрытию беспозвоночных</h3>
+                    <span class="material-tag">Лабораторные работы · 10 модельных объектов</span>
+                </div>
+                <p class="material-desc">
+                    Подробные схемы, методические указания и атласы по вскрытию основных модельных объектов курса зоологии. Изучение внешнего и внутреннего строения, топографии органов.
+                    <br><br>
+                    <strong>Кольчатые черви:</strong> дождевой червь (<em>Lumbricus</em>), нереис (<em>Nereis</em>), медицинская пиявка (<em>Hirudo medicinalis</em>).<br>
+                    <strong>Моллюски:</strong> брюхоногие (<em>Achatina</em>), двустворчатые (мидия <em>Mytilus edulis</em>, беззубка <em>Anodonta</em>).<br>
+                    <strong>Членистоногие:</strong> речной рак (<em>Astacus</em>), мадагаскарский шипящий таракан (<em>Gromphadorhina</em>).<br>
+                    <strong>Иглокожие:</strong> морская звезда (<em>Asterias rubens</em>).
+                </p>
+                <div class="material-actions">
+                    <a href="files/zoology/dissections.pdf" class="btn btn-primary" target="_blank">📥 Скачать PDF</a>
+                    <a href="files/zoology/dissections.pdf" class="btn btn-secondary" target="_blank">👁️ Смотреть онлайн</a>
+                </div>
+            </div>
         </div>
 
     </div>
