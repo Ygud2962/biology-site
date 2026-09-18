@@ -13,7 +13,7 @@
         }
         html { scroll-behavior: smooth; scroll-padding-top: 100px; }
         body { font-family: 'Raleway', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
-        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
 
         .nav {
             position: fixed; top: 0; left: 0; right: 0;
@@ -74,11 +74,11 @@
             max-width: 1100px;
         }
 
-        /* Side Navigation */
+        /* Premium Side Navigation */
         .side-nav {
             position: sticky;
             top: 100px;
-            width: 280px;
+            width: 300px;
             padding: 2rem 1.5rem;
             background: var(--white);
             border-radius: 15px;
@@ -97,34 +97,72 @@
             border-bottom: 2px solid var(--accent);
         }
 
-        .side-nav ul {
+        .nav-section {
+            margin-bottom: 1rem;
+        }
+
+        .nav-section h4 {
+            font-size: 0.95rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(201,169,97,0.3);
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: color 0.3s;
+        }
+
+        .nav-section h4:hover {
+            color: var(--accent);
+        }
+
+        .nav-section h4::after {
+            content: '▼';
+            font-size: 0.7rem;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-section.collapsed h4::after {
+            transform: rotate(-90deg);
+        }
+
+        .nav-section ul {
             list-style: none;
+            padding-left: 0;
+            transition: max-height 0.3s ease, opacity 0.3s ease;
         }
 
-        .side-nav li {
-            margin-bottom: 0.8rem;
+        .nav-section.collapsed ul {
+            display: none;
         }
 
-        .side-nav a {
+        .nav-section li {
+            margin-bottom: 0.3rem;
+        }
+
+        .nav-section a {
             display: block;
-            padding: 0.7rem 1rem;
+            padding: 0.5rem 1rem 0.5rem 1.5rem;
             color: var(--text);
             text-decoration: none;
-            border-radius: 8px;
-            font-size: 0.9rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
             font-weight: 500;
             transition: all 0.3s ease;
             border-left: 3px solid transparent;
         }
 
-        .side-nav a:hover {
+        .nav-section a:hover {
             background: rgba(201,169,97,0.1);
             border-left-color: var(--accent);
             color: var(--primary);
-            transform: translateX(5px);
+            transform: translateX(3px);
         }
 
-        .side-nav a.active {
+        .nav-section a.active {
             background: rgba(13,59,46,0.1);
             border-left-color: var(--primary);
             color: var(--primary);
@@ -148,7 +186,7 @@
             background: var(--white); border-radius: 15px; padding: 2rem;
             box-shadow: 0 5px 20px rgba(0,0,0,0.06); border-left: 5px solid var(--accent);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); display: flex; flex-direction: column; gap: 1rem;
-            opacity: 0; transform: translateY(30px);
+            opacity: 0; transform: translateY(30px); scroll-margin-top: 120px;
         }
         .material-item.visible { opacity: 1; transform: translateY(0); }
         .material-item:hover { transform: translateX(10px); box-shadow: 0 15px 40px rgba(13,59,46,0.12); border-left-color: var(--primary); }
@@ -190,16 +228,9 @@
         footer:before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--accent), var(--accent-light)); }
 
         @media (max-width: 1200px) {
-            .side-nav {
-                display: none;
-            }
-            .main-wrapper {
-                max-width: 100%;
-            }
-            .content {
-                max-width: 100%;
-                padding: 3rem 1.5rem;
-            }
+            .side-nav { display: none; }
+            .main-wrapper { max-width: 100%; }
+            .content { max-width: 100%; padding: 3rem 1.5rem; }
         }
 
         @media (max-width: 768px) {
@@ -218,7 +249,7 @@
 
     <nav class="nav">
         <div class="nav-container">
-            <a href="index.html" class="nav-logo"> БИОЛОГИЯ</a>
+            <a href="index.html" class="nav-logo">🌿 БИОЛОГИЯ</a>
             <ul class="nav-links">
                 <li><a href="index.html">Главная</a></li>
                 <li><a href="materials.html">← Назад к материалам</a></li>
@@ -247,11 +278,11 @@
         <div class="content">
 
             <!-- РАЗДЕЛ 1: ОСНОВЫ ФИЗИОЛОГИИ И МЕТОДЫ -->
-            <h2 class="section-title" id="section-methods"> Основы физиологии и методы исследования</h2>
+            <h2 class="section-title" id="section-methods">🔬 Основы физиологии и методы исследования</h2>
             <span class="section-subtitle">Как изучают организм и что такое возбудимость</span>
             <div class="material-list">
 
-                <div class="material-item">
+                <div class="material-item" id="topic-methods">
                     <div class="material-header">
                         <h3 class="material-title">Методы исследования в физиологии и медицине</h3>
                         <span class="material-tag">Наблюдение · Эксперимент · Диагностика</span>
@@ -265,7 +296,7 @@
                     </div>
                 </div>
 
-                <div class="material-item">
+                <div class="material-item" id="topic-potential">
                     <div class="material-header">
                         <h3 class="material-title">Потенциал покоя и потенциал действия</h3>
                         <span class="material-tag">Мембранный потенциал · Уравнение Нернста</span>
@@ -286,7 +317,7 @@
             <span class="section-subtitle">ЦНС, ПНС, синапсы, медиаторы и рефлексы</span>
             <div class="material-list">
 
-                <div class="material-item">
+                <div class="material-item" id="topic-nervous">
                     <div class="material-header">
                         <h3 class="material-title">Строение и функции нервной системы</h3>
                         <span class="material-tag">ЦНС · ПНС · ВНС</span>
@@ -300,7 +331,7 @@
                     </div>
                 </div>
 
-                <div class="material-item">
+                <div class="material-item" id="topic-synapse">
                     <div class="material-header">
                         <h3 class="material-title">Синаптическая передача и медиаторы</h3>
                         <span class="material-tag lecture">🎓 МГУ · Лекции 02, 04, 05</span>
@@ -314,7 +345,7 @@
                     </div>
                 </div>
 
-                <div class="material-item">
+                <div class="material-item" id="topic-cns">
                     <div class="material-header">
                         <h3 class="material-title">Интегративные свойства ЦНС и рефлексы</h3>
                         <span class="material-tag lecture">🎓 МГУ · Лекции 06, 07, 08, 10</span>
@@ -324,11 +355,11 @@
                     </p>
                     <div class="material-actions">
                         <a href="files/anatomy/cns_integration.pdf" class="btn btn-primary" target="_blank">📥 Скачать PDF</a>
-                        <a href="files/anatomy/cns_integration.pdf" class="btn btn-secondary" target="_blank">️ Смотреть онлайн</a>
+                        <a href="files/anatomy/cns_integration.pdf" class="btn btn-secondary" target="_blank">👁️ Смотреть онлайн</a>
                     </div>
                 </div>
 
-                <div class="material-item">
+                <div class="material-item" id="topic-sensory">
                     <div class="material-header">
                         <h3 class="material-title">Физиология анализаторов</h3>
                         <span class="material-tag lecture">🎓 МГУ · Лекция 09</span>
@@ -349,7 +380,7 @@
             <span class="section-subtitle">Скелетные, гладкие и сердечные мышцы</span>
             <div class="material-list">
 
-                <div class="material-item">
+                <div class="material-item" id="topic-muscle">
                     <div class="material-header">
                         <h3 class="material-title">Работа мышц и электромеханическое сопряжение</h3>
                         <span class="material-tag lecture">🎓 МГУ · Лекция 03</span>
@@ -370,7 +401,7 @@
             <span class="section-subtitle">Гемодинамика, группы крови, лейкоциты и антитела</span>
             <div class="material-list">
 
-                <div class="material-item">
+                <div class="material-item" id="topic-heart">
                     <div class="material-header">
                         <h3 class="material-title">Сердце и гемодинамика</h3>
                         <span class="material-tag lecture">🎓 МГУ · Лекции 11, 12</span>
@@ -384,7 +415,7 @@
                     </div>
                 </div>
 
-                <div class="material-item">
+                <div class="material-item" id="topic-blood">
                     <div class="material-header">
                         <h3 class="material-title">Группы крови и резус-фактор</h3>
                         <span class="material-tag">AB0 · Резус · Бомбейский феномен</span>
@@ -394,11 +425,11 @@
                     </p>
                     <div class="material-actions">
                         <a href="files/anatomy/blood_groups.pdf" class="btn btn-primary" target="_blank">📥 Скачать PDF</a>
-                        <a href="files/anatomy/blood_groups.pdf" class="btn btn-secondary" target="_blank">️ Смотреть онлайн</a>
+                        <a href="files/anatomy/blood_groups.pdf" class="btn btn-secondary" target="_blank">👁️ Смотреть онлайн</a>
                     </div>
                 </div>
 
-                <div class="material-item">
+                <div class="material-item" id="topic-immunity">
                     <div class="material-header">
                         <h3 class="material-title">Иммунитет и гистосовместимость</h3>
                         <span class="material-tag">Лейкоциты · Антитела · ГКГ</span>
@@ -419,7 +450,7 @@
             <span class="section-subtitle">Пищеварение, дыхание, почки и витамины</span>
             <div class="material-list">
 
-                <div class="material-item">
+                <div class="material-item" id="topic-respiratory">
                     <div class="material-header">
                         <h3 class="material-title">Дыхательная система</h3>
                         <span class="material-tag lecture">🎓 МГУ · Лекция 13</span>
@@ -429,14 +460,14 @@
                     </p>
                     <div class="material-actions">
                         <a href="files/anatomy/respiratory_system.pdf" class="btn btn-primary" target="_blank">📥 Скачать PDF</a>
-                        <a href="files/anatomy/respiratory_system.pdf" class="btn btn-secondary" target="_blank">️ Смотреть онлайн</a>
+                        <a href="files/anatomy/respiratory_system.pdf" class="btn btn-secondary" target="_blank">👁️ Смотреть онлайн</a>
                     </div>
                 </div>
 
-                <div class="material-item">
+                <div class="material-item" id="topic-digestive">
                     <div class="material-header">
                         <h3 class="material-title">Пищеварительная система</h3>
-                        <span class="material-tag lecture"> МГУ · Лекция 15</span>
+                        <span class="material-tag lecture">🎓 МГУ · Лекция 15</span>
                     </div>
                     <p class="material-desc">
                         Назначение и состав пищи. Витамины (водо- и жирорастворимые). Строение стенки ЖКТ. Пищеварение в ротовой полости (амилаза, лизоцим), желудке (HCl, пепсиноген, внутренний фактор Касла). Двенадцатиперстная кишка: панкреатический сок (трипсиноген, липаза) и желчь. Всасывание в тонком кишечнике: ворсинки, микроворсинки, гликокаликс. Метасимпатическая НС.
@@ -447,7 +478,7 @@
                     </div>
                 </div>
 
-                <div class="material-item">
+                <div class="material-item" id="topic-excretory">
                     <div class="material-header">
                         <h3 class="material-title">Выделительная система</h3>
                         <span class="material-tag lecture">🎓 МГУ · Лекция 14</span>
@@ -464,11 +495,11 @@
             </div>
 
             <!-- РАЗДЕЛ 6: ЭНДОКРИННАЯ СИСТЕМА -->
-            <h2 class="section-title" id="section-endocrine">️ Эндокринная система</h2>
+            <h2 class="section-title" id="section-endocrine">⚗️ Эндокринная система</h2>
             <span class="section-subtitle">Гормоны и железы внутренней секреции</span>
             <div class="material-list">
 
-                <div class="material-item">
+                <div class="material-item" id="topic-endocrine">
                     <div class="material-header">
                         <h3 class="material-title">Эндокринная система человека</h3>
                         <span class="material-tag">Гипофиз · Щитовидная · Надпочечники</span>
@@ -486,17 +517,59 @@
 
         </div>
 
-        <!-- Side Navigation -->
+        <!-- Premium Side Navigation -->
         <aside class="side-nav">
-            <h3> Навигация по темам</h3>
-            <ul>
-                <li><a href="#section-methods" class="nav-link">🔬 Основы и методы</a></li>
-                <li><a href="#section-nervous" class="nav-link">🧠 Нервная система</a></li>
-                <li><a href="#section-muscle" class="nav-link">💪 Мышечная система</a></li>
-                <li><a href="#section-cardio" class="nav-link">❤️ Сердце и кровь</a></li>
-                <li><a href="#section-metabolism" class="nav-link">🔄 Обмен веществ</a></li>
-                <li><a href="#section-endocrine" class="nav-link">⚗️ Эндокринная система</a></li>
-            </ul>
+            <h3>📑 Навигация по темам</h3>
+            
+            <div class="nav-section">
+                <h4>🔬 Основы и методы</h4>
+                <ul>
+                    <li><a href="#topic-methods" class="nav-link">Методы исследования</a></li>
+                    <li><a href="#topic-potential" class="nav-link">Потенциал покоя и ПД</a></li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h4>🧠 Нервная система</h4>
+                <ul>
+                    <li><a href="#topic-nervous" class="nav-link">Строение и функции</a></li>
+                    <li><a href="#topic-synapse" class="nav-link">Синапсы и медиаторы</a></li>
+                    <li><a href="#topic-cns" class="nav-link">Интеграция и рефлексы</a></li>
+                    <li><a href="#topic-sensory" class="nav-link">Анализаторы</a></li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h4>💪 Мышечная система</h4>
+                <ul>
+                    <li><a href="#topic-muscle" class="nav-link">Работа мышц</a></li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h4>❤️ Сердце и кровь</h4>
+                <ul>
+                    <li><a href="#topic-heart" class="nav-link">Сердце и гемодинамика</a></li>
+                    <li><a href="#topic-blood" class="nav-link">Группы крови</a></li>
+                    <li><a href="#topic-immunity" class="nav-link">Иммунитет</a></li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h4>🔄 Обмен веществ</h4>
+                <ul>
+                    <li><a href="#topic-respiratory" class="nav-link">Дыхательная система</a></li>
+                    <li><a href="#topic-digestive" class="nav-link">Пищеварительная система</a></li>
+                    <li><a href="#topic-excretory" class="nav-link">Выделительная система</a></li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h4>⚗️ Эндокринная система</h4>
+                <ul>
+                    <li><a href="#topic-endocrine" class="nav-link">Железы и гормоны</a></li>
+                </ul>
+            </div>
         </aside>
     </div>
 
@@ -506,6 +579,7 @@
     </footer>
 
     <script>
+        // Burger Menu
         const burger = document.getElementById('burger');
         const mobileMenu = document.getElementById('mobileMenu');
         const mobileLinks = document.querySelectorAll('.mobile-link');
@@ -526,6 +600,7 @@
             });
         }
 
+        // Scroll Animation for Cards
         const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry, index) => {
                 if (entry.isIntersecting) {
@@ -536,15 +611,21 @@
 
         document.querySelectorAll('.material-item').forEach(el => observer.observe(el));
 
-        // Side navigation active state
-        const sections = document.querySelectorAll('.section-title');
+        // Collapsible sections in side nav
+        document.querySelectorAll('.nav-section h4').forEach(header => {
+            header.addEventListener('click', () => {
+                header.parentElement.classList.toggle('collapsed');
+            });
+        });
+
+        // Side navigation active state (Scroll Spy)
+        const sections = document.querySelectorAll('.material-item, .section-title');
         const navLinks = document.querySelectorAll('.nav-link');
 
         window.addEventListener('scroll', () => {
             let current = '';
             sections.forEach(section => {
                 const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
                 if (scrollY >= (sectionTop - 150)) {
                     current = section.getAttribute('id');
                 }
@@ -554,6 +635,8 @@
                 link.classList.remove('active');
                 if (link.getAttribute('href').slice(1) === current) {
                     link.classList.add('active');
+                    // Auto-expand the section if it's collapsed
+                    link.closest('.nav-section').classList.remove('collapsed');
                 }
             });
         });
