@@ -231,24 +231,24 @@
             font-weight: 300;
         }
 
-        /* Content and Cards */
+        /* Content and Cards - ОДИН РЯД */
         .content {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 4rem 2rem;
         }
 
         .topics-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2.5rem;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
             margin-top: 2rem;
         }
 
         .topic-card {
             background: var(--white);
             border-radius: 20px;
-            padding: 2.5rem 2rem;
+            padding: 2rem 1.5rem;
             text-decoration: none;
             color: var(--text);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -257,6 +257,9 @@
             text-align: center;
             position: relative;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
         }
 
         .topic-card:before {
@@ -283,8 +286,8 @@
         }
 
         .topic-emoji {
-            font-size: 4.5rem;
-            margin-bottom: 1.5rem;
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
             display: block;
             line-height: 1;
             filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
@@ -296,33 +299,33 @@
         }
 
         .topic-card h3 {
-            font-size: 1.6rem;
+            font-size: 1.4rem;
             color: var(--primary);
-            margin-bottom: 1rem;
+            margin-bottom: 0.8rem;
             font-weight: 700;
         }
 
         .topic-card > p {
-            font-size: 1rem;
+            font-size: 0.9rem;
             opacity: 0.85;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
             color: var(--text);
-            line-height: 1.6;
+            line-height: 1.5;
         }
 
         .topic-card ul {
             list-style: none;
             padding: 0;
             text-align: left;
-            max-width: 300px;
             margin: 0 auto;
+            flex-grow: 1;
         }
 
         .topic-card li {
-            padding: 0.6rem 0;
-            padding-left: 2rem;
+            padding: 0.4rem 0;
+            padding-left: 1.8rem;
             position: relative;
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             border-bottom: 1px solid #f0f0f0;
             display: flex;
             align-items: center;
@@ -339,7 +342,7 @@
             left: 0;
             color: var(--accent);
             font-weight: bold;
-            font-size: 1.1rem;
+            font-size: 1rem;
         }
 
         footer {
@@ -362,6 +365,12 @@
         }
 
         /* Responsive */
+        @media (max-width: 1200px) {
+            .topics-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
         @media (max-width: 768px) {
             .nav {
                 padding: 1rem 1.5rem;
@@ -393,15 +402,22 @@
 
             .topics-grid {
                 grid-template-columns: 1fr;
-                gap: 2rem;
+                gap: 1.5rem;
             }
 
             .topic-card {
-                padding: 2.5rem 2rem;
+                padding: 2rem 1.5rem;
             }
 
             .topic-emoji {
-                font-size: 4rem;
+                font-size: 3rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .topics-grid {
+                display: flex;
+                flex-direction: column;
             }
         }
     </style>
@@ -444,7 +460,7 @@
         <div class="topics-grid">
             <!-- Ботаника -->
             <a href="materials-botany.html" class="topic-card botany">
-                <span class="topic-emoji">🌿</span>
+                <span class="topic-emoji">🌱</span>
                 <h3>Ботаника</h3>
                 <p>Наука о растениях и их жизнедеятельности</p>
                 <ul>
@@ -459,25 +475,25 @@
             <a href="materials-zoology.html" class="topic-card zoology">
                 <span class="topic-emoji">🦋</span>
                 <h3>Зоология</h3>
-                <p>Многообразие животного мира и паразитология</p>
+                <p>Многообразие животного мира</p>
                 <ul>
-                    <li>🦠 Паразитология (простейшие, черви)</li>
-                    <li> Беспозвоночные (моллюски и др.)</li>
-                    <li>🐸 Позвоночные (амфибии)</li>
-                    <li> Практикум (вскрытия и циклы)</li>
+                    <li>Паразитология</li>
+                    <li>Беспозвоночные</li>
+                    <li>Позвоночные</li>
+                    <li>Практикум</li>
                 </ul>
             </a>
 
-            <!-- Анатомия и физиология человека (ОБНОВЛЕНА) -->
+            <!-- Анатомия и физиология человека -->
             <a href="materials-anatomy.html" class="topic-card anatomy">
                 <span class="topic-emoji">🧬</span>
                 <h3>Анатомия и физиология</h3>
-                <p>Строение и функции человеческого организма</p>
+                <p>Строение человеческого организма</p>
                 <ul>
-                    <li>⚡ Физиология клеток и нейрофизиология</li>
-                    <li>🧠 Нервная и эндокринная системы</li>
-                    <li>❤️ Кровь, сердце и иммунитет</li>
-                    <li>🫁 Системы органов (дыхание, ЖКТ, почки)</li>
+                    <li>Физиология клеток</li>
+                    <li>Нервная система</li>
+                    <li>Кровь и иммунитет</li>
+                    <li>Системы органов</li>
                 </ul>
             </a>
 
@@ -485,12 +501,12 @@
             <a href="materials-general.html" class="topic-card general">
                 <span class="topic-emoji">🔬</span>
                 <h3>Общая биология</h3>
-                <p>Фундаментальные основы биологических знаний</p>
+                <p>Фундаментальные основы</p>
                 <ul>
-                    <li>Генетика и селекция</li>
-                    <li>Цитология и онтогенез</li>
-                    <li>Эволюция и экология</li>
-                    <li>Биотехнологии</li>
+                    <li>Генетика</li>
+                    <li>Цитология</li>
+                    <li>Эволюция</li>
+                    <li>Экология</li>
                 </ul>
             </a>
         </div>
