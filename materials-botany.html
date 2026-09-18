@@ -61,133 +61,47 @@
         .header h1 { font-size: 2.8rem; margin-bottom: 1rem; letter-spacing: 2px; position: relative; z-index: 1; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
         .header p { font-size: 1.1rem; opacity: 0.95; font-weight: 300; max-width: 800px; margin: 0 auto; position: relative; z-index: 1; line-height: 1.8; }
 
-        .main-wrapper {
-            display: flex;
-            max-width: 1400px;
-            margin: 0 auto;
-            position: relative;
-        }
+        .main-wrapper { display: flex; max-width: 1400px; margin: 0 auto; position: relative; }
+        .content { flex: 1; padding: 4rem 2rem; max-width: 1100px; }
 
-        .content { 
-            flex: 1;
-            padding: 4rem 2rem;
-            max-width: 1100px;
-        }
-
-        /* Side Navigation */
         .side-nav {
-            position: sticky;
-            top: 100px;
-            width: 300px;
-            padding: 2rem 1.5rem;
-            background: var(--white);
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(13,59,46,0.1);
-            margin-left: 2rem;
-            align-self: flex-start;
-            max-height: calc(100vh - 120px);
-            overflow-y: auto;
+            position: sticky; top: 100px; width: 300px; padding: 2rem 1.5rem;
+            background: var(--white); border-radius: 15px; box-shadow: 0 5px 20px rgba(13,59,46,0.1);
+            margin-left: 2rem; align-self: flex-start; max-height: calc(100vh - 120px); overflow-y: auto;
         }
-
-        .side-nav h3 {
-            font-size: 1.1rem;
-            color: var(--primary);
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.8rem;
-            border-bottom: 2px solid var(--accent);
-        }
-
-        .nav-section {
-            margin-bottom: 1.5rem;
-        }
-
+        .side-nav h3 { font-size: 1.1rem; color: var(--primary); margin-bottom: 1.5rem; padding-bottom: 0.8rem; border-bottom: 2px solid var(--accent); }
+        .nav-section { margin-bottom: 1.5rem; }
         .nav-section h4 {
-            font-size: 0.95rem;
-            color: var(--primary);
-            margin-bottom: 0.8rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid var(--accent);
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            font-size: 0.95rem; color: var(--primary); margin-bottom: 0.8rem; padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent); font-weight: 600; cursor: pointer;
+            display: flex; justify-content: space-between; align-items: center;
         }
-
-        .nav-section h4::after {
-            content: '▼';
-            font-size: 0.7rem;
-            transition: transform 0.3s;
-        }
-
-        .nav-section.collapsed h4::after {
-            transform: rotate(-90deg);
-        }
-
-        .nav-section ul {
-            list-style: none;
-            padding-left: 0;
-            transition: max-height 0.3s ease;
-        }
-
-        .nav-section.collapsed ul {
-            display: none;
-        }
-
-        .nav-section li {
-            margin-bottom: 0.3rem;
-        }
-
+        .nav-section h4::after { content: '▼'; font-size: 0.7rem; transition: transform 0.3s; }
+        .nav-section.collapsed h4::after { transform: rotate(-90deg); }
+        .nav-section ul { list-style: none; padding-left: 0; }
+        .nav-section.collapsed ul { display: none; }
+        .nav-section li { margin-bottom: 0.3rem; }
         .nav-section a {
-            display: block;
-            padding: 0.5rem 1rem 0.5rem 1.5rem;
-            color: var(--text);
-            text-decoration: none;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            transition: all 0.3s ease;
+            display: block; padding: 0.5rem 1rem 0.5rem 1.5rem; color: var(--text); text-decoration: none;
+            border-radius: 6px; font-size: 0.85rem; font-weight: 500; transition: all 0.3s ease;
             border-left: 3px solid transparent;
         }
-
-        .nav-section a:hover {
-            background: rgba(201,169,97,0.1);
-            border-left-color: var(--accent);
-            color: var(--primary);
-            transform: translateX(3px);
-        }
-
-        .nav-section a.active {
-            background: rgba(13,59,46,0.1);
-            border-left-color: var(--primary);
-            color: var(--primary);
-            font-weight: 600;
-        }
-
-        .nav-section:first-child a {
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
+        .nav-section a:hover { background: rgba(201,169,97,0.1); border-left-color: var(--accent); color: var(--primary); transform: translateX(3px); }
+        .nav-section a.active { background: rgba(13,59,46,0.1); border-left-color: var(--primary); color: var(--primary); font-weight: 600; }
 
         .section-title {
             font-size: 1.8rem; color: var(--primary); margin: 3rem 0 1rem; padding-bottom: 0.8rem;
             border-bottom: 3px solid var(--accent); display: inline-block; position: relative; scroll-margin-top: 100px;
         }
         .section-title:after { content: ''; position: absolute; bottom: -3px; left: 0; width: 100px; height: 3px; background: var(--primary); }
-
-        .section-subtitle {
-            font-size: 1rem; color: var(--text); opacity: 0.7; margin-bottom: 2rem;
-            font-style: italic; display: block;
-        }
-
+        .section-subtitle { font-size: 1rem; color: var(--text); opacity: 0.7; margin-bottom: 2rem; font-style: italic; display: block; }
         .material-list { display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 2rem; }
 
         .material-item {
             background: var(--white); border-radius: 15px; padding: 2rem;
             box-shadow: 0 5px 20px rgba(0,0,0,0.06); border-left: 5px solid var(--accent);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); display: flex; flex-direction: column; gap: 1rem;
-            opacity: 0; transform: translateY(30px);
-            scroll-margin-top: 100px;
+            opacity: 0; transform: translateY(30px); scroll-margin-top: 100px;
         }
         .material-item.visible { opacity: 1; transform: translateY(0); }
         .material-item:hover { transform: translateX(10px); box-shadow: 0 15px 40px rgba(13,59,46,0.12); border-left-color: var(--primary); }
@@ -198,17 +112,12 @@
             background: linear-gradient(135deg, rgba(201,169,97,0.2), rgba(201,169,97,0.1));
             color: var(--primary); padding: 0.3rem 1rem; border-radius: 20px; font-size: 0.85rem; font-weight: 600; border: 1px solid rgba(201,169,97,0.3);
         }
-        .material-tag.lecture {
-            background: linear-gradient(135deg, rgba(13,59,46,0.15), rgba(27,94,91,0.1));
-            border-color: rgba(13,59,46,0.3);
-        }
 
         .material-desc { font-size: 0.95rem; opacity: 0.85; line-height: 1.7; }
         .material-desc strong { color: var(--primary); }
         .material-desc em { color: var(--primary-light); font-style: italic; }
 
         .material-actions { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 0.5rem; }
-
         .btn {
             display: inline-flex; align-items: center; gap: 0.5rem;
             padding: 0.8rem 1.5rem; border-radius: 30px; text-decoration: none;
@@ -228,21 +137,11 @@
         }
         footer:before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--accent), var(--accent-light)); }
 
-        @media (max-width: 1200px) {
-            .side-nav { display: none; }
-            .main-wrapper { max-width: 100%; }
-            .content { max-width: 100%; padding: 3rem 1.5rem; }
-        }
-
+        @media (max-width: 1200px) { .side-nav { display: none; } .main-wrapper { max-width: 100%; } .content { max-width: 100%; padding: 3rem 1.5rem; } }
         @media (max-width: 768px) {
-            .nav { padding: 1rem 1.5rem; }
-            .nav-links { display: none; }
-            .burger { display: flex; }
-            .header { padding: 6.5rem 1.5rem 3rem; }
-            .header h1 { font-size: 2.2rem; }
-            .header p { font-size: 1rem; }
-            .material-header { flex-direction: column; align-items: flex-start; }
-            .content { padding: 2rem 1rem; }
+            .nav { padding: 1rem 1.5rem; } .nav-links { display: none; } .burger { display: flex; }
+            .header { padding: 6.5rem 1.5rem 3rem; } .header h1 { font-size: 2.2rem; } .header p { font-size: 1rem; }
+            .material-header { flex-direction: column; align-items: flex-start; } .content { padding: 2rem 1rem; }
         }
     </style>
 </head>
@@ -256,9 +155,7 @@
                 <li><a href="materials.html">← Назад к материалам</a></li>
                 <li><a href="contacts.html">Контакты</a></li>
             </ul>
-            <button class="burger" id="burger" aria-label="Меню">
-                <span></span><span></span><span></span>
-            </button>
+            <button class="burger" id="burger" aria-label="Меню"><span></span><span></span><span></span></button>
         </div>
     </nav>
 
@@ -271,240 +168,349 @@
     </div>
 
     <div class="header">
-        <h1> Ботаника</h1>
-        <p>Наука о растениях: от прокариотов и водорослей до покрытосеменных. Морфология, анатомия, систематика и физиология растений.</p>
+        <h1>🌿 Ботаника</h1>
+        <p>Наука о растениях: от прокариотов и водорослей до покрытосеменных. Морфология, анатомия, физиология и систематика растений.</p>
     </div>
 
     <div class="main-wrapper">
         <div class="content">
 
-            <!-- РАЗДЕЛ 1: ПРОКАРИОТЫ И ПРОТИСТЫ -->
-            <h2 class="section-title" id="section-prokaryotes">🦠 Прокариоты и протисты</h2>
-            <span class="section-subtitle">Бактерии, цианобактерии и одноклеточные водоросли</span>
+            <!-- РАЗДЕЛ 1: НИЗШИЕ РАСТЕНИЯ -->
+            <h2 class="section-title" id="section-lower">🦠 Низшие растения</h2>
+            <span class="section-subtitle">Прокариоты, водоросли и их классификация</span>
             <div class="material-list">
 
-                <div class="material-item" id="topic-prokaryotes">
+                <div class="material-item" id="topic-lower-plants">
                     <div class="material-header">
-                        <h3 class="material-title">Доядерные организмы (Прокариоты)</h3>
-                        <span class="material-tag">Bacteria · Cyanobacteria</span>
+                        <h3 class="material-title">Низшие растения: общая характеристика</h3>
+                        <span class="material-tag">Thallobionta</span>
                     </div>
                     <p class="material-desc">
-                        Общая характеристика прокариот: строение клетки, отсутствие ядра и мембранных органоидов, нуклеоид, плазмиды. <strong>Бактерии</strong>: формы клеток, способы питания (автотрофы, гетеротрофы, хемосинтетики), спорообразование, роль в природе и жизни человека. Патогенные бактерии и антибиотики. <strong>Цианобактерии</strong> (сине-зелёные водоросли): фотосинтез с выделением O₂, гетероцисты, азотфиксация, симбиоз с грибами (лишайники).
+                        Понятие «низшие растения» (введённое А.Л. Жюссье). Таллом (слоевище) — недифференцированное на органы вегетативное тело. Системы классификации органического мира: Аристотель (2 царства), Геккель (3 царства — <em>Protista</em>), Уиттекер (5 царств — <em>Monera, Protista, Fungi, Plantae, Animalia</em>), современная 6-имперная система (<em>Amoebozoa, Chromalveolata, Excavata, Opisthokonta, Plantae, Rhizaria</em>). Эндосимбиотическое происхождение митохондрий и хлоропластов (теория Маргелис).
                     </p>
                     <div class="material-actions">
-                        <a href="files/botany/prokaryotes.pdf" class="btn btn-primary" target="_blank">📥 Скачать PDF</a>
-                        <a href="files/botany/prokaryotes.pdf" class="btn btn-secondary" target="_blank">👁️ Смотреть онлайн</a>
+                        <a href="files/botany/lower_plants.pdf" class="btn btn-primary" target="_blank">📥 Скачать PDF</a>
+                        <a href="files/botany/lower_plants.pdf" class="btn btn-secondary" target="_blank">👁️ Смотреть онлайн</a>
                     </div>
                 </div>
 
-                <div class="material-item" id="topic-protists">
+                <div class="material-item" id="topic-algology">
                     <div class="material-header">
-                        <h3 class="material-title">Протисты: гетеротрофные и автотрофные</h3>
-                        <span class="material-tag">Protozoa · Algae</span>
+                        <h3 class="material-title">Основы альгологии</h3>
+                        <span class="material-tag">Algae · Morphology</span>
                     </div>
                     <p class="material-desc">
-                        Общая характеристика протистов. <strong>Гетеротрофные:</strong> амеба обыкновенная (пищеварение, осморегуляция сократительными вакуолями), инфузория-туфелька (ядерный дуализм, конъюгация). <strong>Автотрофные и автогетеротрофные:</strong> хлорелла (автотрофная), эвглена зелёная (автогетеротрофная, стигма, жгутик). Строение клетки протистов, способы размножения.
+                        Морфология талломов водорослей: монадный, коккоидный, нитчатый, ложнотканевый, тканевый, пластинчатый типы. Строение клеток прокариотных и эукариотных водорослей. <strong>Размножение:</strong> вегетативное (деление, фрагментация, пропагулы), бесполое (апланоспоры, зооспоры, митоспоры, мейоспоры), половое (конъюгация, изо-, гетеро-, оогамия). <strong>Жизненные циклы:</strong> с зиготической, гаметической, спорической и соматической редукцией; изоморфная и гетероморфная смены поколений. Экологические группы: фитопланктон, фитобентос, обрастатели, экстремофилы.
                     </p>
                     <div class="material-actions">
-                        <a href="files/botany/protists.pdf" class="btn btn-primary" target="_blank">📥 Скачать PDF</a>
-                        <a href="files/botany/protists.pdf" class="btn btn-secondary" target="_blank">👁️ Смотреть онлайн</a>
+                        <a href="files/botany/algology_basics.pdf" class="btn btn-primary" target="_blank">📥 Скачать PDF</a>
+                        <a href="files/botany/algology_basics.pdf" class="btn btn-secondary" target="_blank">👁️ Смотреть онлайн</a>
+                    </div>
+                </div>
+
+                <div class="material-item" id="topic-algae-groups">
+                    <div class="material-header">
+                        <h3 class="material-title">Основные группы водорослей</h3>
+                        <span class="material-tag">Cyanophyta · Rhodophyta · Chlorophyta · Ochrophyta · Euglenophyta</span>
+                    </div>
+                    <p class="material-desc">
+                        <strong>Цианобактерии (Cyanophyta):</strong> прокариоты, оксигенный фотосинтез, фикобилисомы, гетероцисты (азотфиксация), акинеты, газовые везикулы. <strong>Красные водоросли (Rhodophyta):</strong> фикоэритрин, багрянковый крахмал, агар и каррагинан, оогамия, жизненный цикл со спорической редукцией (порфира). <strong>Зелёные водоросли (Chlorophyta):</strong> хлорофиллы a и b, крахмал в хлоропласте, хламидомонада, вольвокс, улотрикс, спирогира (конъюгация), ульва (изоморфная смена поколений), хара. <strong>Охрофиты (Ochrophyta):</strong> диатомовые (кремнеземный панцирь, ауксоспоры), бурые (ламинария, фукус — гетероморфная смена). <strong>Эвгленовые (Euglenophyta):</strong> пелликула, парамилон, миксотрофия.
+                    </p>
+                    <div class="material-actions">
+                        <a href="files/botany/algae_groups.pdf" class="btn btn-primary" target="_blank">📥 Скачать PDF</a>
+                        <a href="files/botany/algae_groups.pdf" class="btn btn-secondary" target="_blank">👁️ Смотреть онлайн</a>
                     </div>
                 </div>
 
             </div>
 
-            <!-- РАЗДЕЛ 2: ВОДОРОСЛИ -->
-            <h2 class="section-title" id="section-algae">🌊 Водоросли</h2>
-            <span class="section-subtitle">Многоклеточные и колониальные формы, жизненные циклы</span>
-            <div class="material-list">
-
-                <div class="material-item" id="topic-algae-green">
-                    <div class="material-header">
-                        <h3 class="material-title">Зелёные водоросли</h3>
-                        <span class="material-tag">Chlorophyta</span>
-                    </div>
-                    <p class="material-desc">
-                        <strong>Одноклеточные:</strong> хламидомонада (жгутики, хроматофор, светочувствительный глазок, размножение). <strong>Колониальные:</strong> вольвокс — переход к многоклеточности, дифференциация клеток (соматические и генеративные). <strong>Многоклеточные нитчатые:</strong> улотрикс (ритмичное деление клеток, зооспоры), спирогира (спиральный хроматофор, конъюгация — половой процесс). <strong>Многоклеточные пластинчатые:</strong> ульва (слоевище, чередование поколений).
-                    </p>
-                    <div class="material-actions">
-                        <a href="files/botany/green_algae.pdf" class="btn btn-primary" target="_blank">📥 Скачать PDF</a>
-                        <a href="files/botany/green_algae.pdf" class="btn btn-secondary" target="_blank">👁️ Смотреть онлайн</a>
-                    </div>
-                </div>
-
-                <div class="material-item" id="topic-algae-brown">
-                    <div class="material-header">
-                        <h3 class="material-title">Бурые и красные водоросли</h3>
-                        <span class="material-tag">Phaeophyta · Rhodophyta</span>
-                    </div>
-                    <p class="material-desc">
-                        <strong>Бурые водоросли:</strong> ламинария (сахарная водоросль) — слоевище, ризоиды, таллом, запасное вещество ламинарин, фукоксантин. <strong>Красные водоросли (багрянки):</strong> порфира, филлофора — фикоэритрин, глубинное обитание, багрянковый крахмал. Экологическое и практическое значение водорослей.
-                    </p>
-                    <div class="material-actions">
-                        <a href="files/botany/brown_red_algae.pdf" class="btn btn-primary" target="_blank">📥 Скачать PDF</a>
-                        <a href="files/botany/brown_red_algae.pdf" class="btn btn-secondary" target="_blank">👁️ Смотреть онлайн</a>
-                    </div>
-                </div>
-
-                <div class="material-item" id="topic-algae-cycles">
-                    <div class="material-header">
-                        <h3 class="material-title">Жизненные циклы водорослей</h3>
-                        <span class="material-tag">Чередование поколений</span>
-                    </div>
-                    <p class="material-desc">
-                        Типы жизненных циклов: <strong>гаплофазный</strong> (у хламидомонады, спирогиры — зиготическая редукция), <strong>диплофазный</strong> (у фукуса — гаметическая редукция), <strong>гапло-диплофазный</strong> (у ульвы, ламинарии — спорическая редукция, чередование спорофита и гаметофита). Изоморфная и гетероморфная смены поколений.
-                    </p>
-                    <div class="material-actions">
-                        <a href="files/botany/algae_cycles.pdf" class="btn btn-primary" target="_blank">📥 Скачать PDF</a>
-                        <a href="files/botany/algae_cycles.pdf" class="btn btn-secondary" target="_blank">👁️ Смотреть онлайн</a>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- РАЗДЕЛ 3: ГРИБЫ И ЛИШАЙНИКИ -->
+            <!-- РАЗДЕЛ 2: ГРИБЫ И ЛИШАЙНИКИ -->
             <h2 class="section-title" id="section-fungi"> Грибы и лишайники</h2>
-            <span class="section-subtitle">Царство Fungi и симбиотические организмы</span>
+            <span class="section-subtitle">Микология и лихенология</span>
             <div class="material-list">
 
-                <div class="material-item" id="topic-fungi-general">
+                <div class="material-item" id="topic-mycology">
                     <div class="material-header">
-                        <h3 class="material-title">Общая характеристика грибов</h3>
-                        <span class="material-tag">Fungi</span>
+                        <h3 class="material-title">Микология: общая характеристика грибов</h3>
+                        <span class="material-tag">Fungi · Mycology</span>
                     </div>
                     <p class="material-desc">
-                        Признаки грибов: гетеротрофное питание (осмотрофное), хитиновая клеточная стенка, запасное вещество — гликоген, вегетативное тело — мицелий (грибница) из гиф. Размножение: вегетативное (фрагментация, почкование), бесполое (споры), половое. Систематическое положение: отдельное царство, близость к животным по биохимии.
+                        Грибы — гетеротрофные эукариоты с осмотрофным питанием. Строение грибной клетки: хитиновая клеточная стенка, редуцированный аппарат Гольджи, закрытый митоз, запасные вещества (гликоген, трегалоза, маннит). Вегетативное тело: <strong>несептированный</strong> (мукор) и <strong>септированный</strong> мицелий (сумчатые, базидиальные), дрожжи. <strong>Размножение:</strong> вегетативное (фрагментация, почкование), бесполое (апланоспоры, зооспоры, конидии), половое (гаметангиогамия, соматогамия, изо-/гетеро-/оогамия). <strong>Жизненные циклы:</strong> с зиготической редукцией (зигомицеты, большинство аскомицетов), гапло-дикариотический (базидиомицеты), с соматической редукцией (пекарские дрожжи). <strong>Экологические группы:</strong> сапротрофы, некротрофы, биотрофы, хищные грибы. Симбиозы: микориза (эндо- и экто-), лишайники.
                     </p>
                     <div class="material-actions">
-                        <a href="files/botany/fungi_general.pdf" class="btn btn-primary" target="_blank">📥 Скачать PDF</a>
-                        <a href="files/botany/fungi_general.pdf" class="btn btn-secondary" target="_blank">👁️ Смотреть онлайн</a>
-                    </div>
-                </div>
-
-                <div class="material-item" id="topic-fungi-groups">
-                    <div class="material-header">
-                        <h3 class="material-title">Основные группы грибов</h3>
-                        <span class="material-tag">Zygomycota · Ascomycota · Basidiomycota</span>
-                    </div>
-                    <p class="material-desc">
-                        <strong>Плесневые:</strong> мукор (неклеточный мицелий, спорангии, зигогамия), пеницилл (клеточный мицелий, конидии, антибиотик пенициллин), дрожжи (одноклеточные, почкование, брожение). <strong>Шляпочные:</strong> строение плодового тела (пенёк + шляпка), трубчатые и пластинчатые, микориза (симбиоз с корнями растений). Съедобные и ядовитые грибы. <strong>Грибы-паразиты:</strong> головня, спорынья, трутовик, фитофтора.
-                    </p>
-                    <div class="material-actions">
-                        <a href="files/botany/fungi_groups.pdf" class="btn btn-primary" target="_blank">📥 Скачать PDF</a>
-                        <a href="files/botany/fungi_groups.pdf" class="btn btn-secondary" target="_blank">️ Смотреть онлайн</a>
+                        <a href="files/botany/mycology.pdf" class="btn btn-primary" target="_blank">📥 Скачать PDF</a>
+                        <a href="files/botany/mycology.pdf" class="btn btn-secondary" target="_blank">️ Смотреть онлайн</a>
                     </div>
                 </div>
 
                 <div class="material-item" id="topic-lichens">
                     <div class="material-header">
-                        <h3 class="material-title">Лишайники</h3>
-                        <span class="material-tag">Lichenes · Симбиоз</span>
+                        <h3 class="material-title">Лишайники и грибоподобные организмы</h3>
+                        <span class="material-tag">Lichenes · Oomycota · Myxomycota</span>
                     </div>
                     <p class="material-desc">
-                        Лишайники — симбиотические организмы (гриб + водоросль/цианобактерия). Строение: накипные, листоватые, кустистые. Питание: гриб — вода и минералы, водоросль — фотосинтез. Размножение: вегетативное (соредии, изидии), половое (апотеции, перитеции). Экологическая роль: <strong>пионеры растительного покрова</strong>, индикаторы чистоты воздуха (чувствительность к SO₂). Цетрария исландская, кладония, ягель.
+                        <strong>Лишайники</strong> — ассоциация гриба (микобионт, обычно аскомицет) и фотобионта (зелёная водоросль или цианобактерия). Гомеомерный и гетеромерный таллом (верхняя кора, альгальный слой, сердцевина, нижняя кора). Накипные, листоватые, кустистые. Размножение: вегетативное (соредии, изидии), половое (только микобионт). Значение: пионеры растительности, корм оленей (ягель), лихеноиндикация. <strong>Оомицеты (Oomycota):</strong> псевдогрибы, диплобионты с гаметической редукцией, фитофтора (возбудитель фитофтороза картофеля). <strong>Миксомицеты (Myxomycota):</strong> слизевики, плазмодий, фаготрофное питание, диплобионтный жизненный цикл.
                     </p>
                     <div class="material-actions">
-                        <a href="files/botany/lichens.pdf" class="btn btn-primary" target="_blank">📥 Скачать PDF</a>
-                        <a href="files/botany/lichens.pdf" class="btn btn-secondary" target="_blank">️ Смотреть онлайн</a>
+                        <a href="files/botany/lichens_pseudofungi.pdf" class="btn btn-primary" target="_blank"> Скачать PDF</a>
+                        <a href="files/botany/lichens_pseudofungi.pdf" class="btn btn-secondary" target="_blank">️ Смотреть онлайн</a>
                     </div>
                 </div>
 
             </div>
 
-            <!-- РАЗДЕЛ 4: МОРФОЛОГИЯ И АНАТОМИЯ РАСТЕНИЙ -->
-            <h2 class="section-title" id="section-morphology">🌱 Морфология и анатомия растений</h2>
-            <span class="section-subtitle">Ткани, органы и их видоизменения</span>
+            <!-- РАЗДЕЛ 3: ТКАНИ ВЫСШИХ РАСТЕНИЙ -->
+            <h2 class="section-title" id="section-tissues">🌱 Ткани высших растений</h2>
+            <span class="section-subtitle">Гистология растений</span>
             <div class="material-list">
 
                 <div class="material-item" id="topic-tissues">
                     <div class="material-header">
-                        <h3 class="material-title">Ткани растений</h3>
-                        <span class="material-tag">Гистология растений</span>
+                        <h3 class="material-title">Ткани высших растений</h3>
+                        <span class="material-tag">Гистология · Меристемы</span>
                     </div>
                     <p class="material-desc">
-                        <strong>Образовательные (меристемы):</strong> верхушечные, боковые (камбий, феллоген), вставочные, раневые. <strong>Покровные:</strong> эпидермис (устьица, трихомы), перидерма (пробка, феллоген, феллодерма), корка. <strong>Проводящие:</strong> ксилема (трахеиды, сосуды, паренхима), флоэма (ситовидные трубки, клетки-спутники). <strong>Механические:</strong> колленхима, склеренхима (волокна, склереиды). <strong>Основные:</strong> ассимиляционная (хлоренхима), запасающая (паренхима), водоносная, воздухоносная (аэренхима).
+                        <strong>Образовательные ткани (меристемы):</strong> апикальные (верхушечные), латеральные (камбий, феллоген), интеркалярные (вставочные), раневые. Тунника и корпус апекса побега. <strong>Покровные:</strong> эпидерма (кутикула, устьица — парацитный, диацитный, анизоцитный, аномоцитный типы, трихомы), пробка (феллема), перидерма (феллема + феллоген + феллодерма), корка (ритидом), экзодерма, веламен. <strong>Проводящие:</strong> ксилема (трахеиды, сосуды, древесинная паренхима, волокна либриформа), флоэма (ситовидные трубки, клетки-спутницы, лубяная паренхима, лубяные волокна), трансфузионная ткань хвойных. <strong>Механические:</strong> колленхима (уголковая, пластинчатая, рыхлая), склеренхима (волокна, склереиды — стереом). <strong>Основные:</strong> хлоренхима (столбчатая, губчатая, складчатая), запасающая паренхима (крахмал в амилопластах, сахара в вакуолях, белки в алейроне, жиры в сферосомах), водоносная, аэренхима. <strong>Секреторные:</strong> экзогенные (гидатоды, железистые волоски, нектарники) и эндогенные (млечники, смоляные ходы).
                     </p>
                     <div class="material-actions">
-                        <a href="files/botany/plant_tissues.pdf" class="btn btn-primary" target="_blank">📥 Скачать PDF</a>
+                        <a href="files/botany/plant_tissues.pdf" class="btn btn-primary" target="_blank"> Скачать PDF</a>
                         <a href="files/botany/plant_tissues.pdf" class="btn btn-secondary" target="_blank">👁️ Смотреть онлайн</a>
-                    </div>
-                </div>
-
-                <div class="material-item" id="topic-root">
-                    <div class="material-header">
-                        <h3 class="material-title">Корень: строение и видоизменения</h3>
-                        <span class="material-tag">Radix</span>
-                    </div>
-                    <p class="material-desc">
-                        Функции корня: поглощение, закрепление, запасание, синтез. Типы корневых систем: стержневая и мочковатая. <strong>Зоны корня:</strong> корневой чехлик (калиптра), зона деления (меристема), зона растяжения, зона всасывания (корневые волоски), зона проведения. Внутреннее строение: эпиблема (ризодерма), кора, эндодерма (пояски Каспари), центральный цилиндр (перицикл, ксилема, флоэма). <strong>Видоизменения:</strong> корнеплоды (морковь, свёкла — участие корня и гипокотиля), корневые клубни (георгин, чистяк), ходульные и дыхательные корни, корни-присоски (омела).
-                    </p>
-                    <div class="material-actions">
-                        <a href="files/botany/root.pdf" class="btn btn-primary" target="_blank">📥 Скачать PDF</a>
-                        <a href="files/botany/root.pdf" class="btn btn-secondary" target="_blank">️ Смотреть онлайн</a>
-                    </div>
-                </div>
-
-                <div class="material-item" id="topic-shoot">
-                    <div class="material-header">
-                        <h3 class="material-title">Побег, почка и стебель</h3>
-                        <span class="material-tag">Caulis</span>
-                    </div>
-                    <p class="material-desc">
-                        Побег — стебель с листьями и почками. <strong>Почка:</strong> конус нарастания (меристема), зачаточные листья, чешуи. Вегетативные и генеративные почки. <strong>Стебель:</strong> функции (опорная, проводящая, запасающая). Рост в длину (верхушечная меристема) и толщину (камбий — вторичное утолщение). Строение стебля двудольных: эпидермис, кора, центральный цилиндр (кольцо проводящих пучков), сердцевина. <strong>Годичные кольца</strong> — чередование ранней и поздней древесины. Строение стебля однодольных — рассеянные пучки.
-                    </p>
-                    <div class="material-actions">
-                        <a href="files/botany/shoot_stem.pdf" class="btn btn-primary" target="_blank">📥 Скачать PDF</a>
-                        <a href="files/botany/shoot_stem.pdf" class="btn btn-secondary" target="_blank">👁️ Смотреть онлайн</a>
-                    </div>
-                </div>
-
-                <div class="material-item" id="topic-leaf">
-                    <div class="material-header">
-                        <h3 class="material-title">Лист: анатомия и функции</h3>
-                        <span class="material-tag">Folium</span>
-                    </div>
-                    <p class="material-desc">
-                        Функции листа: фотосинтез, транспирация, газообмен. Внешнее строение: черешок, листовая пластинка, прилистники. Простые и сложные листья. Жилкование: сетчатое, параллельное, дуговое. <strong>Анатомия:</strong> эпидермис (устьица — замыкающие клетки, хлоропласты), мезофилл (палисадная/столбчатая и губчатая паренхима), проводящие пучки. <strong>Устьичный аппарат:</strong> механизм открытия/закрытия, суточный ход. <strong>Фотосинтез:</strong> световая и темновая фазы, C₃- и C₄-растения. <strong>Транспирация:</strong> устьичная и кутикулярная.
-                    </p>
-                    <div class="material-actions">
-                        <a href="files/botany/leaf.pdf" class="btn btn-primary" target="_blank">📥 Скачать PDF</a>
-                        <a href="files/botany/leaf.pdf" class="btn btn-secondary" target="_blank">👁️ Смотреть онлайн</a>
-                    </div>
-                </div>
-
-                <div class="material-item" id="topic-modifications">
-                    <div class="material-header">
-                        <h3 class="material-title">Видоизменения побегов и вегетативное размножение</h3>
-                        <span class="material-tag">Метаморфозы органов</span>
-                    </div>
-                    <p class="material-desc">
-                        <strong>Подземные видоизменения:</strong> корневище (пырей, ландыш), клубень (картофель — глазки как пазушные почки), луковица (лук, тюльпан — сочные чешуи, донце). <strong>Наземные:</strong> колючки (боярышник, барбарис), усики (огурец, виноград), филлокладии и кладодии (иглица, кактусы). <strong>Вегетативное размножение:</strong> естественное (корневыми отпрысками, усами, делением куста) и искусственное (черенкование, прививки — копулировка, окулировка, аблактировка).
-                    </p>
-                    <div class="material-actions">
-                        <a href="files/botany/modifications.pdf" class="btn btn-primary" target="_blank"> Скачать PDF</a>
-                        <a href="files/botany/modifications.pdf" class="btn btn-secondary" target="_blank">👁️ Смотреть онлайн</a>
                     </div>
                 </div>
 
             </div>
 
-            <!-- РАЗДЕЛ 5: СПОРОВЫЕ РАСТЕНИЯ -->
-            <h2 class="section-title" id="section-spore"> Споровые растения</h2>
-            <span class="section-subtitle">Мхи, папоротники и их жизненные циклы</span>
+            <!-- РАЗДЕЛ 4: ВЕГЕТАТИВНЫЕ ОРГАНЫ -->
+            <h2 class="section-title" id="section-organs">🌿 Вегетативные органы растений</h2>
+            <span class="section-subtitle">Корень, стебель, лист и их видоизменения</span>
             <div class="material-list">
 
-                <div class="material-item" id="topic-mosses">
+                <div class="material-item" id="topic-vegetative-organs">
                     <div class="material-header">
-                        <h3 class="material-title">Моховидные (Bryophyta)</h3>
-                        <span class="material-tag">Bryopsida · Sphagnopsida</span>
+                        <h3 class="material-title">Вегетативные органы растений</h3>
+                        <span class="material-tag">Корень · Стебель · Лист</span>
                     </div>
                     <p class="material-desc">
-                        Общая характеристика: преобладание гаметофита над спорофитом, отсутствие настоящих корней (ризоиды), примитивная проводящая система. <strong>Зелёные мхи:</strong> кукушкин лён — строение (стебель, листья, ризоиды), двудомность, антеридии и архегонии, спорогон на ножке, коробочка с перистомом, предросток (протонема). <strong>Сфагновые мхи:</strong> сфагнум — отсутствие ризоидов, водоносные клетки, сфагнол (антисептик), образование торфа. Значение мхов.
+                        <strong>Корень:</strong> стержневая и мочковатая корневые системы. Зоны корня (чехлик, деления, растяжения, дифференцировки). Анатомия: ризодерма (трихобласты и атрихобласты), экзодерма, кора, эндодерма (пояски Каспари), перицикл, центральный цилиндр. Типы стел: протостела, актиностела, плектостела, сифоностела, диктиостела, эустела, атактостела. Вторичное утолщение (камбий, феллоген). <strong>Видоизменения корней:</strong> корнеплоды, корневые клубни, воздушные корни (веламен), ходульные, дыхательные (пневматофоры), корни-присоски (гаустории), микоризные корни, клубеньки (азотфиксация).
+                        <br><br>
+                        <strong>Стебель:</strong> функции (опорная, проводящая, запасающая, ассимиляционная). Узлы и междоузлия. Типы ветвления: дихотомическое, моноподиальное, симподиальное (монохазий, дихазий, плейохазий). Листорасположение (филлотаксис): очередное, супротивное, мутовчатое; спирали Фибоначчи. Анатомия стебля: первичная и вторичная структура, годичные кольца (ранняя и поздняя древесина), заболонь и ядро. <strong>Видоизменения побегов:</strong> корневище, клубень (картофель), луковица, клубнелуковица, колючки, усики, филлокладии и кладодии.
+                        <br><br>
+                        <strong>Лист:</strong> морфология (простые и сложные, жилкование — сетчатое, параллельное, дуговое, веерное). Анатомия: эпидермис, мезофилл (палисадная и губчатая хлоренхима), проводящие пучки. Устьичный аппарат и механизм его работы. <strong>Экологические группы:</strong> гидрофиты, гигрофиты, мезофиты, ксерофиты (суккуленты и склерофиты), скриофиты, гелиофиты, сциофиты. Адаптации к освещённости, газообмену и водному режиму. C-, C₄- и CAM-фотосинтез. Листопад. <strong>Видоизменения листьев:</strong> колючки, усики, филлодии, листья-ловушки (росянка, венерина мухоловка), сочные листья суккулентов.
                     </p>
                     <div class="material-actions">
-                        <a href="files/botany/mosses.pdf" class="btn btn-primary" target="_blank">📥 Скачать PDF</a>
-                        <a href="files/botany/mosses.pdf" class="btn btn-secondary" target="_blank">👁️ Смотреть онлайн</a>
+                        <a href="files/botany/vegetative_organs.pdf" class="btn btn-primary" target="_blank">📥 Скачать PDF</a>
+                        <a href="files/botany/vegetative_organs.pdf" class="btn btn-secondary" target="_blank">👁️ Смотреть онлайн</a>
                     </div>
                 </div>
 
-               
+            </div>
+
+            <!-- РАЗДЕЛ 5: ФОТОСИНТЕЗ -->
+            <h2 class="section-title" id="section-photosynthesis">️ Фотосинтез</h2>
+            <span class="section-subtitle">Световая и темновая фазы, типы фотосинтеза</span>
+            <div class="material-list">
+
+                <div class="material-item" id="topic-photosynthesis-light">
+                    <div class="material-header">
+                        <h3 class="material-title">Фотосинтез. Световая фаза</h3>
+                        <span class="material-tag">Хлоропласты · ЭТЦ · Фотосистемы</span>
+                    </div>
+                    <p class="material-desc">
+                        Хлоропласт как двумембранная органелла: наружная и внутренняя мембраны, строма, тилакоиды, граны, ламеллы. Фотосинтетические пигменты: <strong>хлорофиллы</strong> (a, b, c, d, бактериохлорофиллы), <strong>каротиноиды</strong> (каротины и ксантофиллы — фотопротекция, тушение триплетного хлорофилла), <strong>фикобилипротеины</strong> (фикоэритрин, фикоцианин — у цианобактерий и красных водорослей). Антенные комплексы и миграция экситонов. <strong>Фотосистема II (P680):</strong> белки D1/D2, феофитин, хиноны QA/QB, марганцевый кластер (окисление воды: 2H₂O → 4e⁻ + 4H⁺ + O₂), виолаксантиновый цикл. <strong>Цитохром b₆/f:</strong> Q-цикл, перенос 4H⁺ на пластохинол. <strong>Фотосистема I (P700):</strong> ферредоксин, FNR, восстановление NADP⁺ до NADPH. <strong>АТФ-синтаза:</strong> синтез АТФ за счёт протонного градиента. Циклический транспорт электронов вокруг ФСI. Фотодыхание и реакция Мелера.
+                    </p>
+                    <div class="material-actions">
+                        <a href="files/botany/photosynthesis_light.pdf" class="btn btn-primary" target="_blank">📥 Скачать PDF</a>
+                        <a href="files/botany/photosynthesis_light.pdf" class="btn btn-secondary" target="_blank">👁️ Смотреть онлайн</a>
+                    </div>
+                </div>
+
+                <div class="material-item" id="topic-photosynthesis-dark">
+                    <div class="material-header">
+                        <h3 class="material-title">Фотосинтез. Темновая фаза</h3>
+                        <span class="material-tag">Цикл Кальвина · C · C₄ · CAM</span>
+                    </div>
+                    <p class="material-desc">
+                        Светозависимая регуляция ферментов: тиоредоксиновая система, pH стромы, Mg²⁺. <strong>Цикл Кальвина (CBB):</strong> три стадии — карбоксилирование (RuBisCO: L₈S₈, 8 активных сайтов, активация через карбамат и Mg²⁺, активаза RuBisCO), восстановление (3-ФГК → 1,3-дФГК → ГА3Ф с затратой ATP и NADPH), регенерация (альдолазные, транскетолазные и фосфатазные реакции; TPP как кофермент). Стехиометрия: 3CO₂ + 6NADPH + 9ATP → ГА3Ф. <strong>Фотодыхание (C₂-путь):</strong> оксигеназная активность RuBisCO → 2-фосфогликолат → гликолат → глиоксилат → глицин → серин (в пероксисомах и митохондриях) → 3-ФГК. Затраты: 5 ATP + 3 NADPH на 2 акта оксигеназии. <strong>C₄-фотосинтез (цикл Хэтча-Слэка-Карпилова):</strong> ФЕП-карбоксилаза в мезофилле → оксалоацетат → малат/аспартат → клетка обкладки → декарбоксилирование → CO₂ для RuBisCO. Кранц-анатомия. Подтипы: NADP-ME, NAD⁺-ME, ФЕП-карбоксикиназный. <strong>CAM-фотосинтез:</strong> временное разделение — ночная фиксация CO₂ ФЕП-карбоксилазой → малат в вакуоли (pH↓), дневное декарбоксилирование → CO₂ для RuBisCO при закрытых устьицах.
+                    </p>
+                    <div class="material-actions">
+                        <a href="files/botany/photosynthesis_dark.pdf" class="btn btn-primary" target="_blank">📥 Скачать PDF</a>
+                        <a href="files/botany/photosynthesis_dark.pdf" class="btn btn-secondary" target="_blank">👁️ Смотреть онлайн</a>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- РАЗДЕЛ 6: СИСТЕМАТИКА ПОКРЫТОСЕМЕННЫХ -->
+            <h2 class="section-title" id="section-systematics">🌸 Систематика покрытосеменных</h2>
+            <span class="section-subtitle">Семейства двудольных и однодольных растений</span>
+            <div class="material-list">
+
+                <div class="material-item" id="topic-angiosperms">
+                    <div class="material-header">
+                        <h3 class="material-title">Характеристика семейств покрытосеменных</h3>
+                        <span class="material-tag">Dicotyledones · Monocotyledones</span>
+                    </div>
+                    <p class="material-desc">
+                        <strong>Класс Двудольные (Dicotyledones):</strong>
+                        <br>• <strong>Крестоцветные (Brassicaceae):</strong> Ч₄Л₄Т₂₊П₁, плод — стручок/стручочек. Капуста, редька, редис, пастушья сумка.
+                        <br>• <strong>Розоцветные (Rosaceae):</strong> Ч₅Л₅Т∞П∞, плоды — яблоко, костянка, многокостянка, многоорешек. Яблоня, вишня, малина, шиповник, роза, земляника.
+                        <br>• <strong>Бобовые (Fabaceae):</strong> Ч(₅)Л₁₊₂₊(₂)Т(₉)₊₁П₁, плод — боб. Симбиоз с клубеньковыми бактериями (азотфиксация). Горох, фасоль, соя, клевер, акация.
+                        <br>• <strong>Паслёновые (Solanaceae):</strong> Ч(₅)Л(₅)Т₅П₁, плод — ягода/коробочка. Томат, картофель, перец, табак, белена, дурман.
+                        <br>• <strong>Астровые/Сложноцветные (Asteraceae):</strong> соцветие корзинка, Ч₅Л(₅)Т(₅)П₁, плод — семянка (часто с хохолком). Подсолнечник, ромашка, одуванчик, астра, хризантема.
+                        <br><br>
+                        <strong>Класс Однодольные (Monocotyledones):</strong>
+                        <br>• <strong>Лилейные (Liliaceae):</strong> О₊₃Т₃₊₃П₁, плод — коробочка/ягода. Лук, тюльпан, лилия, ландыш.
+                        <br>• <strong>Злаки/Мятликовые (Poaceae):</strong> цветок редуцирован, соцветие — колосок, О(₂)₊₂Т₃П₁, плод — зерновка. Пшеница, рожь, кукуруза, рис, бамбук. Стебель — соломина, лист с влагалищем и язычком.
+                    </p>
+                    <div class="material-actions">
+                        <a href="files/botany/angiosperm_families.pdf" class="btn btn-primary" target="_blank">📥 Скачать PDF</a>
+                        <a href="files/botany/angiosperm_families.pdf" class="btn btn-secondary" target="_blank">👁️ Смотреть онлайн</a>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- РАЗДЕЛ 7: ЖИЗНЕННЫЕ ЦИКЛЫ -->
+            <h2 class="section-title" id="section-cycles">🔄 Жизненные циклы организмов</h2>
+            <span class="section-subtitle">Закономерности смены поколений</span>
+            <div class="material-list">
+
+                <div class="material-item" id="topic-life-cycles">
+                    <div class="material-header">
+                        <h3 class="material-title">Жизненные циклы: от простейших до хордовых</h3>
+                        <span class="material-tag">Онтогенез · Метагенез · Чередование поколений</span>
+                    </div>
+                    <p class="material-desc">
+                        <strong>Простейшие:</strong> гаплофазный цикл с зиготической редукцией (хламидомонада, спирогира), диплофазный с гаметической редукцией (диатомовые, фукус), гапло-диплофазный со спорической редукцией (ульва — изоморфная, ламинария — гетероморфная смена поколений). <strong>Кишечнополостные (Cnidaria):</strong> метагенез — чередование полипа (бесполое поколение) и медузы (половое поколение). <strong>Плоские черви (Trematoda):</strong> сложный цикл с чередованием марит, спороцист, редий и церкариев. <strong>Кольчатые черви:</strong> спиральное детерминированное дробление, личинка трохофора → нектохета. <strong>Моллюски:</strong> трохофорная личинка → велигер. <strong>Членистоногие:</strong> аметаболия, паурометаболия, гемиметаболия, голометаболия. <strong>Иглокожие:</strong> личинки (бипиннария, брахиолярия, ехиноплютеус, аурикулярия, долиолярия) с метаморфозом. <strong>Хордовые:</strong> оболочники (личинка с хордой → метаморфоз), ланцетник, позвоночные.
+                    </p>
+                    <div class="material-actions">
+                        <a href="files/botany/life_cycles.pdf" class="btn btn-primary" target="_blank">📥 Скачать PDF</a>
+                        <a href="files/botany/life_cycles.pdf" class="btn btn-secondary" target="_blank">👁️ Смотреть онлайн</a>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Side Navigation -->
+        <aside class="side-nav">
+            <h3>📑 Навигация</h3>
+            
+            <div class="nav-section">
+                <h4> Низшие растения</h4>
+                <ul>
+                    <li><a href="#topic-lower-plants" class="nav-link">Общая характеристика</a></li>
+                    <li><a href="#topic-algology" class="nav-link">Основы альгологии</a></li>
+                    <li><a href="#topic-algae-groups" class="nav-link">Группы водорослей</a></li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h4>🍄 Грибы и лишайники</h4>
+                <ul>
+                    <li><a href="#topic-mycology" class="nav-link">Микология</a></li>
+                    <li><a href="#topic-lichens" class="nav-link">Лишайники и псевдогрибы</a></li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h4>🌱 Ткани растений</h4>
+                <ul>
+                    <li><a href="#topic-tissues" class="nav-link">Ткани высших растений</a></li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h4>🌿 Вегетативные органы</h4>
+                <ul>
+                    <li><a href="#topic-vegetative-organs" class="nav-link">Корень, стебель, лист</a></li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h4>☀️ Фотосинтез</h4>
+                <ul>
+                    <li><a href="#topic-photosynthesis-light" class="nav-link">Световая фаза</a></li>
+                    <li><a href="#topic-photosynthesis-dark" class="nav-link">Темновая фаза</a></li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h4>🌸 Систематика</h4>
+                <ul>
+                    <li><a href="#topic-angiosperms" class="nav-link">Семейства покрытосеменных</a></li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h4>🔄 Жизненные циклы</h4>
+                <ul>
+                    <li><a href="#topic-life-cycles" class="nav-link">Смена поколений</a></li>
+                </ul>
+            </div>
+        </aside>
+    </div>
+
+    <footer>
+        <p>© 2026 Ресурсный центр «Биология» | Даниленко А.А.</p>
+        <p>Email: zz999an@yandex.by | г. Хойники, школа №3</p>
+    </footer>
+
+    <script>
+        const burger = document.getElementById('burger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        if (burger) {
+            burger.addEventListener('click', () => {
+                burger.classList.toggle('active');
+                mobileMenu.classList.toggle('active');
+                document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+            });
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    burger.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            });
+        }
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => entry.target.classList.add('visible'), index * 80);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+
+        document.querySelectorAll('.material-item').forEach(el => observer.observe(el));
+
+        const sections = document.querySelectorAll('.material-item, .section-title');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (scrollY >= (sectionTop - 150)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').slice(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        document.querySelectorAll('.nav-section h4').forEach(header => {
+            header.addEventListener('click', () => {
+                header.parentElement.classList.toggle('collapsed');
+            });
+        });
+    </script>
+</body>
+</html>
