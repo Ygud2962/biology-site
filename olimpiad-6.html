@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Олимпиада по биологии: 6 класс - Ресурсный центр "Биология"</title>
+    <title>Олимпиада по биологии: 6 класс - Интерактивный тест</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
             --primary: #0D3B2E; --primary-light: #1B5E5B; --accent: #C9A961;
             --accent-light: #D4B570; --bg: #FAFAF7; --text: #2B2D42; --white: #FFFFFF;
+            --correct: #28a745; --incorrect: #dc3545;
         }
         html { scroll-behavior: smooth; scroll-padding-top: 100px; }
         body { font-family: 'Raleway', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
@@ -61,84 +62,198 @@
         .header h1 { font-size: 2.8rem; margin-bottom: 1rem; letter-spacing: 2px; position: relative; z-index: 1; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
         .header p { font-size: 1.1rem; opacity: 0.95; font-weight: 300; max-width: 800px; margin: 0 auto; position: relative; z-index: 1; line-height: 1.8; }
 
+        .download-banner {
+            background: linear-gradient(135deg, rgba(201,169,97,0.15), rgba(13,59,46,0.08));
+            border: 2px solid var(--accent);
+            border-radius: 15px;
+            padding: 1.5rem 2rem;
+            margin: 2rem auto;
+            max-width: 1100px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .download-banner h3 {
+            color: var(--primary);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        .download-banner .btn-download {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            background: var(--primary);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        .download-banner .btn-download:hover {
+            background: var(--accent);
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+
         .main-wrapper { display: flex; max-width: 1400px; margin: 0 auto; position: relative; }
-        .content { flex: 1; padding: 4rem 2rem; max-width: 1100px; }
+        .content { flex: 1; padding: 2rem 2rem; max-width: 1100px; }
 
         .side-nav {
-            position: sticky; top: 100px; width: 300px; padding: 2rem 1.5rem;
+            position: sticky; top: 100px; width: 280px; padding: 1.5rem 1rem;
             background: var(--white); border-radius: 15px; box-shadow: 0 5px 20px rgba(13,59,46,0.1);
             margin-left: 2rem; align-self: flex-start; max-height: calc(100vh - 120px); overflow-y: auto;
         }
-        .side-nav h3 { font-size: 1.1rem; color: var(--primary); margin-bottom: 1.5rem; padding-bottom: 0.8rem; border-bottom: 2px solid var(--accent); }
+        .side-nav h3 {
+            font-size: 1.1rem; color: var(--primary); margin-bottom: 1rem; padding-bottom: 0.8rem;
+            border-bottom: 2px solid var(--accent);
+        }
         .nav-section { margin-bottom: 1rem; }
         .nav-section h4 {
-            font-size: 0.95rem; color: var(--primary); margin-bottom: 0.5rem; padding-bottom: 0.5rem;
+            font-size: 0.9rem; color: var(--primary); margin-bottom: 0.5rem; padding-bottom: 0.4rem;
             border-bottom: 1px solid rgba(201,169,97,0.3); font-weight: 600; cursor: pointer;
             display: flex; justify-content: space-between; align-items: center; transition: color 0.3s;
         }
         .nav-section h4:hover { color: var(--accent); }
         .nav-section h4::after { content: '▼'; font-size: 0.7rem; transition: transform 0.3s ease; }
         .nav-section.collapsed h4::after { transform: rotate(-90deg); }
-        .nav-section ul { list-style: none; padding-left: 0; transition: max-height 0.3s ease, opacity 0.3s ease; }
+        .nav-section ul { list-style: none; padding-left: 0; }
         .nav-section.collapsed ul { display: none; }
-        .nav-section li { margin-bottom: 0.3rem; }
+        .nav-section li { margin-bottom: 0.2rem; }
         .nav-section a {
-            display: block; padding: 0.5rem 1rem 0.5rem 1.5rem; color: var(--text); text-decoration: none;
-            border-radius: 6px; font-size: 0.85rem; font-weight: 500; transition: all 0.3s ease; border-left: 3px solid transparent;
+            display: block; padding: 0.4rem 0.8rem 0.4rem 1.2rem; color: var(--text); text-decoration: none;
+            border-radius: 6px; font-size: 0.8rem; font-weight: 500; transition: all 0.3s ease;
+            border-left: 3px solid transparent;
         }
         .nav-section a:hover { background: rgba(201,169,97,0.1); border-left-color: var(--accent); color: var(--primary); transform: translateX(3px); }
         .nav-section a.active { background: rgba(13,59,46,0.1); border-left-color: var(--primary); color: var(--primary); font-weight: 600; }
+        .nav-section a.answered-correct { border-left-color: var(--correct); }
+        .nav-section a.answered-wrong { border-left-color: var(--incorrect); }
 
         .section-title {
-            font-size: 1.8rem; color: var(--primary); margin: 3rem 0 1rem; padding-bottom: 0.8rem;
+            font-size: 1.8rem; color: var(--primary); margin: 2rem 0 1rem; padding-bottom: 0.8rem;
             border-bottom: 3px solid var(--accent); display: inline-block; position: relative; scroll-margin-top: 100px;
         }
         .section-title:after { content: ''; position: absolute; bottom: -3px; left: 0; width: 100px; height: 3px; background: var(--primary); }
-        .section-subtitle { font-size: 1rem; color: var(--text); opacity: 0.7; margin-bottom: 2rem; font-style: italic; display: block; }
+        .section-subtitle { font-size: 1rem; color: var(--text); opacity: 0.7; margin-bottom: 1.5rem; font-style: italic; display: block; }
 
-        .material-list { display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 2rem; }
-        .material-item {
+        .question-card {
             background: var(--white); border-radius: 15px; padding: 2rem;
             box-shadow: 0 5px 20px rgba(0,0,0,0.06); border-left: 5px solid var(--accent);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); display: flex; flex-direction: column; gap: 1rem;
-            opacity: 0; transform: translateY(30px); scroll-margin-top: 120px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); margin-bottom: 1.5rem;
+            scroll-margin-top: 120px;
         }
-        .material-item.visible { opacity: 1; transform: translateY(0); }
-        .material-item:hover { transform: translateX(10px); box-shadow: 0 15px 40px rgba(13,59,46,0.12); border-left-color: var(--primary); }
+        .question-card:hover { box-shadow: 0 15px 40px rgba(13,59,46,0.12); }
+        .question-card.correct { border-left-color: var(--correct); }
+        .question-card.incorrect { border-left-color: var(--incorrect); }
 
-        .material-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
-        .material-title { font-size: 1.4rem; color: var(--primary); font-weight: 600; flex: 1; }
-        .material-tag {
-            background: linear-gradient(135deg, rgba(201,169,97,0.2), rgba(201,169,97,0.1));
-            color: var(--primary); padding: 0.3rem 1rem; border-radius: 20px; font-size: 0.85rem; font-weight: 600; border: 1px solid rgba(201,169,97,0.3);
+        .question-number {
+            font-size: 0.9rem; color: var(--accent); font-weight: 600;
+            margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 1px;
         }
-        .material-desc { font-size: 0.95rem; opacity: 0.85; line-height: 1.7; }
-        .material-desc strong { color: var(--primary); }
-        .material-actions { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 0.5rem; }
+        .question-text {
+            font-size: 1.05rem; color: var(--text); margin-bottom: 1.5rem; line-height: 1.7;
+        }
+        .question-text em { color: var(--primary-light); font-style: italic; }
+        .question-text strong { color: var(--primary); }
 
-        .btn {
-            display: inline-flex; align-items: center; gap: 0.5rem;
-            padding: 0.8rem 1.5rem; border-radius: 30px; text-decoration: none;
-            font-weight: 600; font-size: 0.9rem; transition: all 0.3s ease;
+        .image-placeholder {
+            background: linear-gradient(135deg, rgba(13,59,46,0.05), rgba(201,169,97,0.08));
+            border: 2px dashed var(--accent);
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            margin: 1rem 0;
+            color: var(--primary);
+            font-style: italic;
         }
-        .btn-primary {
+
+        .options { display: flex; flex-direction: column; gap: 0.8rem; }
+        .option {
+            display: flex; align-items: center; padding: 1rem 1.5rem;
+            background: var(--bg); border: 2px solid transparent;
+            border-radius: 10px; cursor: pointer; transition: all 0.3s ease;
+        }
+        .option:hover { background: rgba(201,169,97,0.1); border-color: var(--accent); }
+        .option input[type="radio"],
+        .option input[type="checkbox"] {
+            margin-right: 1rem; width: 20px; height: 20px; cursor: pointer; accent-color: var(--primary);
+        }
+        .option label { cursor: pointer; flex: 1; font-size: 1rem; line-height: 1.5; }
+        .option.correct { background: rgba(40,167,69,0.15); border-color: var(--correct); }
+        .option.incorrect { background: rgba(220,53,69,0.15); border-color: var(--incorrect); }
+        .option.correct label::after { content: ' ✓'; color: var(--correct); font-weight: bold; font-size: 1.2rem; }
+        .option.incorrect label::after { content: ' ✗'; color: var(--incorrect); font-weight: bold; font-size: 1.2rem; }
+
+        .matching-row {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0.8rem 1rem; background: var(--bg); border-radius: 8px;
+            margin-bottom: 0.5rem; flex-wrap: wrap; gap: 0.5rem;
+        }
+        .matching-row label { flex: 1; font-weight: 500; }
+        .matching-row select {
+            padding: 0.5rem 1rem; border: 2px solid #e0e0e0; border-radius: 8px;
+            font-size: 0.95rem; font-family: 'Raleway', sans-serif; cursor: pointer;
+            background: var(--white); transition: border-color 0.3s;
+        }
+        .matching-row select:focus { outline: none; border-color: var(--accent); }
+        .matching-row.correct { background: rgba(40,167,69,0.15); border: 2px solid var(--correct); }
+        .matching-row.incorrect { background: rgba(220,53,69,0.15); border: 2px solid var(--incorrect); }
+
+        .check-btn {
+            display: block; width: 100%; padding: 1.2rem;
             background: linear-gradient(135deg, var(--accent), var(--accent-light));
-            color: var(--primary); box-shadow: 0 4px 15px rgba(201,169,97,0.3);
+            color: var(--primary); border: none; border-radius: 30px;
+            font-size: 1.1rem; font-weight: 600; cursor: pointer;
+            transition: all 0.3s ease; margin: 2rem 0;
+            font-family: 'Raleway', sans-serif;
         }
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(201,169,97,0.5); }
-        .btn-secondary { background: var(--bg); color: var(--primary); border: 1px solid rgba(13,59,46,0.2); }
-        .btn-secondary:hover { background: var(--primary); color: var(--white); }
+        .check-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(201,169,97,0.5); }
+
+        .results {
+            background: var(--white); border-radius: 15px; padding: 2rem;
+            margin: 2rem 0; box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+            border-left: 5px solid var(--accent); display: none;
+        }
+        .results.show { display: block; animation: fadeIn 0.5s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .results h3 { font-size: 1.5rem; color: var(--primary); margin-bottom: 1rem; }
+        .score { font-size: 2.5rem; color: var(--accent); font-weight: 700; margin: 1rem 0; font-family: 'Playfair Display', serif; }
+        .score-details { font-size: 1rem; opacity: 0.85; line-height: 1.8; }
+        .score-details strong { color: var(--primary); }
+        .reset-btn {
+            display: inline-block; padding: 0.8rem 2rem;
+            background: var(--primary); color: var(--white);
+            border: none; border-radius: 30px; cursor: pointer;
+            font-size: 1rem; font-weight: 600; margin-top: 1rem;
+            transition: all 0.3s ease; font-family: 'Raleway', sans-serif;
+        }
+        .reset-btn:hover { background: var(--accent); color: var(--primary); }
+
+        .legend {
+            background: var(--white); border-radius: 10px; padding: 1rem 1.5rem;
+            margin: 1.5rem 0; display: flex; gap: 1.5rem; flex-wrap: wrap;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+        }
+        .legend-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; }
+        .legend-color { width: 20px; height: 20px; border-radius: 5px; }
+        .legend-color.correct { background: var(--correct); }
+        .legend-color.incorrect { background: var(--incorrect); }
+        .legend-color.unchecked { background: #e0e0e0; }
 
         footer {
             background: linear-gradient(135deg, var(--text), #1a1a2e);
-            color: var(--white); text-align: center; padding: 2.5rem; margin-top: 5rem; font-size: 0.9rem; position: relative; overflow: hidden;
+            color: var(--white); text-align: center; padding: 2.5rem; margin-top: 3rem; font-size: 0.9rem; position: relative; overflow: hidden;
         }
         footer:before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--accent), var(--accent-light)); }
 
         @media (max-width: 1200px) {
             .side-nav { display: none; }
             .main-wrapper { max-width: 100%; }
-            .content { max-width: 100%; padding: 3rem 1.5rem; }
+            .content { max-width: 100%; padding: 2rem 1.5rem; }
         }
         @media (max-width: 768px) {
             .nav { padding: 1rem 1.5rem; }
@@ -147,8 +262,8 @@
             .header { padding: 6.5rem 1.5rem 3rem; }
             .header h1 { font-size: 2.2rem; }
             .header p { font-size: 1rem; }
-            .material-header { flex-direction: column; align-items: flex-start; }
-            .content { padding: 2rem 1rem; }
+            .content { padding: 1.5rem 1rem; }
+            .download-banner { flex-direction: column; }
         }
     </style>
 </head>
@@ -178,129 +293,393 @@
 
     <div class="header">
         <h1>🏆 Олимпиада по биологии: 6 класс</h1>
-        <p>Всероссийская олимпиада школьников. Пригласительный этап 2025 года. Тренировочные задания и подробные критерии оценивания.</p>
+        <p>Всероссийская олимпиада школьников 2025 года. Пригласительный этап. Интерактивный тест с автоматической проверкой.</p>
+    </div>
+
+    <!-- Скачать документы (В НАЧАЛЕ) -->
+    <div class="download-banner">
+        <div>
+            <h3>📥 Скачать оригинальные документы</h3>
+            <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 0.3rem;">Официальные материалы олимпиады 2025 года</p>
+        </div>
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+            <a href="files/olympiads/olympiad_6_tasks.pdf" class="btn-download" target="_blank">📄 Задания (PDF)</a>
+            <a href="files/olympiads/olympiad_6_answers.pdf" class="btn-download" target="_blank">✅ Ответы (PDF)</a>
+        </div>
     </div>
 
     <div class="main-wrapper">
         <div class="content">
 
-            <h2 class="section-title" id="section-overview">📋 Паспорт работы</h2>
-            <span class="section-subtitle">Структура и правила выполнения</span>
-            <div class="material-list">
-                <div class="material-item" id="topic-overview">
-                    <div class="material-header">
-                        <h3 class="material-title">Общая информация</h3>
-                        <span class="material-tag">Максимальный балл: 150</span>
-                    </div>
-                    <p class="material-desc">
-                        Работа состоит из трех частей, проверяющих разные уровни биологической грамотности: от базовых знаний строения клетки и экологии до умения анализировать множественный выбор и устанавливать логические соответствия. 
-                        <br><br>
-                        <strong>Часть 1:</strong> 15 заданий с одним правильным ответом (по 5 баллов).<br>
-                        <strong>Часть 2:</strong> 5 заданий с множественным выбором (до 10 баллов за задание).<br>
-                        <strong>Часть 3:</strong> 1 задание на установление соответствия (25 баллов).
-                    </p>
-                    <div class="material-actions">
-                        <a href="files/olympiads/grade_6_tasks.pdf" class="btn btn-primary" target="_blank">📥 Скачать задания (PDF)</a>
-                        <a href="files/olympiads/grade_6_answers.pdf" class="btn btn-secondary" target="_blank">📥 Скачать ответы (PDF)</a>
-                    </div>
+            <!-- Легенда -->
+            <div class="legend">
+                <div class="legend-item"><div class="legend-color unchecked"></div> Не проверено</div>
+                <div class="legend-item"><div class="legend-color correct"></div> Правильно</div>
+                <div class="legend-item"><div class="legend-color incorrect"></div> Неправильно</div>
+            </div>
+
+            <!-- ЧАСТЬ 1 -->
+            <h2 class="section-title" id="section-part1">📝 Часть 1: Тестовые задания</h2>
+            <span class="section-subtitle">Один правильный ответ из четырёх. Максимум 5 баллов за задание. Всего: 75 баллов.</span>
+
+            <div class="question-card" id="q1" data-answer="d">
+                <div class="question-number">Вопрос 1 (5 баллов)</div>
+                <div class="question-text">Какой микроскоп изображён на рисунке?</div>
+                <div class="image-placeholder">📷 Изображение микроскопа (см. оригинальный PDF)</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q1" id="q1a" value="a"><label for="q1a">Стереомикроскоп</label></div>
+                    <div class="option"><input type="radio" name="q1" id="q1b" value="b"><label for="q1b">Сканирующий электронный микроскоп (СЭМ)</label></div>
+                    <div class="option"><input type="radio" name="q1" id="q1c" value="c"><label for="q1c">Просвечивающий электронный микроскоп (ПЭМ)</label></div>
+                    <div class="option"><input type="radio" name="q1" id="q1d" value="d"><label for="q1d">Оптический микроскоп</label></div>
                 </div>
             </div>
 
-            <h2 class="section-title" id="section-part1">Часть 1: Тестовые задания</h2>
-            <span class="section-subtitle">Один правильный ответ из четырех предложенных</span>
-            <div class="material-list">
-                <div class="material-item" id="topic-part1">
-                    <div class="material-header">
-                        <h3 class="material-title">Блок 1 (Задания 1–15)</h3>
-                        <span class="material-tag">75 баллов</span>
-                    </div>
-                    <p class="material-desc">
-                        Задания охватывают базовые темы курса биологии 6 класса: устройство микроскопа, продолжительность жизни организмов, экологические проблемы (пластик в океане и медузы), строение клетки хламидомонады, распознавание вирусов, скорость деления бактерий, определение тканей растений (флоэма), биогеографические зоны (тундра), научные методы (наблюдение), генетика близнецов и основы первой помощи (приём Геймлиха).
-                    </p>
-                    <div class="material-actions">
-                        <a href="files/olympiads/grade_6_tasks.pdf#page=1" class="btn btn-secondary" target="_blank">👁️ Открыть в PDF</a>
-                    </div>
+            <div class="question-card" id="q2" data-answer="b">
+                <div class="question-number">Вопрос 2 (5 баллов)</div>
+                <div class="question-text">Продолжительность жизни какого организма может составлять более 2000 лет?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q2" id="q2a" value="a"><label for="q2a">Ворона</label></div>
+                    <div class="option"><input type="radio" name="q2" id="q2b" value="b"><label for="q2b">Секвойи</label></div>
+                    <div class="option"><input type="radio" name="q2" id="q2c" value="c"><label for="q2c">Холерного вибриона</label></div>
+                    <div class="option"><input type="radio" name="q2" id="q2d" value="d"><label for="q2d">Бурой водоросли ламинарии</label></div>
                 </div>
             </div>
 
-            <h2 class="section-title" id="section-part2">Часть 2: Множественный выбор</h2>
-            <span class="section-subtitle">Один или несколько верных ответов</span>
-            <div class="material-list">
-                <div class="material-item" id="topic-part2">
-                    <div class="material-header">
-                        <h3 class="material-title">Блок 2 (Задания 16–20)</h3>
-                        <span class="material-tag">50 баллов</span>
-                    </div>
-                    <p class="material-desc">
-                        Более сложные задания, требующие глубокого понимания материала. Темы: жизненный цикл насекомых-вредителей, функции покровных тканей высших растений, чередование поколений у зелёных водорослей, физиологические и поведенческие адаптации животных к холодному климату (спячка и миграция), а также функции клеток корневого чехлика (защита и геотропизм).
-                    </p>
-                    <div class="material-actions">
-                        <a href="files/olympiads/grade_6_tasks.pdf#page=9" class="btn btn-secondary" target="_blank">👁️ Открыть в PDF</a>
-                    </div>
+            <div class="question-card" id="q3" data-answer="b">
+                <div class="question-number">Вопрос 3 (5 баллов)</div>
+                <div class="question-text">В моря и океаны попадает всё больше пластиковых отходов, которые угрожают жизни и благополучию морских животных. Некоторые из них поедают полиэтиленовые пакеты, ошибочно принимая их за привычные пищевые объекты. Пакеты чаще всего заглатывают животные, которые в норме питаются...</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q3" id="q3a" value="a"><label for="q3a">Рыбой</label></div>
+                    <div class="option"><input type="radio" name="q3" id="q3b" value="b"><label for="q3b">Медузами</label></div>
+                    <div class="option"><input type="radio" name="q3" id="q3c" value="c"><label for="q3c">Водорослями</label></div>
+                    <div class="option"><input type="radio" name="q3" id="q3d" value="d"><label for="q3d">Зоопланктоном</label></div>
                 </div>
             </div>
 
-            <h2 class="section-title" id="section-part3">Часть 3: Задание на соответствие</h2>
-            <span class="section-subtitle">Установление логических связей</span>
-            <div class="material-list">
-                <div class="material-item" id="topic-part3">
-                    <div class="material-header">
-                        <h3 class="material-title">Блок 3 (Задание 21)</h3>
-                        <span class="material-tag">25 баллов</span>
-                    </div>
-                    <p class="material-desc">
-                        Комплексное задание на понимание процессов газообмена. Требуется установить соответствие между газами, входящими в состав воздуха (азот, кислород, углекислый газ, водяные пары, другие газы), и изменением их концентрации в выдыхаемом воздухе наземной улитки по сравнению со вдыхаемым. Проверяет знание основ дыхания и клеточного метаболизма.
-                    </p>
-                    <div class="material-actions">
-                        <a href="files/olympiads/grade_6_tasks.pdf#page=12" class="btn btn-secondary" target="_blank">👁️ Открыть в PDF</a>
-                    </div>
+            <div class="question-card" id="q4" data-answer="c">
+                <div class="question-number">Вопрос 4 (5 баллов)</div>
+                <div class="question-text">Рассмотрите схему строения клетки хламидомонады. Представим, что сделали поперечный срез через клетку на уровне, обозначенном оранжевой линией. Какая схема верно отображает форму хлоропласта на таком срезе?</div>
+                <div class="image-placeholder">📷 Схема клетки хламидомонады и варианты срезов (см. оригинальный PDF)</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q4" id="q4a" value="a"><label for="q4a">Вариант А</label></div>
+                    <div class="option"><input type="radio" name="q4" id="q4b" value="b"><label for="q4b">Вариант Б</label></div>
+                    <div class="option"><input type="radio" name="q4" id="q4c" value="c"><label for="q4c">Вариант В</label></div>
+                    <div class="option"><input type="radio" name="q4" id="q4d" value="d"><label for="q4d">Вариант Г</label></div>
                 </div>
             </div>
 
-            <h2 class="section-title" id="section-answers">✅ Ответы и критерии оценивания</h2>
-            <span class="section-subtitle">Для самопроверки и разбора ошибок</span>
-            <div class="material-list">
-                <div class="material-item" id="topic-answers">
-                    <div class="material-header">
-                        <h3 class="material-title">Ключи к олимпиаде 2025 года</h3>
-                        <span class="material-tag">Решения</span>
-                    </div>
-                    <p class="material-desc">
-                        Официальный документ с правильными ответами на все 21 задание и подробными критериями оценивания. Рекомендуется использовать после самостоятельного выполнения работы для анализа допущенных ошибок и понимания логики составителей олимпиады.
-                    </p>
-                    <div class="material-actions">
-                        <a href="files/olympiads/grade_6_answers.pdf" class="btn btn-primary" target="_blank">📥 Скачать ответы (PDF)</a>
-                        <a href="files/olympiads/grade_6_answers.pdf" class="btn btn-secondary" target="_blank">👁️ Смотреть онлайн</a>
-                    </div>
+            <div class="question-card" id="q5" data-answer="b">
+                <div class="question-number">Вопрос 5 (5 баллов)</div>
+                <div class="question-text">Выберите изображение вируса.</div>
+                <div class="image-placeholder"> Несколько изображений микроорганизмов (см. оригинальный PDF)</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q5" id="q5a" value="a"><label for="q5a">Изображение А</label></div>
+                    <div class="option"><input type="radio" name="q5" id="q5b" value="b"><label for="q5b">Изображение Б</label></div>
+                    <div class="option"><input type="radio" name="q5" id="q5c" value="c"><label for="q5c">Изображение В</label></div>
+                    <div class="option"><input type="radio" name="q5" id="q5d" value="d"><label for="q5d">Изображение Г</label></div>
+                </div>
+            </div>
+
+            <div class="question-card" id="q6" data-answer="d">
+                <div class="question-number">Вопрос 6 (5 баллов)</div>
+                <div class="question-text">Однажды Федя Брюшкин вернулся домой из школы после пяти уроков. Он разогрел себе на обед куриный суп, с аппетитом поел и отправился на занятие в кружок «Вырасту большим учёным». На кружке Костя Умнов делал доклад на тему «Есть ли жизнь на Марсе?». Федя решил, что Костя сделал в докладе ошибку, и они долго спорили. По дороге домой Федя встретил друзей, и те позвали его кататься с горки на санках. Кататься было очень весело. Только когда Феде позвонила мама, он понял, что давно пора идти домой. Дома оказалось, что Федя забыл убрать кастрюлю с оставшимся супом в холодильник и даже не закрыл её крышкой! Мальчик очень огорчился, а когда папа предложил всё равно суп доесть, Федя его отговорил. Он понял, что в супе успели размножиться опасные...</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q6" id="q6a" value="a"><label for="q6a">Личинки насекомых</label></div>
+                    <div class="option"><input type="radio" name="q6" id="q6b" value="b"><label for="q6b">Личинки паразитических червей</label></div>
+                    <div class="option"><input type="radio" name="q6" id="q6c" value="c"><label for="q6c">Вирусы</label></div>
+                    <div class="option"><input type="radio" name="q6" id="q6d" value="d"><label for="q6d">Бактерии</label></div>
+                </div>
+            </div>
+
+            <div class="question-card" id="q7" data-answer="c">
+                <div class="question-number">Вопрос 7 (5 баллов)</div>
+                <div class="question-text">В какой среде обитания живёт и питается изображённый организм?</div>
+                <div class="image-placeholder">📷 Изображение организма (см. оригинальный PDF)</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q7" id="q7a" value="a"><label for="q7a">В водной</label></div>
+                    <div class="option"><input type="radio" name="q7" id="q7b" value="b"><label for="q7b">В наземно-воздушной</label></div>
+                    <div class="option"><input type="radio" name="q7" id="q7c" value="c"><label for="q7c">В почвенной</label></div>
+                    <div class="option"><input type="radio" name="q7" id="q7d" value="d"><label for="q7d">В организменной</label></div>
+                </div>
+            </div>
+
+            <div class="question-card" id="q8" data-answer="c">
+                <div class="question-number">Вопрос 8 (5 баллов)</div>
+                <div class="question-text">Время от времени днём на поверхности водных растений образуются пузырьки. Выберите причину этого явления.</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q8" id="q8a" value="a"><label for="q8a">Происходит транспирация</label></div>
+                    <div class="option"><input type="radio" name="q8" id="q8b" value="b"><label for="q8b">Активно идёт процесс дыхания</label></div>
+                    <div class="option"><input type="radio" name="q8" id="q8c" value="c"><label for="q8c">Активно идёт процесс фотосинтеза</label></div>
+                    <div class="option"><input type="radio" name="q8" id="q8d" value="d"><label for="q8d">Растение таким образом защищается от поедания</label></div>
+                </div>
+            </div>
+
+            <div class="question-card" id="q9" data-answer="d">
+                <div class="question-number">Вопрос 9 (5 баллов)</div>
+                <div class="question-text">Бактерии могут делиться очень быстро. Предположим, клетки бактерий некоторого вида делятся раз в полчаса. Сколько клеток может получиться из одной бактерии через 3 часа?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q9" id="q9a" value="a"><label for="q9a">3</label></div>
+                    <div class="option"><input type="radio" name="q9" id="q9b" value="b"><label for="q9b">6</label></div>
+                    <div class="option"><input type="radio" name="q9" id="q9c" value="c"><label for="q9c">32</label></div>
+                    <div class="option"><input type="radio" name="q9" id="q9d" value="d"><label for="q9d">64</label></div>
+                </div>
+            </div>
+
+            <div class="question-card" id="q10" data-answer="a">
+                <div class="question-number">Вопрос 10 (5 баллов)</div>
+                <div class="question-text">Поперечный срез какой структуры представлен на фотографии?</div>
+                <div class="image-placeholder">📷 Микрофотография поперечного среза (см. оригинальный PDF)</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q10" id="q10a" value="a"><label for="q10a">Стебля цветкового растения</label></div>
+                    <div class="option"><input type="radio" name="q10" id="q10b" value="b"><label for="q10b">Стебля хвойных</label></div>
+                    <div class="option"><input type="radio" name="q10" id="q10c" value="c"><label for="q10c">Корня цветкового растения</label></div>
+                    <div class="option"><input type="radio" name="q10" id="q10d" value="d"><label for="q10d">Хвоинки сосны</label></div>
+                </div>
+            </div>
+
+            <div class="question-card" id="q11" data-answer="a">
+                <div class="question-number">Вопрос 11 (5 баллов)</div>
+                <div class="question-text">Фрагмент продольного среза какой ткани изображён на рисунке?</div>
+                <div class="image-placeholder">📷 Микрофотография продольного среза ткани (см. оригинальный PDF)</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q11" id="q11a" value="a"><label for="q11a">Флоэмы цветковых растений</label></div>
+                    <div class="option"><input type="radio" name="q11" id="q11b" value="b"><label for="q11b">Флоэмы хвойных</label></div>
+                    <div class="option"><input type="radio" name="q11" id="q11c" value="c"><label for="q11c">Ксилемы папоротников</label></div>
+                    <div class="option"><input type="radio" name="q11" id="q11d" value="d"><label for="q11d">Проводящей ткани мхов</label></div>
+                </div>
+            </div>
+
+            <div class="question-card" id="q12" data-answer="c">
+                <div class="question-number">Вопрос 12 (5 баллов)</div>
+                <div class="question-text">Сообщество какой биогеографической зоны представлено на фотографии?</div>
+                <div class="image-placeholder">📷 Фотография природного сообщества (см. оригинальный PDF)</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q12" id="q12a" value="a"><label for="q12a">Лесостепи</label></div>
+                    <div class="option"><input type="radio" name="q12" id="q12b" value="b"><label for="q12b">Тайги</label></div>
+                    <div class="option"><input type="radio" name="q12" id="q12c" value="c"><label for="q12c">Тундры</label></div>
+                    <div class="option"><input type="radio" name="q12" id="q12d" value="d"><label for="q12d">Дождевого тропического леса</label></div>
+                </div>
+            </div>
+
+            <div class="question-card" id="q13" data-answer="b">
+                <div class="question-number">Вопрос 13 (5 баллов)</div>
+                <div class="question-text">Саша изучает движение спутников Юпитера через телескоп, Оля при помощи микроскопа изучает движение амёбы, а Паша рассматривает соцветие ромашки в ручную лупу. Какой научный метод в этот момент используют все три юных исследователя?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q13" id="q13a" value="a"><label for="q13a">Эксперимент</label></div>
+                    <div class="option"><input type="radio" name="q13" id="q13b" value="b"><label for="q13b">Наблюдение</label></div>
+                    <div class="option"><input type="radio" name="q13" id="q13c" value="c"><label for="q13c">Описание</label></div>
+                    <div class="option"><input type="radio" name="q13" id="q13d" value="d"><label for="q13d">Сравнение</label></div>
+                </div>
+            </div>
+
+            <div class="question-card" id="q14" data-answer="d">
+                <div class="question-number">Вопрос 14 (5 баллов)</div>
+                <div class="question-text">Максим и Маша — близнецы и поэтому очень похожи друг на друга. Выберите верную характеристику Максима и Маши.</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q14" id="q14a" value="a"><label for="q14a">Обязательно имеют одинаковую группу крови</label></div>
+                    <div class="option"><input type="radio" name="q14" id="q14b" value="b"><label for="q14b">Развились из одной зиготы</label></div>
+                    <div class="option"><input type="radio" name="q14" id="q14c" value="c"><label for="q14c">Вероятно, выберут одинаковую профессию</label></div>
+                    <div class="option"><input type="radio" name="q14" id="q14d" value="d"><label for="q14d">Скорее всего, празднуют день рождения в один день или же один из них — на следующий день после другого</label></div>
+                </div>
+            </div>
+
+            <div class="question-card" id="q15" data-answer="b">
+                <div class="question-number">Вопрос 15 (5 баллов)</div>
+                <div class="question-text">В каком случае в качестве первой помощи используется приём Геймлиха, изображённый на рисунке?</div>
+                <div class="image-placeholder">📷 Изображение приёма Геймлиха (см. оригинальный PDF)</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q15" id="q15a" value="a"><label for="q15a">При потере сознания (обмороке)</label></div>
+                    <div class="option"><input type="radio" name="q15" id="q15b" value="b"><label for="q15b">При попадании инородного тела в дыхательные пути</label></div>
+                    <div class="option"><input type="radio" name="q15" id="q15c" value="c"><label for="q15c">При отравлении для вызова рвоты</label></div>
+                    <div class="option"><input type="radio" name="q15" id="q15d" value="d"><label for="q15d">При травмах позвоночника для транспортировки</label></div>
+                </div>
+            </div>
+
+            <!-- ЧАСТЬ 2 -->
+            <h2 class="section-title" id="section-part2"> Часть 2: Множественный выбор</h2>
+            <span class="section-subtitle">Один или несколько верных ответов. За каждый правильно выбранный и правильно невыбранный ответ — 2 балла. Максимум 10 баллов за задание. Всего: 50 баллов.</span>
+
+            <div class="question-card" id="q16" data-answer="b,d,e">
+                <div class="question-number">Вопрос 16 (10 баллов)</div>
+                <div class="question-text">Выберите верные утверждения о животном, которое изображено на фотографии.</div>
+                <div class="image-placeholder">📷 Фотография животного (см. оригинальный PDF)</div>
+                <div class="options">
+                    <div class="option"><input type="checkbox" name="q16" id="q16a" value="a"><label for="q16a">Это животное не способно летать</label></div>
+                    <div class="option"><input type="checkbox" name="q16" id="q16b" value="b"><label for="q16b">Это животное часть жизни провело в почве</label></div>
+                    <div class="option"><input type="checkbox" name="q16" id="q16c" value="c"><label for="q16c">Это животное является опылителем некоторых растений</label></div>
+                    <div class="option"><input type="checkbox" name="q16" id="q16d" value="d"><label for="q16d">Это животное является вредителем некоторых растений</label></div>
+                    <div class="option"><input type="checkbox" name="q16" id="q16e" value="e"><label for="q16e">Это животное на некоторых стадиях развития не питается</label></div>
+                </div>
+            </div>
+
+            <div class="question-card" id="q17" data-answer="a,b,c,d,e">
+                <div class="question-number">Вопрос 17 (10 баллов)</div>
+                <div class="question-text">Какими функциями могут обладать покровные ткани высших растений (эмбриофитов)?</div>
+                <div class="options">
+                    <div class="option"><input type="checkbox" name="q17" id="q17a" value="a"><label for="q17a">Теплорегуляция</label></div>
+                    <div class="option"><input type="checkbox" name="q17" id="q17b" value="b"><label for="q17b">Гидроизоляция</label></div>
+                    <div class="option"><input type="checkbox" name="q17" id="q17c" value="c"><label for="q17c">Газообмен</label></div>
+                    <div class="option"><input type="checkbox" name="q17" id="q17d" value="d"><label for="q17d">Выведение вредных веществ</label></div>
+                    <div class="option"><input type="checkbox" name="q17" id="q17e" value="e"><label for="q17e">Фотосинтез</label></div>
+                </div>
+            </div>
+
+            <div class="question-card" id="q18" data-answer="a,b,d,e">
+                <div class="question-number">Вопрос 18 (10 баллов)</div>
+                <div class="question-text">Выберите верные утверждения об организме, жизненный цикл которого показан на рисунке.</div>
+                <div class="image-placeholder">📷 Схема жизненного цикла (см. оригинальный PDF)</div>
+                <div class="options">
+                    <div class="option"><input type="checkbox" name="q18" id="q18a" value="a"><label for="q18a">Это представитель эукариот</label></div>
+                    <div class="option"><input type="checkbox" name="q18" id="q18b" value="b"><label for="q18b">Это зелёная водоросль</label></div>
+                    <div class="option"><input type="checkbox" name="q18" id="q18c" value="c"><label for="q18c">Это наземное растение (печёночный мох)</label></div>
+                    <div class="option"><input type="checkbox" name="q18" id="q18d" value="d"><label for="q18d">В его жизненном цикле происходит чередование поколений спорофита и гаметофита</label></div>
+                    <div class="option"><input type="checkbox" name="q18" id="q18e" value="e"><label for="q18e">Его спорофит и гаметофит имеют внешне одинаковое строение</label></div>
+                </div>
+            </div>
+
+            <div class="question-card" id="q19" data-answer="a,c">
+                <div class="question-number">Вопрос 19 (10 баллов)</div>
+                <div class="question-text">Многие позвоночные животные, живущие в холодных регионах, на зиму либо мигрируют в тёплые края, либо впадают в анабиоз, спячку или зимний сон. Какие из особенностей физиологии и образа жизни подскажут вам, что конкретное животное зимой мигрирует или спит, и вы вряд ли увидите его бодро передвигающимся на фоне сугробов?</div>
+                <div class="options">
+                    <div class="option"><input type="checkbox" name="q19" id="q19a" value="a"><label for="q19a">Питание исключительно летающими насекомыми</label></div>
+                    <div class="option"><input type="checkbox" name="q19" id="q19b" value="b"><label for="q19b">Питание мелкими птицами и млекопитающими</label></div>
+                    <div class="option"><input type="checkbox" name="q19" id="q19c" value="c"><label for="q19c">Холоднокровность и обитание в наземно-воздушной среде</label></div>
+                    <div class="option"><input type="checkbox" name="q19" id="q19d" value="d"><label for="q19d">Теплокровность и малые размеры тела (меньше 100 г веса)</label></div>
+                    <div class="option"><input type="checkbox" name="q19" id="q19e" value="e"><label for="q19e">Питание любой растительной пищей</label></div>
+                </div>
+            </div>
+
+            <div class="question-card" id="q20" data-answer="a,d">
+                <div class="question-number">Вопрос 20 (10 баллов)</div>
+                <div class="question-text">Какие функции выполняют клетки корневого чехлика?</div>
+                <div class="options">
+                    <div class="option"><input type="checkbox" name="q20" id="q20a" value="a"><label for="q20a">Защита от механических повреждений образовательной ткани корня</label></div>
+                    <div class="option"><input type="checkbox" name="q20" id="q20b" value="b"><label for="q20b">Получение минеральных веществ и воды из почвы</label></div>
+                    <div class="option"><input type="checkbox" name="q20" id="q20c" value="c"><label for="q20c">Установление контакта с грибами в ходе образование микоризы</label></div>
+                    <div class="option"><input type="checkbox" name="q20" id="q20d" value="d"><label for="q20d">Обеспечение геотропических реакций корня</label></div>
+                    <div class="option"><input type="checkbox" name="q20" id="q20e" value="e"><label for="q20e">Образование покровных тканей корня</label></div>
+                </div>
+            </div>
+
+            <!-- ЧАСТЬ 3 -->
+            <h2 class="section-title" id="section-part3">🔗 Часть 3: Задание на соответствие</h2>
+            <span class="section-subtitle">Установите соответствие. За каждое верное соотнесение — 5 баллов. Максимум: 25 баллов.</span>
+
+            <div class="question-card" id="q21" data-answer="1:unchanged,2:less,3:more,4:more,5:unchanged">
+                <div class="question-number">Вопрос 21 (25 баллов)</div>
+                <div class="question-text">Наземные улитки дышат с помощью лёгкого, делая попеременно вдохи и выдохи. Воздух состоит из смеси азота, кислорода, углекислого газа, водяного пара и других газов. Установите соответствие между газами и их содержанием в воздухе, который улитка выдыхает, по сравнению с воздухом, который она вдохнула.</div>
+                <div class="matching-row" data-correct="unchanged">
+                    <label>Азот</label>
+                    <select name="q21_1">
+                        <option value="">Выберите...</option>
+                        <option value="unchanged">Содержание почти не изменится</option>
+                        <option value="less">Станет меньше, чем во вдыхаемом</option>
+                        <option value="more">Станет больше, чем во вдыхаемом</option>
+                    </select>
+                </div>
+                <div class="matching-row" data-correct="less">
+                    <label>Кислород</label>
+                    <select name="q21_2">
+                        <option value="">Выберите...</option>
+                        <option value="unchanged">Содержание почти не изменится</option>
+                        <option value="less">Станет меньше, чем во вдыхаемом</option>
+                        <option value="more">Станет больше, чем во вдыхаемом</option>
+                    </select>
+                </div>
+                <div class="matching-row" data-correct="more">
+                    <label>Углекислый газ</label>
+                    <select name="q21_3">
+                        <option value="">Выберите...</option>
+                        <option value="unchanged">Содержание почти не изменится</option>
+                        <option value="less">Станет меньше, чем во вдыхаемом</option>
+                        <option value="more">Станет больше, чем во вдыхаемом</option>
+                    </select>
+                </div>
+                <div class="matching-row" data-correct="more">
+                    <label>Водяные пары</label>
+                    <select name="q21_4">
+                        <option value="">Выберите...</option>
+                        <option value="unchanged">Содержание почти не изменится</option>
+                        <option value="less">Станет меньше, чем во вдыхаемом</option>
+                        <option value="more">Станет больше, чем во вдыхаемом</option>
+                    </select>
+                </div>
+                <div class="matching-row" data-correct="unchanged">
+                    <label>Другие газы</label>
+                    <select name="q21_5">
+                        <option value="">Выберите...</option>
+                        <option value="unchanged">Содержание почти не изменится</option>
+                        <option value="less">Станет меньше, чем во вдыхаемом</option>
+                        <option value="more">Станет больше, чем во вдыхаемом</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Кнопка проверки -->
+            <button class="check-btn" onclick="checkAnswers()">✓ Проверить ответы</button>
+
+            <!-- Результаты -->
+            <div class="results" id="results">
+                <h3>📊 Результаты проверки</h3>
+                <div class="score" id="score">0 / 150</div>
+                <div class="score-details" id="details"></div>
+                <button class="reset-btn" onclick="resetTest()"> Пройти ещё раз</button>
+            </div>
+
+            <!-- Скачать документы (В КОНЦЕ) -->
+            <div class="download-banner">
+                <div>
+                    <h3>📥 Скачать оригинальные документы</h3>
+                    <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 0.3rem;">Официальные материалы олимпиады 2025 года</p>
+                </div>
+                <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                    <a href="files/olympiads/olympiad_6_tasks.pdf" class="btn-download" target="_blank"> Задания (PDF)</a>
+                    <a href="files/olympiads/olympiad_6_answers.pdf" class="btn-download" target="_blank">✅ Ответы (PDF)</a>
                 </div>
             </div>
 
         </div>
 
-        <!-- Side Navigation -->
+        <!-- Боковая навигация -->
         <aside class="side-nav">
-            <h3>📑 Навигация</h3>
+            <h3>📑 Навигация по вопросам</h3>
             
             <div class="nav-section">
-                <h4>Общая информация</h4>
+                <h4>Часть 1: Тест (1–15)</h4>
                 <ul>
-                    <li><a href="#topic-overview" class="nav-link">Паспорт работы</a></li>
+                    <li><a href="#q1" class="nav-link">Вопрос 1</a></li>
+                    <li><a href="#q2" class="nav-link">Вопрос 2</a></li>
+                    <li><a href="#q3" class="nav-link">Вопрос 3</a></li>
+                    <li><a href="#q4" class="nav-link">Вопрос 4</a></li>
+                    <li><a href="#q5" class="nav-link">Вопрос 5</a></li>
+                    <li><a href="#q6" class="nav-link">Вопрос 6</a></li>
+                    <li><a href="#q7" class="nav-link">Вопрос 7</a></li>
+                    <li><a href="#q8" class="nav-link">Вопрос 8</a></li>
+                    <li><a href="#q9" class="nav-link">Вопрос 9</a></li>
+                    <li><a href="#q10" class="nav-link">Вопрос 10</a></li>
+                    <li><a href="#q11" class="nav-link">Вопрос 11</a></li>
+                    <li><a href="#q12" class="nav-link">Вопрос 12</a></li>
+                    <li><a href="#q13" class="nav-link">Вопрос 13</a></li>
+                    <li><a href="#q14" class="nav-link">Вопрос 14</a></li>
+                    <li><a href="#q15" class="nav-link">Вопрос 15</a></li>
                 </ul>
             </div>
 
             <div class="nav-section">
-                <h4>Структура заданий</h4>
+                <h4>Часть 2: Множ. выбор (16–20)</h4>
                 <ul>
-                    <li><a href="#topic-part1" class="nav-link">Часть 1: Тест</a></li>
-                    <li><a href="#topic-part2" class="nav-link">Часть 2: Множественный выбор</a></li>
-                    <li><a href="#topic-part3" class="nav-link">Часть 3: Соответствие</a></li>
+                    <li><a href="#q16" class="nav-link">Вопрос 16</a></li>
+                    <li><a href="#q17" class="nav-link">Вопрос 17</a></li>
+                    <li><a href="#q18" class="nav-link">Вопрос 18</a></li>
+                    <li><a href="#q19" class="nav-link">Вопрос 19</a></li>
+                    <li><a href="#q20" class="nav-link">Вопрос 20</a></li>
                 </ul>
             </div>
 
             <div class="nav-section">
-                <h4>Проверка</h4>
+                <h4>Часть 3: Соответствие</h4>
                 <ul>
-                    <li><a href="#topic-answers" class="nav-link">Ответы и критерии</a></li>
+                    <li><a href="#q21" class="nav-link">Вопрос 21</a></li>
                 </ul>
             </div>
         </aside>
@@ -312,6 +691,7 @@
     </footer>
 
     <script>
+        // Burger Menu
         const burger = document.getElementById('burger');
         const mobileMenu = document.getElementById('mobileMenu');
         const mobileLinks = document.querySelectorAll('.mobile-link');
@@ -332,17 +712,15 @@
             });
         }
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry, index) => {
-                if (entry.isIntersecting) {
-                    setTimeout(() => entry.target.classList.add('visible'), index * 80);
-                }
+        // Collapsible sections in side nav
+        document.querySelectorAll('.nav-section h4').forEach(header => {
+            header.addEventListener('click', () => {
+                header.parentElement.classList.toggle('collapsed');
             });
-        }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+        });
 
-        document.querySelectorAll('.material-item').forEach(el => observer.observe(el));
-
-        const sections = document.querySelectorAll('.material-item, .section-title');
+        // Scroll spy for side navigation
+        const sections = document.querySelectorAll('.question-card, .section-title');
         const navLinks = document.querySelectorAll('.nav-link');
 
         window.addEventListener('scroll', () => {
@@ -363,11 +741,182 @@
             });
         });
 
-        document.querySelectorAll('.nav-section h4').forEach(header => {
-            header.addEventListener('click', () => {
-                header.parentElement.classList.toggle('collapsed');
+        // Проверка ответов
+        function checkAnswers() {
+            let totalScore = 0;
+            let maxScore = 150;
+            let part1Score = 0;
+            let part2Score = 0;
+            let part3Score = 0;
+
+            // Часть 1: одиночный выбор (вопросы 1-15, по 5 баллов)
+            for (let i = 1; i <= 15; i++) {
+                const card = document.getElementById('q' + i);
+                const correctAnswer = card.dataset.answer;
+                const selected = card.querySelector('input[type="radio"]:checked');
+                const options = card.querySelectorAll('.option');
+                
+                options.forEach(option => {
+                    const input = option.querySelector('input');
+                    option.classList.remove('correct', 'incorrect');
+                    
+                    if (input.value === correctAnswer) {
+                        option.classList.add('correct');
+                    }
+                    
+                    if (selected && input.value === selected.value) {
+                        if (selected.value === correctAnswer) {
+                            part1Score += 5;
+                        } else {
+                            option.classList.add('incorrect');
+                        }
+                    }
+                });
+
+                // Обновляем навигацию
+                const navLink = document.querySelector(`.nav-link[href="#q${i}"]`);
+                if (navLink) {
+                    if (selected && selected.value === correctAnswer) {
+                        navLink.classList.add('answered-correct');
+                        navLink.classList.remove('answered-wrong');
+                    } else {
+                        navLink.classList.add('answered-wrong');
+                        navLink.classList.remove('answered-correct');
+                    }
+                }
+            }
+
+            // Часть 2: множественный выбор (вопросы 16-20, по 10 баллов)
+            for (let i = 16; i <= 20; i++) {
+                const card = document.getElementById('q' + i);
+                const correctAnswers = card.dataset.answer.split(',');
+                const selected = Array.from(card.querySelectorAll('input[type="checkbox"]:checked')).map(cb => cb.value);
+                const options = card.querySelectorAll('.option');
+                
+                options.forEach(option => {
+                    const input = option.querySelector('input');
+                    option.classList.remove('correct', 'incorrect');
+                    
+                    if (correctAnswers.includes(input.value)) {
+                        option.classList.add('correct');
+                    }
+                    
+                    if (selected.includes(input.value)) {
+                        if (!correctAnswers.includes(input.value)) {
+                            option.classList.add('incorrect');
+                        }
+                    }
+                });
+
+                // Подсчёт баллов: +2 за каждый правильный выбор и правильный невыбор, -2 за ошибку
+                let correct = 0;
+                let incorrect = 0;
+                selected.forEach(ans => {
+                    if (correctAnswers.includes(ans)) correct++;
+                    else incorrect++;
+                });
+                correctAnswers.forEach(ans => {
+                    if (!selected.includes(ans)) incorrect++;
+                });
+                
+                let questionScore = Math.max(0, (correct - incorrect) * 2);
+                part2Score += questionScore;
+
+                const navLink = document.querySelector(`.nav-link[href="#q${i}"]`);
+                if (navLink) {
+                    if (questionScore >= 6) {
+                        navLink.classList.add('answered-correct');
+                        navLink.classList.remove('answered-wrong');
+                    } else {
+                        navLink.classList.add('answered-wrong');
+                        navLink.classList.remove('answered-correct');
+                    }
+                }
+            }
+
+            // Часть 3: соответствие (вопрос 21, 25 баллов)
+            const q21 = document.getElementById('q21');
+            const rows = q21.querySelectorAll('.matching-row');
+            let correctMatches = 0;
+            
+            rows.forEach(row => {
+                const correct = row.dataset.correct;
+                const select = row.querySelector('select');
+                row.classList.remove('correct', 'incorrect');
+                
+                if (select.value === correct) {
+                    row.classList.add('correct');
+                    correctMatches++;
+                } else if (select.value !== '') {
+                    row.classList.add('incorrect');
+                }
             });
-        });
+            
+            part3Score = (correctMatches / 5) * 25;
+
+            const navLink21 = document.querySelector('.nav-link[href="#q21"]');
+            if (navLink21) {
+                if (correctMatches >= 4) {
+                    navLink21.classList.add('answered-correct');
+                    navLink21.classList.remove('answered-wrong');
+                } else {
+                    navLink21.classList.add('answered-wrong');
+                    navLink21.classList.remove('answered-correct');
+                }
+            }
+
+            totalScore = part1Score + part2Score + part3Score;
+
+            // Показываем результаты
+            const resultsDiv = document.getElementById('results');
+            const scoreDiv = document.getElementById('score');
+            const detailsDiv = document.getElementById('details');
+            
+            scoreDiv.textContent = `${totalScore} / ${maxScore} баллов`;
+            detailsDiv.innerHTML = `
+                <strong>Часть 1 (тест):</strong> ${part1Score} / 75 баллов<br>
+                <strong>Часть 2 (множественный выбор):</strong> ${part2Score} / 50 баллов<br>
+                <strong>Часть 3 (соответствие):</strong> ${part3Score} / 25 баллов<br><br>
+                <strong>Процент выполнения:</strong> ${Math.round((totalScore/maxScore)*100)}%<br>
+                <strong>Оценка:</strong> ${getGrade(totalScore)}
+            `;
+            
+            resultsDiv.classList.add('show');
+            resultsDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function getGrade(score) {
+            const percent = (score / 150) * 100;
+            if (percent >= 90) return ' Отлично! Превосходный результат!';
+            if (percent >= 75) return '🥈 Хорошо! Высокий уровень подготовки.';
+            if (percent >= 60) return '🥉 Удовлетворительно. Есть над чем поработать.';
+            if (percent >= 40) return '📚 Необходимо повторить материал.';
+            return '💪 Не сдавайтесь! Изучите теорию и попробуйте снова.';
+        }
+
+        function resetTest() {
+            // Сбрасываем все ответы
+            document.querySelectorAll('input[type="radio"], input[type="checkbox"]').forEach(input => {
+                input.checked = false;
+            });
+            document.querySelectorAll('select').forEach(select => {
+                select.value = '';
+            });
+            
+            // Убираем подсветку
+            document.querySelectorAll('.option, .matching-row, .question-card').forEach(el => {
+                el.classList.remove('correct', 'incorrect');
+            });
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('answered-correct', 'answered-wrong');
+            });
+            
+            // Скрываем результаты
+            document.getElementById('results').classList.remove('show');
+            
+            // Прокручиваем наверх
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
     </script>
 </body>
 </html>
