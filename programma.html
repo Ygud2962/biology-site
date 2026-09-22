@@ -100,6 +100,7 @@
             color: var(--primary);
             letter-spacing: 1px;
             z-index: 1001;
+            text-decoration: none;
         }
 
         .nav-links {
@@ -252,7 +253,7 @@
             background-size: 400% 400%;
             animation: gradientShift 15s ease infinite;
             color: var(--white);
-            padding: 8rem 2rem 4rem; /* Увеличен отступ сверху, чтобы меню не перекрывало текст */
+            padding: 8rem 2rem 4rem;
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -395,9 +396,8 @@
             font-size: 1.2rem;
         }
 
-        /* PDF Button */
+        /* PDF Button - Enhanced */
         .pdf-download {
-            text-align: center;
             margin: 3.5rem 0;
             padding: 2.5rem;
             background: linear-gradient(135deg, rgba(201,169,97,0.1), rgba(13,59,46,0.05));
@@ -427,25 +427,39 @@
             animation: shimmer 3s infinite;
         }
 
-        .pdf-download h3 {
-            color: var(--primary);
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
+        .download-content {
             position: relative;
             z-index: 1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
         }
 
-        .pdf-download p {
+        .download-text h3 {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .download-text p {
             font-size: 0.95rem;
-            opacity: 0.8;
-            margin-bottom: 1.5rem;
-            position: relative;
-            z-index: 1;
+            opacity: 0.85;
+            max-width: 600px;
+        }
+
+        .download-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
         }
 
         .btn-pdf {
-            display: inline-block;
-            padding: 1rem 2.5rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.9rem 2rem;
             background: linear-gradient(135deg, var(--accent), var(--accent-light));
             color: var(--primary);
             text-decoration: none;
@@ -456,7 +470,6 @@
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: 0 5px 20px rgba(201,169,97,0.3);
             position: relative;
-            z-index: 1;
             overflow: hidden;
         }
 
@@ -478,6 +491,19 @@
         .btn-pdf:hover {
             transform: translateY(-3px) scale(1.02);
             box-shadow: 0 10px 35px rgba(201,169,97,0.5);
+        }
+
+        .btn-pdf.secondary {
+            background: var(--white);
+            color: var(--primary);
+            border: 2px solid rgba(13,59,46,0.2);
+            box-shadow: none;
+        }
+
+        .btn-pdf.secondary:hover {
+            background: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
         }
 
         /* Program Blocks */
@@ -721,7 +747,7 @@
             }
 
             .header {
-                padding: 6.5rem 1.5rem 3rem; /* Защита от перекрытия на мобильных */
+                padding: 6.5rem 1.5rem 3rem;
             }
 
             .header h1 {
@@ -748,6 +774,16 @@
 
             .content {
                 padding: 3rem 1.5rem;
+            }
+            
+            .download-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .download-actions {
+                justify-content: center;
+                width: 100%;
             }
         }
 
@@ -805,7 +841,7 @@
 
     <nav class="nav">
         <div class="nav-container">
-            <div class="nav-logo">🌿 БИОЛОГИЯ</div>
+            <a href="index.html" class="nav-logo">🌿 БИОЛОГИЯ</a>
             <ul class="nav-links">
                 <li><a href="index.html">Главная</a></li>
                 <li><a href="programma.html">Программа</a></li>
@@ -858,17 +894,24 @@
 
         <!-- PDF Download -->
         <div class="pdf-download" data-animate>
-            <h3>📥 Скачать полную программу</h3>
-            <p>Официальный документ в формате PDF со всеми темами и биологическими объектами</p>
-            <a href="http://s3-minsk.cloud.mts.by/datastorage/sh3hoiniki/library/%D0%9F%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B0_%D0%B7%D0%B0%D0%BD%D1%8F%D1%82%D0%B8%D0%B9.pdf?AWSAccessKeyId=3b68d8fb703f1d7de071&Signature=%2BMC4uj2yRO1KuRQgwIzxmmZDfdY%3D&Expires=2103697969" 
-               class="btn-pdf" 
-               target="_blank">
-                Открыть PDF документ
-            </a>
+            <div class="download-content">
+                <div class="download-text">
+                    <h3>📥 Официальная программа занятий</h3>
+                    <p>Полный документ в формате PDF со всеми темами, распределением часов и перечнем биологических объектов для подготовки к олимпиаде.</p>
+                </div>
+                <div class="download-actions">
+                    <a href="files/programma_biologia.pdf" class="btn-pdf" target="_blank" download>
+                        📥 Скачать PDF
+                    </a>
+                    <a href="files/programma_biologia.pdf" class="btn-pdf secondary" target="_blank">
+                        👁️ Открыть в браузере
+                    </a>
+                </div>
+            </div>
         </div>
 
         <div class="program-blocks">
-            <div class="block-header">
+            <div class="block-header" data-animate>
                 <h2 class="block-title">IX–XI классы</h2>
                 <p class="block-subtitle">Общий объем: 70 часов</p>
             </div>
@@ -1073,7 +1116,7 @@
                 </div>
             </div>
 
-            <div class="block-header">
+            <div class="block-header" data-animate>
                 <h2 class="block-title">Блок 1. Человек</h2>
                 <p class="block-subtitle">17 часов</p>
             </div>
@@ -1234,7 +1277,7 @@
                 </div>
             </div>
 
-            <div class="block-header">
+            <div class="block-header" data-animate>
                 <h2 class="block-title">Блок 2. Общая биология</h2>
                 <p class="block-subtitle">18 часов</p>
             </div>
