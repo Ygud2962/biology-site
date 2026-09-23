@@ -22,17 +22,16 @@
   --grad:linear-gradient(135deg,#7ce8a4 0%,#d4af5a 100%);
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{
-  width:100%;
-  min-height:100%;
-  overflow-x:hidden;
-}
+
+/* ВАЖНО: html НЕ блокируем, иначе iOS не скроллит */
+html{background:var(--bg)}
 body{
   font-family:'Inter',system-ui,-apple-system,sans-serif;
   background:var(--bg);
   color:var(--text);
   -webkit-font-smoothing:antialiased;
-  overscroll-behavior-y:none;
+  min-height:100%;
+  /* НЕ ставим overflow-x:hidden здесь — это ломает touch-scroll на iOS */
 }
 button{font-family:inherit;cursor:pointer;border:none;background:transparent;color:inherit}
 a{color:inherit;text-decoration:none}
@@ -73,7 +72,6 @@ body::before{
   background:rgba(15,31,24,.6);
   white-space:nowrap;
 }
-.back-link:active{color:var(--accent);border-color:rgba(124,232,164,.4)}
 .brand{
   font-family:'Playfair Display',serif;
   font-size:12px;
@@ -101,7 +99,7 @@ body::before{
   width:100%;
   max-width:1400px;
   margin:0 auto;
-  padding:16px 4vw 40px;
+  padding:16px 4vw 60px;
   display:grid;
   grid-template-columns:240px 1fr 320px;
   gap:20px;
@@ -135,7 +133,6 @@ body::before{
   font-size:13px;
   width:100%;
 }
-.slide:active{transform:scale(.98)}
 .slide.active{
   border-color:var(--accent);
   background:linear-gradient(135deg,rgba(124,232,164,.12),rgba(212,175,90,.08));
@@ -213,6 +210,7 @@ body::before{
 }
 @keyframes scopeRotate{to{transform:rotate(360deg)}}
 
+/* ВАЖНО: touch-action: pan-y — вертикальный скролл отдан браузеру */
 .eyepiece{
   position:relative;
   width:80%;
@@ -225,7 +223,7 @@ body::before{
     0 0 0 10px #0a1610,
     0 0 0 12px rgba(124,232,164,.2),
     0 0 0 14px #08120c;
-  touch-action:none;
+  touch-action: pan-y;
   -webkit-user-select:none;
   user-select:none;
   cursor:grab;
@@ -247,6 +245,7 @@ body::before{
   height:100%;
   display:block;
   transition:filter .3s, opacity .3s;
+  pointer-events:none;
 }
 
 .reticle{
@@ -314,78 +313,76 @@ body::before{
   font-size:12.5px;
   color:var(--gold);
   letter-spacing:1px;
-  margin-bottom:12px;
+  margin-bottom:14px;
   font-weight:500;
 }
 
+/* ============ СЛАЙДЕРЫ (ПРОСТЫЕ, НАДЁЖНЫЕ) ============ */
 .knob-row{
-  display:flex;
+  display:grid;
+  grid-template-columns:56px 1fr 60px;
   align-items:center;
   gap:12px;
-  margin-bottom:14px;
+  margin-bottom:18px;
 }
 .knob-row:last-child{margin-bottom:0}
 .knob-label{
   font-size:12px;
   color:var(--muted);
-  width:48px;
-  flex-shrink:0;
+  letter-spacing:.5px;
 }
 .knob-val{
   font-family:'Playfair Display',serif;
   font-size:13px;
   color:var(--accent);
-  width:50px;
   text-align:right;
-  flex-shrink:0;
   font-weight:600;
 }
-.knob{
-  flex:1;
-  position:relative;
-  height:6px;
-  border-radius:50px;
-  background:rgba(124,232,164,.1);
-  overflow:visible;
-}
+
+/* Обычный input range — работает нативно на любом мобильном */
 .knob input[type="range"]{
-  position:absolute;
-  top:50%;
-  left:0;
-  transform:translateY(-50%);
-  width:100%;
-  height:32px;
-  background:transparent;
   -webkit-appearance:none;
   appearance:none;
-  cursor:pointer;
+  width:100%;
+  height:26px;
+  background:transparent;
   outline:none;
   margin:0;
   padding:0;
+  /* Ничего не блокируем — браузер сам разберётся */
+  touch-action: auto;
+}
+.knob input[type="range"]::-webkit-slider-runnable-track{
+  width:100%;
+  height:6px;
+  border-radius:50px;
+  background:rgba(124,232,164,.12);
+}
+.knob input[type="range"]::-moz-range-track{
+  width:100%;
+  height:6px;
+  border-radius:50px;
+  background:rgba(124,232,164,.12);
 }
 .knob input[type="range"]::-webkit-slider-thumb{
   -webkit-appearance:none;
   appearance:none;
-  width:22px;height:22px;
+  width:26px;
+  height:26px;
   border-radius:50%;
-  background:var(--grad);
+  background:linear-gradient(135deg,#7ce8a4,#d4af5a);
   border:2px solid #0b1611;
-  box-shadow:0 0 10px rgba(124,232,164,.6);
+  box-shadow:0 0 12px rgba(124,232,164,.6);
+  margin-top:-10px;
+  cursor:pointer;
 }
 .knob input[type="range"]::-moz-range-thumb{
-  width:22px;height:22px;
+  width:26px;height:26px;
   border-radius:50%;
-  background:var(--accent);
+  background:linear-gradient(135deg,#7ce8a4,#d4af5a);
   border:2px solid #0b1611;
-  box-shadow:0 0 10px rgba(124,232,164,.6);
-  border:none;
-}
-.knob-fill{
-  position:absolute;
-  top:0;left:0;bottom:0;
-  background:var(--grad);
-  border-radius:50px;
-  pointer-events:none;
+  box-shadow:0 0 12px rgba(124,232,164,.6);
+  cursor:pointer;
 }
 
 .specimen-info h3{
@@ -482,9 +479,7 @@ body::before{
   50%{opacity:.4;transform:scale(.7)}
 }
 
-/* ============================================
-   ПЛАНШЕТ
-   ============================================ */
+/* ============ ПЛАНШЕТ ============ */
 @media (max-width:1100px){
   .stage{
     grid-template-columns:200px 1fr;
@@ -504,9 +499,7 @@ body::before{
   .right-panel .panel-card:nth-child(4){grid-column:1/-1}
 }
 
-/* ============================================
-   МОБИЛЬНЫЙ — вертикальный стек
-   ============================================ */
+/* ============ МОБИЛЬНЫЙ ============ */
 @media (max-width:720px){
   .top-bar{padding:12px 16px}
   .brand{font-size:11px;letter-spacing:1.5px}
@@ -516,7 +509,7 @@ body::before{
   .stage{
     display:flex;
     flex-direction:column;
-    padding:14px 16px 32px;
+    padding:14px 16px 60px;
     gap:14px;
     max-width:100%;
   }
@@ -527,10 +520,8 @@ body::before{
     overflow-x:auto;
     overflow-y:hidden;
     gap:10px;
-    padding:2px 0 10px;
+    padding:2px 16px 10px;
     margin:0 -16px;
-    padding-left:16px;
-    padding-right:16px;
     scroll-snap-type:x mandatory;
     -webkit-overflow-scrolling:touch;
     scrollbar-width:none;
@@ -549,7 +540,6 @@ body::before{
   .slide-name{font-size:13px}
   .slide-sub{font-size:10.5px}
 
-  /* Микроскоп — компактный, вписан в экран */
   .microscope{
     width:100%;
     max-width:min(94vw, 460px);
@@ -557,36 +547,39 @@ body::before{
   }
   .eyepiece{width:82%}
   .scope-body{inset:4%}
-  .mag-scale{font-size:10px;bottom:8%;right:11%}
 
-  /* Правая панель — всё в столбик */
   .right-panel{
     display:flex;
     flex-direction:column;
     gap:12px;
   }
   .panel-card{padding:14px}
-  .panel-card h4{font-size:12px;margin-bottom:10px}
-  .specimen-info h3{font-size:18px}
-  .specimen-desc{font-size:12.5px}
 
-  .knob-label{font-size:11px;width:42px}
-  .knob-val{font-size:12px;width:44px}
-  .knob input[type="range"]{height:36px}
-  .knob input[type="range"]::-webkit-slider-thumb{width:24px;height:24px}
+  /* Слайдеры на мобиле — крупные */
+  .knob-row{
+    grid-template-columns:52px 1fr 56px;
+    gap:10px;
+    margin-bottom:16px;
+  }
+  .knob input[type="range"]{height:32px}
+  .knob input[type="range"]::-webkit-slider-thumb{
+    width:28px;height:28px;margin-top:-11px;
+  }
+  .knob input[type="range"]::-moz-range-thumb{
+    width:28px;height:28px;
+  }
 }
 
-/* Очень узкие экраны */
 @media (max-width:380px){
-  .stage{padding:12px 12px 28px}
+  .stage{padding:12px 12px 60px}
   .slides-panel{margin:0 -12px;padding-left:12px;padding-right:12px}
   .microscope{max-width:96vw}
   .panel-card{padding:12px}
   .specimen-info h3{font-size:17px}
 }
 
-/* Ландшафт на телефоне — 2 колонки */
-@media (max-width:900px) and (orientation:landscape){
+/* ============ ЛАНДШАФТ ============ */
+@media (max-width:900px) and (orientation:landscape) and (max-height:500px){
   .stage{
     display:grid;
     grid-template-columns:1fr 1fr;
@@ -595,7 +588,7 @@ body::before{
       "microscope info";
     gap:14px;
     align-items:start;
-    padding:12px 16px;
+    padding:12px 16px 40px;
   }
   .slides-panel{
     grid-area:slides;
@@ -603,11 +596,15 @@ body::before{
     margin:0;
     padding:0;
     overflow-y:auto;
-    max-height:140px;
+    max-height:150px;
   }
   .slide{min-width:0;max-width:none}
   .microscope{grid-area:microscope;max-width:100%}
-  .right-panel{grid-area:info;max-height:calc(100vh - 200px);overflow-y:auto}
+  .right-panel{
+    grid-area:info;
+    max-height:calc(100vh - 180px);
+    overflow-y:auto;
+  }
 }
 </style>
 </head>
@@ -677,7 +674,6 @@ body::before{
       <div class="knob-row">
         <span class="knob-label">Зум</span>
         <div class="knob">
-          <div class="knob-fill" id="zoomFill" style="width:100%"></div>
           <input type="range" id="zoomRange" min="40" max="400" value="400" step="10" />
         </div>
         <span class="knob-val" id="zoomVal">×400</span>
@@ -685,7 +681,6 @@ body::before{
       <div class="knob-row">
         <span class="knob-label">Фокус</span>
         <div class="knob">
-          <div class="knob-fill" id="focusFill" style="width:100%"></div>
           <input type="range" id="focusRange" min="0" max="100" value="100" />
         </div>
         <span class="knob-val" id="focusVal">100%</span>
@@ -693,7 +688,6 @@ body::before{
       <div class="knob-row">
         <span class="knob-label">Свет</span>
         <div class="knob">
-          <div class="knob-fill" id="lightFill" style="width:90%"></div>
           <input type="range" id="lightRange" min="30" max="150" value="90" />
         </div>
         <span class="knob-val" id="lightVal">90%</span>
@@ -719,10 +713,9 @@ body::before{
     <div class="panel-card">
       <h4>— Управление —</h4>
       <div class="hints">
-        <span>👆 Тащи окуляр — двигай препарат</span>
-        <span>🔍 Зум</span>
-        <span>🎯 Фокус</span>
-        <span>💡 Свет</span>
+        <span>👆 Тащи влево-вправо — двигаешь препарат</span>
+        <span>👆 Тащи вверх-вниз — скроллишь страницу</span>
+        <span>🔍 Зум · 🎯 Фокус · 💡 Свет — слайдеры</span>
       </div>
     </div>
   </div>
@@ -789,7 +782,7 @@ body::before{
   };
 
   /* ============================================================
-     ХЕЛПЕРЫ РИСОВАНИЯ
+     ХЕЛПЕРЫ
      ============================================================ */
   function roundRect(c, x, y, w, h, r){
     if(w < 2 * r) r = w / 2;
@@ -806,11 +799,10 @@ body::before{
     c.quadraticCurveTo(x, y, x + r, y);
     c.closePath();
   }
-  // Псевдослучайное с фиксированным seed — чтобы не мерцало
   const seed = (i) => ((Math.sin(i * 12.9898 + 78.233) * 43758.5453) % 1 + 1) % 1;
 
   /* ============================================================
-     РИСУНКИ ПРЕПАРАТОВ
+     РИСУНКИ
      ============================================================ */
   function drawOnion(c){
     const w = canvas.width, h = canvas.height;
@@ -1199,7 +1191,7 @@ body::before{
   }
 
   /* ============================================================
-     РАЗМЕР CANVAS — надёжный, через ResizeObserver
+     РАЗМЕР CANVAS
      ============================================================ */
   let currentW = 0, currentH = 0;
 
@@ -1209,7 +1201,6 @@ body::before{
     const h = Math.round(rect.height);
     if(w === 0 || h === 0) return;
 
-    // Ограничиваем DPR для мобильных — иначе тормозит
     const isMobile = w < 500;
     const maxDpr = isMobile ? 1.5 : 2;
     const dpr = Math.min(window.devicePixelRatio || 1, maxDpr);
@@ -1226,17 +1217,15 @@ body::before{
     ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.scale(dpr, dpr);
 
-    // Пересоздать хлоропласты под новый размер
     leafState.initialized = false;
     if(state.specimen === 'leaf') initLeafState();
 
     render();
   }
 
-  // Наблюдатель за размером окуляра — самый надёжный способ
   if(window.ResizeObserver){
     const ro = new ResizeObserver(() => {
-      currentW = 0; // форсим пересчёт
+      currentW = 0;
       resizeCanvas();
     });
     ro.observe(eyepiece);
@@ -1265,15 +1254,7 @@ body::before{
   const zoomVal = document.getElementById('zoomVal');
   const focusVal = document.getElementById('focusVal');
   const lightVal = document.getElementById('lightVal');
-  const zoomFill = document.getElementById('zoomFill');
-  const focusFill = document.getElementById('focusFill');
-  const lightFill = document.getElementById('lightFill');
   const magScale = document.getElementById('magScale');
-
-  function updateKnob(range, fill){
-    const min = +range.min, max = +range.max, v = +range.value;
-    fill.style.width = ((v - min) / (max - min) * 100) + '%';
-  }
 
   /* ============================================================
      РЕНДЕР
@@ -1285,7 +1266,6 @@ body::before{
 
     ctx.clearRect(0, 0, w, h);
 
-    // Фон линзы
     const bg = ctx.createRadialGradient(w / 2, h / 2, 20, w / 2, h / 2, Math.max(w, h) * 0.7);
     bg.addColorStop(0, 'rgba(255,255,240,' + (0.15 * state.light / 100) + ')');
     bg.addColorStop(1, 'rgba(80,100,80,' + (0.1 * state.light / 100) + ')');
@@ -1302,7 +1282,6 @@ body::before{
       const offX = state.offsetX;
       const offY = state.offsetY;
 
-      // Медленный слой (фон)
       ctx.save();
       ctx.translate(w / 2 + offX * 0.4, h / 2 + offY * 0.4);
       ctx.scale(zoomScale * 0.9, zoomScale * 0.9);
@@ -1311,7 +1290,6 @@ body::before{
       spec.draw(ctx);
       ctx.restore();
 
-      // Основной слой
       ctx.save();
       ctx.translate(w / 2 + offX, h / 2 + offY);
       ctx.scale(zoomScale, zoomScale);
@@ -1322,7 +1300,6 @@ body::before{
       }
       ctx.restore();
 
-      // Передний слой
       if(state.specimen === 'infusoria' || state.specimen === 'bacteria'){
         ctx.save();
         ctx.translate(w / 2 + offX * 1.5, h / 2 + offY * 1.5);
@@ -1334,14 +1311,12 @@ body::before{
       }
     }
 
-    // Виньетка
     const vig = ctx.createRadialGradient(w / 2, h / 2, w * 0.35, w / 2, h / 2, w * 0.55);
     vig.addColorStop(0, 'rgba(0,0,0,0)');
     vig.addColorStop(1, 'rgba(0,0,0,0.6)');
     ctx.fillStyle = vig;
     ctx.fillRect(0, 0, w, h);
 
-    // CSS-фильтр
     const blur = (100 - state.focus) * 0.06;
     const bright = state.light / 100;
     const contrast = 1 + (state.light - 90) * 0.002;
@@ -1353,83 +1328,104 @@ body::before{
   }
 
   /* ============================================================
-     ОБРАБОТЧИКИ
+     СЛАЙДЕРЫ — ПРОСТО, ЧЕРЕЗ 'input'
      ============================================================ */
+  function onSliderChange(range, stateKey, valEl, formatter){
+    const v = +range.value;
+    state[stateKey] = v;
+    valEl.textContent = formatter(v);
+    render();
+  }
 
   zoomRange.addEventListener('input', () => {
-    state.zoom = +zoomRange.value;
-    zoomVal.textContent = '×' + state.zoom;
-    magScale.textContent = '×' + state.zoom;
-    updateKnob(zoomRange, zoomFill);
-    render();
+    onSliderChange(zoomRange, 'zoom', zoomVal, v => '×' + v);
+    magScale.textContent = '×' + zoomRange.value;
   });
-
   focusRange.addEventListener('input', () => {
-    state.focus = +focusRange.value;
-    focusVal.textContent = state.focus + '%';
-    updateKnob(focusRange, focusFill);
-    render();
+    onSliderChange(focusRange, 'focus', focusVal, v => v + '%');
   });
-
   lightRange.addEventListener('input', () => {
-    state.light = +lightRange.value;
-    lightVal.textContent = state.light + '%';
-    updateKnob(lightRange, lightFill);
-    render();
+    onSliderChange(lightRange, 'light', lightVal, v => v + '%');
   });
 
-  /* ---------- ПЕРЕТАСКИВАНИЕ (мышь + тач) ---------- */
-
-  let activePointerId = null;
+  /* ============================================================
+     УМНОЕ ПЕРЕТАСКИВАНИЕ
+     Работает так:
+     - Если жест в основном ГОРИЗОНТАЛЬНЫЙ → таскаем препарат.
+     - Если жест в основном ВЕРТИКАЛЬНЫЙ → отдаём браузеру (скролл страницы),
+       т.к. на .eyepiece стоит touch-action: pan-y.
+     ============================================================ */
+  let touchState = null;
 
   eyepiece.addEventListener('pointerdown', (e) => {
+    // Игнорируем клики по слайдерам и т.п.
     if(e.target.closest('input')) return;
-    e.preventDefault();
-    activePointerId = e.pointerId;
-    state.drag = {
+
+    touchState = {
+      pointerId: e.pointerId,
       startX: e.clientX,
       startY: e.clientY,
       baseX: state.offsetX,
-      baseY: state.offsetY
+      baseY: state.offsetY,
+      decided: false,
+      isDragging: false
     };
-    try { eyepiece.setPointerCapture(e.pointerId); } catch(_) {}
   });
 
   eyepiece.addEventListener('pointermove', (e) => {
-    if(!state.drag || e.pointerId !== activePointerId) return;
-    e.preventDefault();
-    state.offsetX = state.drag.baseX + (e.clientX - state.drag.startX);
-    state.offsetY = state.drag.baseY + (e.clientY - state.drag.startY);
-    render();
-  });
+    if(!touchState || e.pointerId !== touchState.pointerId) return;
 
-  function endDrag(e){
-    if(e && e.pointerId !== activePointerId) return;
-    state.drag = null;
-    activePointerId = null;
-  }
-  eyepiece.addEventListener('pointerup', endDrag);
-  eyepiece.addEventListener('pointercancel', endDrag);
-  eyepiece.addEventListener('lostpointercapture', endDrag);
+    const dx = e.clientX - touchState.startX;
+    const dy = e.clientY - touchState.startY;
 
-  // Запрет скролла страницы при таскании препарата на тач-устройствах
-  eyepiece.addEventListener('touchmove', (e) => {
-    if(state.drag) e.preventDefault();
+    // Пока не решили — определяем направление
+    if(!touchState.decided){
+      if(Math.abs(dx) < 6 && Math.abs(dy) < 6) return; // мёртвая зона
+      touchState.decided = true;
+      if(Math.abs(dx) > Math.abs(dy)){
+        // Горизонтальный жест — начинаем таскать
+        touchState.isDragging = true;
+        try { eyepiece.setPointerCapture(e.pointerId); } catch(_) {}
+      } else {
+        // Вертикальный — не мешаем браузеру скроллить
+        touchState = null;
+        return;
+      }
+    }
+
+    if(touchState.isDragging){
+      e.preventDefault();
+      state.offsetX = touchState.baseX + dx;
+      state.offsetY = touchState.baseY + dy;
+      render();
+    }
   }, { passive: false });
 
-  // Зум колёсиком (только desktop)
+  function endTouch(e){
+    if(!touchState) return;
+    if(e && e.pointerId !== touchState.pointerId) return;
+    touchState = null;
+  }
+  eyepiece.addEventListener('pointerup', endTouch);
+  eyepiece.addEventListener('pointercancel', endTouch);
+  eyepiece.addEventListener('lostpointercapture', endTouch);
+
+  /* ============================================================
+     ЗУМ КОЛЁСИКОМ (desktop)
+     ============================================================ */
   eyepiece.addEventListener('wheel', (e) => {
     e.preventDefault();
     const delta = -e.deltaY * 0.5;
     state.zoom = Math.max(40, Math.min(400, state.zoom + delta));
-    zoomRange.value = state.zoom;
+    zoomRange.value = Math.round(state.zoom);
     zoomVal.textContent = '×' + Math.round(state.zoom);
     magScale.textContent = '×' + Math.round(state.zoom);
-    updateKnob(zoomRange, zoomFill);
     render();
   }, { passive: false });
 
-  /* ---------- СМЕНА ПРЕПАРАТА ---------- */
+  /* ============================================================
+     СМЕНА ПРЕПАРАТА
+     ============================================================ */
   document.querySelectorAll('.slide').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.slide').forEach(b => b.classList.remove('active'));
@@ -1464,7 +1460,9 @@ body::before{
     });
   });
 
-  /* ---------- ИНФО О ПРЕПАРАТЕ ---------- */
+  /* ============================================================
+     ИНФО О ПРЕПАРАТЕ
+     ============================================================ */
   function updateSpecimenInfo(key){
     const s = SPECIMENS[key];
     if(!s) return;
@@ -1481,15 +1479,10 @@ body::before{
   /* ============================================================
      СТАРТ
      ============================================================ */
-  updateKnob(zoomRange, zoomFill);
-  updateKnob(focusRange, focusFill);
-  updateKnob(lightRange, lightFill);
   updateSpecimenInfo('onion');
 
-  // Первый resize — после того, как браузер посчитает layout
   requestAnimationFrame(() => {
     resizeCanvas();
-    // Ещё раз через небольшую задержку — на случай, если шрифты/картинки догрузились
     setTimeout(resizeCanvas, 250);
     setTimeout(resizeCanvas, 800);
   });
@@ -1498,7 +1491,6 @@ body::before{
   setTimeout(() => {
     state.focus = 30;
     focusRange.value = 30;
-    updateKnob(focusRange, focusFill);
     focusVal.textContent = '30%';
     render();
 
@@ -1512,7 +1504,6 @@ body::before{
       state.focus = f;
       focusRange.value = f;
       focusVal.textContent = f + '%';
-      updateKnob(focusRange, focusFill);
       render();
     }, 30);
   }, 500);
