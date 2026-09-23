@@ -2,9 +2,9 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#0b1611" />
 <title>Виртуальный микроскоп — Ресурсный центр «Биология»</title>
-<meta name="description" content="Виртуальный микроскоп с препаратами: клетки лука, кровь, инфузория. Циклоз в листе элодеи в реальном времени." />
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,26 +13,26 @@
 <style>
 :root{
   --bg:#0b1611;
-  --bg-2:#0f1f18;
-  --panel:rgba(15,31,24,.94);
+  --panel:rgba(15,31,24,.9);
   --accent:#7ce8a4;
-  --accent-2:#4dd18a;
   --gold:#d4af5a;
-  --pink:#e88ba5;
-  --purple:#b58ce8;
   --text:#f0e9d8;
   --muted:#8ea79a;
   --line:rgba(124,232,164,.18);
   --grad:linear-gradient(135deg,#7ce8a4 0%,#d4af5a 100%);
 }
-*{margin:0;padding:0;box-sizing:border-box}
-html,body{height:100%}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{
+  width:100%;
+  min-height:100%;
+  overflow-x:hidden;
+}
 body{
-  font-family:'Inter',system-ui,sans-serif;
+  font-family:'Inter',system-ui,-apple-system,sans-serif;
   background:var(--bg);
   color:var(--text);
-  overflow:hidden;
   -webkit-font-smoothing:antialiased;
+  overscroll-behavior-y:none;
 }
 button{font-family:inherit;cursor:pointer;border:none;background:transparent;color:inherit}
 a{color:inherit;text-decoration:none}
@@ -48,111 +48,106 @@ body::before{
   pointer-events:none;
 }
 
+/* ============ ХЕДЕР ============ */
 .top-bar{
-  position:fixed;
-  top:0;left:0;right:0;
+  position:relative;
   z-index:100;
-  padding:18px 6vw;
+  padding:14px 4vw;
   display:flex;
   justify-content:space-between;
   align-items:center;
-  pointer-events:none;
+  background:rgba(11,22,17,.7);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);
 }
-.top-bar>*{pointer-events:auto}
 .back-link{
   display:inline-flex;
   align-items:center;
-  gap:10px;
-  padding:9px 18px;
+  gap:8px;
+  padding:8px 14px;
   border-radius:50px;
   border:1px solid var(--line);
   font-size:13px;
   color:var(--muted);
-  transition:all .3s;
   background:rgba(15,31,24,.6);
-  backdrop-filter:blur(8px);
+  white-space:nowrap;
 }
-.back-link:hover{
-  color:var(--accent);
-  border-color:rgba(124,232,164,.4);
-  transform:translateX(-3px);
-}
+.back-link:active{color:var(--accent);border-color:rgba(124,232,164,.4)}
 .brand{
   font-family:'Playfair Display',serif;
-  font-size:14px;
+  font-size:12px;
   letter-spacing:2px;
   color:var(--muted);
   text-transform:uppercase;
   display:flex;
   align-items:center;
-  gap:10px;
+  gap:8px;
+  white-space:nowrap;
 }
 .brand::before{
   content:'';
-  width:8px;height:8px;
+  width:7px;height:7px;
   border-radius:50%;
   background:var(--accent);
-  box-shadow:0 0 12px var(--accent);
-  animation:pulseDot 2.4s infinite;
-}
-@keyframes pulseDot{
-  0%,100%{opacity:1;transform:scale(1)}
-  50%{opacity:.5;transform:scale(1.4)}
+  box-shadow:0 0 10px var(--accent);
+  flex-shrink:0;
 }
 
+/* ============ ОСНОВНОЙ КОНТЕЙНЕР ============ */
 .stage{
   position:relative;
   z-index:1;
-  height:100vh;
+  width:100%;
+  max-width:1400px;
+  margin:0 auto;
+  padding:16px 4vw 40px;
   display:grid;
-  grid-template-columns: 260px 1fr 340px;
-  gap:24px;
-  padding:90px 6vw 40px;
-  align-items:center;
+  grid-template-columns:240px 1fr 320px;
+  gap:20px;
+  align-items:start;
 }
 
+/* ============ ПРЕПАРАТЫ ============ */
 .slides-panel{
   display:flex;
   flex-direction:column;
-  gap:12px;
+  gap:10px;
 }
 .slides-title{
   font-family:'Playfair Display',serif;
   font-style:italic;
-  font-size:14px;
+  font-size:13px;
   color:var(--gold);
   letter-spacing:1px;
-  margin-bottom:4px;
+  margin-bottom:2px;
 }
 .slide{
   display:flex;
   align-items:center;
-  gap:14px;
-  padding:14px 16px;
-  border-radius:16px;
-  background:rgba(15,31,24,.65);
+  gap:12px;
+  padding:12px 14px;
+  border-radius:14px;
+  background:rgba(15,31,24,.6);
   border:1px solid var(--line);
-  backdrop-filter:blur(8px);
-  transition:all .3s;
+  transition:all .25s;
   text-align:left;
   font-size:13px;
+  width:100%;
 }
-.slide:hover{
-  border-color:rgba(124,232,164,.4);
-  transform:translateX(4px);
-}
+.slide:active{transform:scale(.98)}
 .slide.active{
   border-color:var(--accent);
-  background:linear-gradient(135deg,rgba(124,232,164,.1),rgba(212,175,90,.08));
-  box-shadow:0 0 20px -5px rgba(124,232,164,.4);
+  background:linear-gradient(135deg,rgba(124,232,164,.12),rgba(212,175,90,.08));
+  box-shadow:0 0 20px -6px rgba(124,232,164,.5);
 }
 .slide-icon{
-  width:44px;height:44px;
-  border-radius:12px;
+  width:40px;height:40px;
+  border-radius:11px;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:22px;
+  font-size:20px;
   flex-shrink:0;
   background:linear-gradient(135deg,rgba(124,232,164,.12),rgba(212,175,90,.08));
   border:1px solid rgba(124,232,164,.2);
@@ -161,29 +156,29 @@ body::before{
 .slide-name{
   font-family:'Playfair Display',serif;
   font-weight:600;
-  font-size:14.5px;
+  font-size:14px;
   color:var(--text);
   line-height:1.2;
-  margin-bottom:3px;
+  margin-bottom:2px;
   white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
 }
 .slide-sub{
-  font-size:11.5px;
+  font-size:11px;
   color:var(--muted);
-  letter-spacing:.2px;
   white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
 }
 .slide.active .slide-name{color:var(--accent)}
 
+/* ============ МИКРОСКОП ============ */
 .microscope{
   position:relative;
   width:100%;
-  max-width:720px;
-  aspect-ratio: 1 / 1;
+  max-width:640px;
+  aspect-ratio:1 / 1;
   margin:0 auto;
   display:flex;
   align-items:center;
@@ -192,61 +187,48 @@ body::before{
 
 .scope-body{
   position:absolute;
-  inset:6%;
+  inset:5%;
   border-radius:50%;
-  background:
-    radial-gradient(circle at 50% 30%, #1a2e22 0%, #0d1a14 60%, #061008 100%);
+  background:radial-gradient(circle at 50% 30%, #1a2e22 0%, #0d1a14 60%, #061008 100%);
   box-shadow:
     inset 0 0 60px rgba(0,0,0,.8),
-    inset 0 0 20px rgba(124,232,164,.06),
-    0 30px 80px -20px rgba(0,0,0,.9),
-    0 0 100px -30px rgba(124,232,164,.3);
+    0 20px 60px -20px rgba(0,0,0,.9),
+    0 0 80px -30px rgba(124,232,164,.3);
   border:1px solid rgba(124,232,164,.12);
+  pointer-events:none;
 }
 .scope-body::before{
   content:'';
   position:absolute;
   inset:2.5%;
   border-radius:50%;
-  background:
-    conic-gradient(from 0deg,
-      rgba(124,232,164,.15) 0deg 2deg, transparent 2deg 60deg,
-      rgba(124,232,164,.15) 60deg 62deg, transparent 62deg 120deg,
-      rgba(124,232,164,.15) 120deg 122deg, transparent 122deg 180deg,
-      rgba(124,232,164,.15) 180deg 182deg, transparent 182deg 240deg,
-      rgba(124,232,164,.15) 240deg 242deg, transparent 242deg 300deg,
-      rgba(124,232,164,.15) 300deg 302deg, transparent 302deg 360deg);
+  background:conic-gradient(from 0deg,
+    rgba(124,232,164,.15) 0deg 2deg, transparent 2deg 60deg,
+    rgba(124,232,164,.15) 60deg 62deg, transparent 62deg 120deg,
+    rgba(124,232,164,.15) 120deg 122deg, transparent 122deg 180deg,
+    rgba(124,232,164,.15) 180deg 182deg, transparent 182deg 240deg,
+    rgba(124,232,164,.15) 240deg 242deg, transparent 242deg 300deg,
+    rgba(124,232,164,.15) 300deg 302deg, transparent 302deg 360deg);
   animation:scopeRotate 60s linear infinite;
-  pointer-events:none;
-}
-.scope-body::after{
-  content:'';
-  position:absolute;
-  inset:6%;
-  border-radius:50%;
-  background:
-    repeating-conic-gradient(from 0deg,
-      rgba(212,175,90,.2) 0deg 1deg,
-      transparent 1deg 30deg);
-  opacity:.4;
-  pointer-events:none;
 }
 @keyframes scopeRotate{to{transform:rotate(360deg)}}
 
 .eyepiece{
   position:relative;
-  width:78%;
+  width:80%;
   aspect-ratio:1;
   border-radius:50%;
   overflow:hidden;
   z-index:2;
   box-shadow:
     inset 0 0 40px rgba(0,0,0,.9),
-    0 0 0 12px #0a1610,
-    0 0 0 14px rgba(124,232,164,.2),
-    0 0 0 16px #08120c;
+    0 0 0 10px #0a1610,
+    0 0 0 12px rgba(124,232,164,.2),
+    0 0 0 14px #08120c;
+  touch-action:none;
+  -webkit-user-select:none;
+  user-select:none;
   cursor:grab;
-  transition:box-shadow .3s;
 }
 .eyepiece:active{cursor:grabbing}
 .eyepiece::after{
@@ -254,8 +236,7 @@ body::before{
   position:absolute;
   inset:0;
   border-radius:50%;
-  background:
-    radial-gradient(circle at 50% 50%, transparent 40%, rgba(0,0,0,.5) 90%, rgba(0,0,0,.85) 100%);
+  background:radial-gradient(circle at 50% 50%, transparent 40%, rgba(0,0,0,.5) 90%, rgba(0,0,0,.85) 100%);
   pointer-events:none;
   z-index:5;
 }
@@ -265,7 +246,7 @@ body::before{
   width:100%;
   height:100%;
   display:block;
-  transition:filter .3s;
+  transition:filter .3s, opacity .3s;
 }
 
 .reticle{
@@ -273,7 +254,7 @@ body::before{
   inset:0;
   pointer-events:none;
   z-index:4;
-  opacity:.6;
+  opacity:.55;
 }
 .reticle::before,
 .reticle::after{
@@ -281,20 +262,12 @@ body::before{
   position:absolute;
   background:rgba(124,232,164,.5);
 }
-.reticle::before{
-  left:50%;top:20%;
-  width:1px;height:60%;
-  transform:translateX(-50%);
-}
-.reticle::after{
-  top:50%;left:20%;
-  height:1px;width:60%;
-  transform:translateY(-50%);
-}
+.reticle::before{left:50%;top:22%;width:1px;height:56%;transform:translateX(-50%)}
+.reticle::after{top:50%;left:22%;height:1px;width:56%;transform:translateY(-50%)}
 .reticle-mark{
   position:absolute;
   top:50%;left:50%;
-  width:56px;height:56px;
+  width:48px;height:48px;
   transform:translate(-50%,-50%);
   border:1px solid rgba(124,232,164,.35);
   border-radius:50%;
@@ -312,63 +285,57 @@ body::before{
 
 .mag-scale{
   position:absolute;
-  bottom:8%;
-  right:12%;
+  bottom:9%;
+  right:13%;
   font-family:'Playfair Display',serif;
-  font-size:12px;
+  font-size:11px;
   color:var(--accent);
   letter-spacing:1px;
   z-index:6;
   text-shadow:0 0 8px rgba(124,232,164,.6);
+  pointer-events:none;
 }
 
+/* ============ ПРАВАЯ ПАНЕЛЬ ============ */
 .right-panel{
   display:flex;
   flex-direction:column;
-  gap:14px;
-  max-height:calc(100vh - 140px);
-  overflow-y:auto;
-  padding-right:4px;
+  gap:12px;
 }
-.right-panel::-webkit-scrollbar{width:4px}
-.right-panel::-webkit-scrollbar-thumb{background:rgba(124,232,164,.2);border-radius:50px}
-
 .panel-card{
-  padding:18px 18px;
-  border-radius:16px;
-  background:rgba(15,31,24,.65);
+  padding:16px;
+  border-radius:14px;
+  background:rgba(15,31,24,.6);
   border:1px solid var(--line);
-  backdrop-filter:blur(8px);
 }
 .panel-card h4{
   font-family:'Playfair Display',serif;
   font-style:italic;
-  font-size:13px;
+  font-size:12.5px;
   color:var(--gold);
   letter-spacing:1px;
-  margin-bottom:14px;
+  margin-bottom:12px;
   font-weight:500;
 }
 
 .knob-row{
   display:flex;
   align-items:center;
-  gap:14px;
-  margin-bottom:16px;
+  gap:12px;
+  margin-bottom:14px;
 }
 .knob-row:last-child{margin-bottom:0}
 .knob-label{
   font-size:12px;
   color:var(--muted);
-  letter-spacing:.5px;
-  width:52px;
+  width:48px;
   flex-shrink:0;
 }
 .knob-val{
   font-family:'Playfair Display',serif;
-  font-size:14px;
+  font-size:13px;
   color:var(--accent);
-  width:56px;
+  width:50px;
   text-align:right;
   flex-shrink:0;
   font-weight:600;
@@ -379,38 +346,38 @@ body::before{
   height:6px;
   border-radius:50px;
   background:rgba(124,232,164,.1);
-  overflow:hidden;
+  overflow:visible;
 }
 .knob input[type="range"]{
   position:absolute;
-  inset:-10px 0;
+  top:50%;
+  left:0;
+  transform:translateY(-50%);
   width:100%;
-  height:26px;
+  height:32px;
   background:transparent;
   -webkit-appearance:none;
   appearance:none;
   cursor:pointer;
   outline:none;
+  margin:0;
+  padding:0;
 }
 .knob input[type="range"]::-webkit-slider-thumb{
   -webkit-appearance:none;
   appearance:none;
-  width:20px;height:20px;
+  width:22px;height:22px;
   border-radius:50%;
   background:var(--grad);
   border:2px solid #0b1611;
-  box-shadow:0 0 12px rgba(124,232,164,.6);
-  cursor:grab;
-  transition:transform .2s;
+  box-shadow:0 0 10px rgba(124,232,164,.6);
 }
-.knob input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.15)}
 .knob input[type="range"]::-moz-range-thumb{
-  width:20px;height:20px;
+  width:22px;height:22px;
   border-radius:50%;
   background:var(--accent);
   border:2px solid #0b1611;
-  box-shadow:0 0 12px rgba(124,232,164,.6);
-  cursor:grab;
+  box-shadow:0 0 10px rgba(124,232,164,.6);
   border:none;
 }
 .knob-fill{
@@ -424,18 +391,17 @@ body::before{
 .specimen-info h3{
   font-family:'Playfair Display',serif;
   font-weight:600;
-  font-size:22px;
+  font-size:20px;
   line-height:1.15;
   margin-bottom:6px;
-  color:var(--text);
 }
 .specimen-latin{
   font-family:'Playfair Display',serif;
   font-style:italic;
-  font-size:12.5px;
+  font-size:12px;
   color:var(--muted);
   display:block;
-  margin-bottom:14px;
+  margin-bottom:12px;
 }
 .specimen-rank{
   display:inline-block;
@@ -447,23 +413,23 @@ body::before{
   border-radius:50px;
   background:rgba(212,175,90,.08);
   border:1px solid rgba(212,175,90,.3);
-  margin-bottom:12px;
+  margin-bottom:10px;
 }
 .specimen-desc{
   font-size:13px;
   color:var(--muted);
-  line-height:1.65;
-  margin-bottom:14px;
-  padding-bottom:14px;
+  line-height:1.6;
+  margin-bottom:12px;
+  padding-bottom:12px;
   border-bottom:1px solid var(--line);
 }
-.specimen-facts{display:flex;flex-direction:column;gap:6px}
+.specimen-facts{display:flex;flex-direction:column;gap:4px}
 .specimen-facts>div{
   display:flex;
   justify-content:space-between;
   gap:10px;
   font-size:12px;
-  padding:8px 0;
+  padding:7px 0;
 }
 .specimen-facts span{color:var(--muted)}
 .specimen-facts strong{color:var(--text);font-weight:500;text-align:right}
@@ -480,12 +446,13 @@ body::before{
   color:var(--muted);
   background:rgba(124,232,164,.05);
   border:1px solid var(--line);
+  line-height:1.4;
 }
 
 .observations{
   font-size:12.5px;
   color:var(--muted);
-  line-height:1.7;
+  line-height:1.65;
 }
 .observations strong{color:var(--accent);font-weight:500}
 
@@ -493,8 +460,8 @@ body::before{
   display:inline-flex;
   align-items:center;
   gap:8px;
-  margin-top:14px;
-  padding:6px 14px;
+  margin-top:12px;
+  padding:6px 12px;
   border-radius:50px;
   background:rgba(124,232,164,.08);
   border:1px solid rgba(124,232,164,.3);
@@ -504,7 +471,7 @@ body::before{
   color:var(--accent);
 }
 .live-dot{
-  width:7px;height:7px;
+  width:6px;height:6px;
   border-radius:50%;
   background:var(--accent);
   box-shadow:0 0 10px var(--accent);
@@ -515,45 +482,140 @@ body::before{
   50%{opacity:.4;transform:scale(.7)}
 }
 
+/* ============================================
+   ПЛАНШЕТ
+   ============================================ */
 @media (max-width:1100px){
   .stage{
-    grid-template-columns: 1fr;
-    grid-template-rows: auto 1fr auto;
-    padding:80px 5vw 30px;
+    grid-template-columns:200px 1fr;
+    grid-template-areas:
+      "slides microscope"
+      "info   info";
     gap:16px;
-    overflow-y:auto;
-    height:auto;
-    min-height:100vh;
-    align-items:start;
   }
-  .microscope{max-width:520px}
+  .slides-panel{grid-area:slides}
+  .microscope{grid-area:microscope}
+  .right-panel{
+    grid-area:info;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+  }
+  .right-panel .panel-card:nth-child(4){grid-column:1/-1}
+}
+
+/* ============================================
+   МОБИЛЬНЫЙ — вертикальный стек
+   ============================================ */
+@media (max-width:720px){
+  .top-bar{padding:12px 16px}
+  .brand{font-size:11px;letter-spacing:1.5px}
+  .brand::before{display:none}
+  .back-link{padding:7px 14px;font-size:12.5px}
+
+  .stage{
+    display:flex;
+    flex-direction:column;
+    padding:14px 16px 32px;
+    gap:14px;
+    max-width:100%;
+  }
+
+  /* Горизонтальная лента препаратов */
   .slides-panel{
     flex-direction:row;
     overflow-x:auto;
-    padding-bottom:6px;
+    overflow-y:hidden;
+    gap:10px;
+    padding:2px 0 10px;
+    margin:0 -16px;
+    padding-left:16px;
+    padding-right:16px;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
   }
-  .slides-panel::-webkit-scrollbar{height:4px}
-  .slides-panel::-webkit-scrollbar-thumb{background:rgba(124,232,164,.2);border-radius:50px}
+  .slides-panel::-webkit-scrollbar{display:none}
   .slides-title{display:none}
-  .slide{min-width:170px;flex-shrink:0}
-  .right-panel{max-height:none}
-  .eyepiece{width:90%}
-}
-@media (max-width:600px){
-  .brand{display:none}
-  .stage{padding:70px 16px 24px}
-  .slide-icon{width:36px;height:36px;font-size:18px}
+  .slide{
+    min-width:150px;
+    max-width:170px;
+    flex-shrink:0;
+    scroll-snap-align:start;
+    padding:10px 12px;
+    gap:10px;
+  }
+  .slide-icon{width:36px;height:36px;font-size:18px;border-radius:10px}
   .slide-name{font-size:13px}
-  .knob-label{width:44px;font-size:11px}
-  .knob-val{width:48px;font-size:12.5px}
+  .slide-sub{font-size:10.5px}
+
+  /* Микроскоп — компактный, вписан в экран */
+  .microscope{
+    width:100%;
+    max-width:min(94vw, 460px);
+    margin:4px auto 0;
+  }
+  .eyepiece{width:82%}
+  .scope-body{inset:4%}
+  .mag-scale{font-size:10px;bottom:8%;right:11%}
+
+  /* Правая панель — всё в столбик */
+  .right-panel{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+  }
+  .panel-card{padding:14px}
+  .panel-card h4{font-size:12px;margin-bottom:10px}
+  .specimen-info h3{font-size:18px}
+  .specimen-desc{font-size:12.5px}
+
+  .knob-label{font-size:11px;width:42px}
+  .knob-val{font-size:12px;width:44px}
+  .knob input[type="range"]{height:36px}
+  .knob input[type="range"]::-webkit-slider-thumb{width:24px;height:24px}
+}
+
+/* Очень узкие экраны */
+@media (max-width:380px){
+  .stage{padding:12px 12px 28px}
+  .slides-panel{margin:0 -12px;padding-left:12px;padding-right:12px}
+  .microscope{max-width:96vw}
+  .panel-card{padding:12px}
+  .specimen-info h3{font-size:17px}
+}
+
+/* Ландшафт на телефоне — 2 колонки */
+@media (max-width:900px) and (orientation:landscape){
+  .stage{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    grid-template-areas:
+      "microscope slides"
+      "microscope info";
+    gap:14px;
+    align-items:start;
+    padding:12px 16px;
+  }
+  .slides-panel{
+    grid-area:slides;
+    flex-direction:column;
+    margin:0;
+    padding:0;
+    overflow-y:auto;
+    max-height:140px;
+  }
+  .slide{min-width:0;max-width:none}
+  .microscope{grid-area:microscope;max-width:100%}
+  .right-panel{grid-area:info;max-height:calc(100vh - 200px);overflow-y:auto}
 }
 </style>
 </head>
 <body>
 
 <div class="top-bar">
-  <a href="index.html" class="back-link">На главную</a>
-  <div class="brand">Ресурсный центр · Биология</div>
+  <a href="index.html" class="back-link">← На главную</a>
+  <div class="brand">Биология · Микроскоп</div>
 </div>
 
 <div class="stage">
@@ -584,7 +646,7 @@ body::before{
     <button class="slide" data-specimen="infusoria">
       <div class="slide-icon">🦠</div>
       <div class="slide-text">
-        <div class="slide-name">Инфузория-туфелька</div>
+        <div class="slide-name">Инфузория</div>
         <div class="slide-sub">Одноклеточный организм</div>
       </div>
     </button>
@@ -657,10 +719,10 @@ body::before{
     <div class="panel-card">
       <h4>— Управление —</h4>
       <div class="hints">
-        <span>🖱 Тяни окуляр — двигай препарат</span>
-        <span>🔍 Зум — крутилка</span>
-        <span>🎯 Фокус — резкость</span>
-        <span>💡 Свет — яркость</span>
+        <span>👆 Тащи окуляр — двигай препарат</span>
+        <span>🔍 Зум</span>
+        <span>🎯 Фокус</span>
+        <span>💡 Свет</span>
       </div>
     </div>
   </div>
@@ -672,22 +734,19 @@ body::before{
   const eyepiece = document.getElementById('eyepiece');
   if(!canvas || !eyepiece) return;
 
-  const ctx = canvas.getContext('2d');
+  const ctx = canvas.getContext('2d', { alpha: true });
 
-  /* ---------- ДАННЫЕ ПРЕПАРАТОВ ---------- */
+  /* ============================================================
+     ДАННЫЕ ПРЕПАРАТОВ
+     ============================================================ */
   const SPECIMENS = {
     onion: {
       name:'Клетки кожицы лука',
       latin:'Allium cepa — epidermis',
       rank:'Растительная ткань · Epidermis',
       desc:'Классический препарат для изучения растительной клетки. Крупные прямоугольные клетки с чёткими стенками из целлюлозы. Хорошо видны ядро и вакуоль.',
-      facts:[
-        ['Увеличение','×400'],
-        ['Клетки','~100 мкм'],
-        ['Окраска','Йод / метилен'],
-        ['Класс','Растительные']
-      ],
-      observations:'<strong>Ряд плотно прилегающих клеток</strong> прямоугольной формы. В центре каждой — <strong>крупное ядро</strong>. Цитоплазма сдвинута к стенкам, в середине — большая вакуоль.',
+      facts:[['Увеличение','×400'],['Клетки','~100 мкм'],['Окраска','Йод'],['Тип','Растительные']],
+      observations:'<strong>Плотно прилегающие клетки</strong> прямоугольной формы. В центре каждой — <strong>крупное ядро</strong>. В середине клетки — большая вакуоль.',
       draw: drawOnion
     },
     blood: {
@@ -695,116 +754,102 @@ body::before{
       latin:'Sanguis humanus',
       rank:'Соединительная ткань · Sanguis',
       desc:'Мазок крови — самый известный препарат. Эритроциты переносят кислород, лейкоциты защищают организм, тромбоциты отвечают за свёртывание.',
-      facts:[
-        ['Увеличение','×400'],
-        ['Эритроциты','7–8 мкм'],
-        ['Норма RBC','4–5 млн/мкл'],
-        ['Цвет','Красный (гемоглобин)']
-      ],
-      observations:'<strong>Множество красных эритроцитов</strong> — двояковогнутых дисков без ядра. Редкие <strong>лейкоциты</strong> — крупные белые клетки с ядром. Ещё реже — <strong>тромбоциты</strong> — мелкие пластинки.',
+      facts:[['Увеличение','×400'],['Эритроциты','7–8 мкм'],['Норма RBC','4–5 млн/мкл'],['Цвет','Гемоглобин']],
+      observations:'<strong>Красные эритроциты</strong> — двояковогнутые диски без ядра. Редкие <strong>лейкоциты</strong> — крупные белые клетки с ядром. Ещё реже — мелкие <strong>тромбоциты</strong>.',
       draw: drawBlood
     },
     leaf: {
       name:'Лист элодеи',
       latin:'Elodea canadensis — leaf',
       rank:'Растительная ткань · Folia',
-      desc:'Прозрачный лист водного растения. Клетки расположены в один слой, и в них отлично видны хлоропласты — зелёные органоиды, где идёт фотосинтез. Наблюдение за движением цитоплазмы (циклозом) — классический опыт школьной биологии.',
-      facts:[
-        ['Увеличение','×400'],
-        ['Слой клеток','Один'],
-        ['Хлоропласты','5–10 мкм'],
-        ['Циклоз','~2 мкм/сек']
-      ],
-      observations:'<strong>Прозрачные клетки</strong> с зелёными овальными <strong>хлоропластами</strong>. Они непрерывно перемещаются по кругу вдоль стенок — это <strong>движение цитоплазмы (циклоз)</strong>. В соседних клетках направления движения могут отличаться. Скорость зависит от температуры и освещения.',
+      desc:'Прозрачный лист водного растения. Клетки в один слой, видны хлоропласты — зелёные органоиды фотосинтеза. Наблюдение за циклозом — классический опыт.',
+      facts:[['Увеличение','×400'],['Слой','Один'],['Хлоропласты','5–10 мкм'],['Циклоз','~2 мкм/сек']],
+      observations:'<strong>Прозрачные клетки</strong> с зелёными <strong>хлоропластами</strong>. Они непрерывно двигаются по кругу — это <strong>циклоз</strong>. В соседних клетках направление разное.',
       draw: drawLeafWalls,
-      drawDynamic: drawLeafChloroplasts,
-      isAnimated: true
+      drawDynamic: drawLeafChloroplasts
     },
     infusoria: {
       name:'Инфузория-туфелька',
       latin:'Paramecium caudatum',
       rank:'Простейшие · Ciliophora',
-      desc:'Одноклеточный организм класса инфузорий. Форма напоминает подошву туфельки. Покрыта ресничками, с помощью которых плавает и подгоняет пищу ко рту.',
-      facts:[
-        ['Размер','180–300 мкм'],
-        ['Ресничек','~15 000'],
-        ['Скорость','до 2 мм/сек'],
-        ['Питание','Бактерии']
-      ],
-      observations:'<strong>Крупная клетка</strong> вытянутой формы. По всей поверхности — <strong>множество ресничек</strong>. Внутри видны пульсирующие <strong>сократительные вакуоли</strong> и вакуоли с пищей.',
+      desc:'Одноклеточный организм. Форма — как подошва туфельки. Покрыта ресничками, которыми плавает и подгоняет пищу ко рту.',
+      facts:[['Размер','180–300 мкм'],['Ресничек','~15 000'],['Скорость','до 2 мм/сек'],['Питание','Бактерии']],
+      observations:'<strong>Крупная клетка</strong> вытянутой формы. По всей поверхности — <strong>реснички</strong>. Внутри — пульсирующие <strong>сократительные вакуоли</strong>.',
       draw: drawInfusoria
     },
     bacteria: {
       name:'Бактерии (сенная палочка)',
       latin:'Bacillus subtilis',
       rank:'Прокариоты · Bacteria',
-      desc:'Прокариотические клетки — без ядра и органоидов. Сенная палочка — классический объект школьной биологии. Образует споры при неблагоприятных условиях.',
-      facts:[
-        ['Размер','2–5 мкм'],
-        ['Форма','Палочка'],
-        ['Движение','Жгутики'],
-        ['Споры','До 100°C']
-      ],
-      observations:'<strong>Мелкие вытянутые клетки</strong> — палочки. Двигаются при помощи жгутиков. Некоторые <strong>образуют споры</strong> — светлые овальные тельца внутри.',
+      desc:'Прокариоты — без ядра и органоидов. Сенная палочка — классический объект. Образует споры при неблагоприятных условиях.',
+      facts:[['Размер','2–5 мкм'],['Форма','Палочка'],['Движение','Жгутики'],['Споры','До 100 °C']],
+      observations:'<strong>Мелкие палочки</strong>. Двигаются жгутиками. Некоторые <strong>образуют споры</strong> — светлые овальные тельца внутри.',
       draw: drawBacteria
     }
   };
 
-  /* ---------- РИСУНКИ ПРЕПАРАТОВ ---------- */
+  /* ============================================================
+     ХЕЛПЕРЫ РИСОВАНИЯ
+     ============================================================ */
+  function roundRect(c, x, y, w, h, r){
+    if(w < 2 * r) r = w / 2;
+    if(h < 2 * r) r = h / 2;
+    c.beginPath();
+    c.moveTo(x + r, y);
+    c.lineTo(x + w - r, y);
+    c.quadraticCurveTo(x + w, y, x + w, y + r);
+    c.lineTo(x + w, y + h - r);
+    c.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+    c.lineTo(x + r, y + h);
+    c.quadraticCurveTo(x, y + h, x, y + h - r);
+    c.lineTo(x, y + r);
+    c.quadraticCurveTo(x, y, x + r, y);
+    c.closePath();
+  }
+  // Псевдослучайное с фиксированным seed — чтобы не мерцало
+  const seed = (i) => ((Math.sin(i * 12.9898 + 78.233) * 43758.5453) % 1 + 1) % 1;
+
+  /* ============================================================
+     РИСУНКИ ПРЕПАРАТОВ
+     ============================================================ */
   function drawOnion(c){
     const w = canvas.width, h = canvas.height;
-    const cx = w / 2, cy = h / 2;
-    const cellW = 160, cellH = 110;
-    const cols = 10, rows = 8;
-    const startX = cx - (cols * cellW) / 2;
-    const startY = cy - (rows * cellH) / 2;
+    const cellW = 130, cellH = 90;
+    const cols = Math.ceil(w / cellW) + 4;
+    const rows = Math.ceil(h / cellH) + 4;
+    const startX = -cellW * 2;
+    const startY = -cellH * 2;
 
     c.fillStyle = 'rgba(255,240,210,0.15)';
     c.fillRect(-w * 6, -h * 6, w * 13, h * 13);
 
-    for(let i = -2; i < cols + 2; i++){
-      for(let j = -2; j < rows + 2; j++){
+    for(let i = 0; i < cols; i++){
+      for(let j = 0; j < rows; j++){
         const x = startX + i * cellW;
         const y = startY + j * cellH;
-        const jitterX = ((i * 13 + j * 7) % 10 - 5) * 0.6;
-        const jitterY = ((i * 5 + j * 11) % 10 - 5) * 0.6;
-        const px = x + jitterX;
-        const py = y + jitterY;
 
         c.strokeStyle = 'rgba(212,175,90,0.7)';
-        c.lineWidth = 3;
+        c.lineWidth = 2.5;
         c.beginPath();
-        roundRect(c, px, py, cellW - 6, cellH - 6, 6);
+        roundRect(c, x, y, cellW - 6, cellH - 6, 6);
         c.stroke();
 
         c.strokeStyle = 'rgba(212,175,90,0.35)';
         c.lineWidth = 1;
         c.beginPath();
-        roundRect(c, px + 4, py + 4, cellW - 14, cellH - 14, 4);
+        roundRect(c, x + 4, y + 4, cellW - 14, cellH - 14, 4);
         c.stroke();
 
-        const grad = c.createRadialGradient(
-          px + cellW/2, py + cellH/2, 4,
-          px + cellW/2, py + cellH/2, cellW/2
-        );
-        grad.addColorStop(0, 'rgba(255,245,220,0.15)');
-        grad.addColorStop(1, 'rgba(255,230,180,0.04)');
-        c.fillStyle = grad;
-        c.beginPath();
-        roundRect(c, px + 5, py + 5, cellW - 16, cellH - 16, 4);
-        c.fill();
-
+        const nx = x + cellW / 2;
+        const ny = y + cellH / 2;
         c.fillStyle = 'rgba(200,230,255,0.1)';
         c.beginPath();
-        c.ellipse(px + cellW/2, py + cellH/2, cellW/2 - 30, cellH/2 - 22, 0, 0, Math.PI * 2);
+        c.ellipse(nx, ny, cellW / 2 - 30, cellH / 2 - 22, 0, 0, Math.PI * 2);
         c.fill();
 
-        const nx = px + cellW/2;
-        const ny = py + cellH/2;
-        const nr = 16;
         c.fillStyle = 'rgba(180,140,230,0.85)';
         c.beginPath();
-        c.arc(nx, ny, nr, 0, Math.PI * 2);
+        c.arc(nx, ny, 14, 0, Math.PI * 2);
         c.fill();
         c.fillStyle = 'rgba(230,200,255,0.9)';
         c.beginPath();
@@ -823,17 +868,16 @@ body::before{
     c.fillStyle = 'rgba(255,240,235,0.1)';
     c.fillRect(-w * 6, -h * 6, w * 13, h * 13);
 
-    // Детерминированное распределение, чтобы не мерцало
-    const seed = (i) => ((Math.sin(i * 12.9898 + 78.233) * 43758.5453) % 1 + 1) % 1;
-
-    for(let i = 0; i < 260; i++){
+    for(let i = 0; i < 200; i++){
       const x = seed(i) * w * 3 - w;
       const y = seed(i + 1000) * h * 3 - h;
-      const r = 11 + seed(i + 2000) * 3;
+      const r = 10 + seed(i + 2000) * 3;
+
       c.fillStyle = 'rgba(180,30,50,0.15)';
       c.beginPath();
       c.arc(x + 2, y + 2, r + 1, 0, Math.PI * 2);
       c.fill();
+
       const grad = c.createRadialGradient(x, y, 1, x, y, r);
       grad.addColorStop(0, 'rgba(220,80,100,0.55)');
       grad.addColorStop(0.7, 'rgba(200,50,80,0.85)');
@@ -842,6 +886,7 @@ body::before{
       c.beginPath();
       c.arc(x, y, r, 0, Math.PI * 2);
       c.fill();
+
       c.fillStyle = 'rgba(255,200,210,0.35)';
       c.beginPath();
       c.arc(x, y, r * 0.55, 0, Math.PI * 2);
@@ -851,7 +896,7 @@ body::before{
     for(let i = 0; i < 3; i++){
       const x = (0.2 + seed(i + 3000) * 0.6) * w;
       const y = (0.2 + seed(i + 4000) * 0.6) * h;
-      const r = 24;
+      const r = 22;
       c.fillStyle = 'rgba(200,220,255,0.15)';
       c.beginPath();
       c.arc(x, y, r + 6, 0, Math.PI * 2);
@@ -863,7 +908,7 @@ body::before{
       c.fillStyle = 'rgba(120,80,180,0.85)';
       c.beginPath();
       for(let a = 0; a < Math.PI * 2; a += Math.PI / 8){
-        const rr = 10 + Math.sin(a * 3 + i) * 4;
+        const rr = 9 + Math.sin(a * 3 + i) * 4;
         const px = x + Math.cos(a) * rr;
         const py = y + Math.sin(a) * rr;
         if(a === 0) c.moveTo(px, py); else c.lineTo(px, py);
@@ -872,24 +917,22 @@ body::before{
       c.fill();
     }
 
-    for(let i = 0; i < 40; i++){
+    for(let i = 0; i < 30; i++){
       const x = seed(i + 5000) * w * 3 - w;
       const y = seed(i + 6000) * h * 3 - h;
       c.fillStyle = 'rgba(230,200,150,0.6)';
       c.beginPath();
-      c.ellipse(x, y, 4, 2.5, seed(i + 7000) * Math.PI, 0, Math.PI * 2);
+      c.ellipse(x, y, 3.5, 2, seed(i + 7000) * Math.PI, 0, Math.PI * 2);
       c.fill();
     }
   }
 
-  /* ---------- ЛИСТ ЭЛОДЕИ: СТЕНКИ (СТАТИЧНО) ---------- */
   function drawLeafWalls(c){
     const w = canvas.width, h = canvas.height;
-
     c.fillStyle = 'rgba(230,245,220,0.12)';
     c.fillRect(-w * 6, -h * 6, w * 13, h * 13);
 
-    const cellW = 130, cellH = 90;
+    const cellW = 120, cellH = 80;
     const cols = Math.ceil(w / cellW) + 4;
     const rows = Math.ceil(h / cellH) + 4;
     const startX = -cellW * 2;
@@ -901,36 +944,34 @@ body::before{
         const y = startY + j * cellH;
 
         c.strokeStyle = 'rgba(120,180,100,0.55)';
-        c.lineWidth = 2.5;
+        c.lineWidth = 2;
         c.beginPath();
-        roundRect(c, x + 4, y + 4, cellW - 8, cellH - 8, 12);
+        roundRect(c, x + 4, y + 4, cellW - 8, cellH - 8, 10);
         c.stroke();
 
         c.strokeStyle = 'rgba(120,180,100,0.2)';
         c.lineWidth = 1;
         c.beginPath();
-        roundRect(c, x + 9, y + 9, cellW - 18, cellH - 18, 8);
+        roundRect(c, x + 8, y + 8, cellW - 16, cellH - 16, 8);
         c.stroke();
 
         c.fillStyle = 'rgba(180,140,220,0.65)';
         c.beginPath();
-        c.arc(x + 24, y + cellH / 2, 8, 0, Math.PI * 2);
+        c.arc(x + 22, y + cellH / 2, 7, 0, Math.PI * 2);
         c.fill();
-
         c.fillStyle = 'rgba(220,180,255,0.85)';
         c.beginPath();
-        c.arc(x + 24, y + cellH / 2, 3, 0, Math.PI * 2);
+        c.arc(x + 22, y + cellH / 2, 2.5, 0, Math.PI * 2);
         c.fill();
       }
     }
   }
 
-  /* ---------- ЛИСТ ЭЛОДЕИ: ХЛОРОПЛАСТЫ (ЖИВЫЕ) ---------- */
   function drawLeafChloroplasts(c, time){
     const list = leafState.chloroplasts;
     for(let i = 0; i < list.length; i++){
       const ch = list[i];
-      const wobble = Math.sin(time * ch.wobbleSpeed + ch.wobble) * 1.4;
+      const wobble = Math.sin(time * ch.wobbleSpeed + ch.wobble) * 1.2;
       const x = ch.cx + Math.cos(ch.angle) * ch.rx + ch.jitterX;
       const y = ch.cy + Math.sin(ch.angle) * ch.ry + ch.jitterY + wobble;
 
@@ -940,7 +981,7 @@ body::before{
 
       c.fillStyle = 'rgba(20,60,30,0.22)';
       c.beginPath();
-      c.ellipse(1.2, 1.2, ch.sizeX, ch.sizeY, 0, 0, Math.PI * 2);
+      c.ellipse(1, 1, ch.sizeX, ch.sizeY, 0, 0, Math.PI * 2);
       c.fill();
 
       c.fillStyle = 'rgba(55,150,75,0.94)';
@@ -953,11 +994,6 @@ body::before{
       c.ellipse(-ch.sizeX * 0.32, -ch.sizeY * 0.32, ch.sizeX * 0.5, ch.sizeY * 0.42, 0, 0, Math.PI * 2);
       c.fill();
 
-      c.fillStyle = 'rgba(235,255,210,0.65)';
-      c.beginPath();
-      c.arc(-ch.sizeX * 0.35, -ch.sizeY * 0.35, 1.2, 0, Math.PI * 2);
-      c.fill();
-
       c.restore();
     }
   }
@@ -967,20 +1003,18 @@ body::before{
     c.fillStyle = 'rgba(220,240,230,0.1)';
     c.fillRect(-w * 6, -h * 6, w * 13, h * 13);
 
-    const seed = (i) => ((Math.sin(i * 12.9898 + 78.233) * 43758.5453) % 1 + 1) % 1;
-
-    for(let n = 0; n < 4; n++){
-      const x = w * (0.2 + seed(n + 100) * 0.6);
-      const y = h * (0.2 + seed(n + 200) * 0.6);
+    for(let n = 0; n < 3; n++){
+      const x = w * (0.25 + seed(n + 100) * 0.5);
+      const y = h * (0.25 + seed(n + 200) * 0.5);
       const angle = seed(n + 300) * Math.PI * 2;
-      const scale = 0.9 + seed(n + 400) * 0.5;
+      const scale = 0.75 + seed(n + 400) * 0.4;
 
       c.save();
       c.translate(x, y);
       c.rotate(angle);
       c.scale(scale, scale);
 
-      const rx = 130, ry = 60;
+      const rx = 110, ry = 50;
 
       c.fillStyle = 'rgba(40,80,60,0.25)';
       c.beginPath();
@@ -997,53 +1031,32 @@ body::before{
       c.fill();
 
       c.strokeStyle = 'rgba(60,120,90,0.7)';
-      c.lineWidth = 2;
+      c.lineWidth = 1.5;
       c.stroke();
 
       c.strokeStyle = 'rgba(90,140,110,0.7)';
-      c.lineWidth = 1.2;
-      for(let a = 0; a < Math.PI * 2; a += 0.09){
+      c.lineWidth = 1;
+      for(let a = 0; a < Math.PI * 2; a += 0.15){
         const cxs = Math.cos(a) * rx;
         const cys = Math.sin(a) * ry;
-        const len = 12;
-        const nx = Math.cos(a);
-        const ny = Math.sin(a);
         c.beginPath();
         c.moveTo(cxs, cys);
-        c.lineTo(cxs + nx * len, cys + ny * len);
+        c.lineTo(cxs + Math.cos(a) * 10, cys + Math.sin(a) * 10);
         c.stroke();
       }
 
-      [0, 1].forEach(i => {
-        const vx = -40 + i * 80;
-        const vy = -20 + i * 30;
-        c.fillStyle = 'rgba(140,200,255,0.55)';
-        c.beginPath();
-        c.arc(vx, vy, 12, 0, Math.PI * 2);
-        c.fill();
-        c.strokeStyle = 'rgba(80,140,200,0.8)';
-        c.lineWidth = 1.5;
-        c.stroke();
-      });
+      c.fillStyle = 'rgba(140,200,255,0.55)';
+      c.beginPath();
+      c.arc(-35, -15, 10, 0, Math.PI * 2);
+      c.fill();
+      c.beginPath();
+      c.arc(30, 15, 10, 0, Math.PI * 2);
+      c.fill();
 
       c.fillStyle = 'rgba(180,120,220,0.7)';
       c.beginPath();
-      c.ellipse(0, 0, 22, 16, 0, 0, Math.PI * 2);
+      c.ellipse(0, 0, 18, 13, 0, 0, Math.PI * 2);
       c.fill();
-      c.fillStyle = 'rgba(220,180,255,0.8)';
-      c.beginPath();
-      c.arc(-4, -3, 6, 0, Math.PI * 2);
-      c.fill();
-
-      for(let i = 0; i < 5; i++){
-        const a = i * 1.3;
-        const vx = Math.cos(a) * 60;
-        const vy = Math.sin(a) * 30;
-        c.fillStyle = 'rgba(160,120,80,0.5)';
-        c.beginPath();
-        c.arc(vx, vy, 7, 0, Math.PI * 2);
-        c.fill();
-      }
 
       c.restore();
     }
@@ -1054,14 +1067,12 @@ body::before{
     c.fillStyle = 'rgba(230,240,220,0.1)';
     c.fillRect(-w * 6, -h * 6, w * 13, h * 13);
 
-    const seed = (i) => ((Math.sin(i * 12.9898 + 78.233) * 43758.5453) % 1 + 1) % 1;
-
-    for(let i = 0; i < 80; i++){
+    for(let i = 0; i < 55; i++){
       const x = seed(i) * w * 3 - w;
       const y = seed(i + 1000) * h * 3 - h;
       const angle = seed(i + 2000) * Math.PI * 2;
-      const len = 50 + seed(i + 3000) * 30;
-      const wid = 14 + seed(i + 4000) * 4;
+      const len = 45 + seed(i + 3000) * 25;
+      const wid = 12 + seed(i + 4000) * 4;
 
       c.save();
       c.translate(x, y);
@@ -1069,7 +1080,7 @@ body::before{
 
       c.fillStyle = 'rgba(60,80,50,0.2)';
       c.beginPath();
-      c.ellipse(2, 2, len/2 + 4, wid/2 + 2, 0, 0, Math.PI * 2);
+      c.ellipse(2, 2, len / 2 + 3, wid / 2 + 2, 0, 0, Math.PI * 2);
       c.fill();
 
       const grad = c.createLinearGradient(-len/2, 0, len/2, 0);
@@ -1082,71 +1093,44 @@ body::before{
       c.fill();
 
       c.strokeStyle = 'rgba(90,140,80,0.7)';
-      c.lineWidth = 1.6;
+      c.lineWidth = 1.4;
       c.stroke();
 
       if(seed(i + 5000) > 0.4){
         c.strokeStyle = 'rgba(120,160,100,0.5)';
-        c.lineWidth = 1.5;
+        c.lineWidth = 1.2;
         c.beginPath();
-        c.moveTo(len/2, 0);
-        for(let t = 0; t < 40; t += 4){
-          c.lineTo(len/2 + t, Math.sin(t * 0.4 + i) * 6);
+        c.moveTo(len / 2, 0);
+        for(let t = 0; t < 35; t += 4){
+          c.lineTo(len / 2 + t, Math.sin(t * 0.4 + i) * 5);
         }
         c.stroke();
-      }
-
-      for(let k = 0; k < 3; k++){
-        c.fillStyle = 'rgba(140,180,120,0.5)';
-        c.beginPath();
-        c.arc(-len/4 + k * len/4, seed(i + 6000 + k) * 4 - 2, 2.5, 0, Math.PI * 2);
-        c.fill();
       }
 
       c.restore();
     }
 
-    for(let i = 0; i < 6; i++){
+    for(let i = 0; i < 5; i++){
       const x = seed(i + 7000) * w * 3 - w;
       const y = seed(i + 8000) * h * 3 - h;
       c.fillStyle = 'rgba(255,255,240,0.7)';
       c.beginPath();
-      c.arc(x, y, 10, 0, Math.PI * 2);
+      c.arc(x, y, 9, 0, Math.PI * 2);
       c.fill();
       c.strokeStyle = 'rgba(180,180,140,0.7)';
-      c.lineWidth = 1.5;
+      c.lineWidth = 1.3;
       c.stroke();
     }
   }
 
-  function roundRect(c, x, y, w, h, r){
-    c.beginPath();
-    c.moveTo(x + r, y);
-    c.lineTo(x + w - r, y);
-    c.quadraticCurveTo(x + w, y, x + w, y + r);
-    c.lineTo(x + w, y + h - r);
-    c.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
-    c.lineTo(x + r, y + h);
-    c.quadraticCurveTo(x, y + h, x, y + h - r);
-    c.lineTo(x, y + r);
-    c.quadraticCurveTo(x, y, x + r, y);
-    c.closePath();
-  }
-
   /* ============================================================
-     АНИМАЦИЯ ЦИКЛОЗА (ЛИСТ ЭЛОДЕИ)
+     АНИМАЦИЯ ЦИКЛОЗА
      ============================================================ */
-  const leafState = {
-    initialized: false,
-    chloroplasts: [],
-    elapsed: 0
-  };
+  const leafState = { initialized: false, chloroplasts: [], elapsed: 0 };
 
   function initLeafState(){
-    if(leafState.initialized) return;
-
     const w = canvas.width, h = canvas.height;
-    const cellW = 130, cellH = 90;
+    const cellW = 120, cellH = 80;
     const cols = Math.ceil(w / cellW) + 4;
     const rows = Math.ceil(h / cellH) + 4;
     const startX = -cellW * 2;
@@ -1158,19 +1142,19 @@ body::before{
       for(let j = 0; j < rows; j++){
         const cx = startX + i * cellW + cellW / 2;
         const cy = startY + j * cellH + cellH / 2;
-        const count = 9 + Math.floor(Math.random() * 4);
+        const count = 8 + Math.floor(Math.random() * 4);
         const dir = ((i + j) % 2 === 0) ? 1 : -1;
 
         for(let k = 0; k < count; k++){
-          const rx = cellW / 2 - 24 - Math.random() * 8;
-          const ry = cellH / 2 - 18 - Math.random() * 6;
+          const rx = cellW / 2 - 22 - Math.random() * 6;
+          const ry = cellH / 2 - 16 - Math.random() * 5;
 
           leafState.chloroplasts.push({
             cx, cy, rx, ry,
             angle: Math.random() * Math.PI * 2,
             speed: (0.25 + Math.random() * 0.15) * dir,
-            sizeX: 8 + Math.random() * 3,
-            sizeY: 4.5 + Math.random() * 1.5,
+            sizeX: 7 + Math.random() * 2.5,
+            sizeY: 4 + Math.random() * 1.5,
             rot: Math.random() * Math.PI,
             wobble: Math.random() * Math.PI * 2,
             wobbleSpeed: 0.6 + Math.random() * 0.9,
@@ -1180,7 +1164,6 @@ body::before{
         }
       }
     }
-
     leafState.initialized = true;
   }
 
@@ -1199,14 +1182,12 @@ body::before{
       leafAnimFrame = null;
       return;
     }
-
     const dt = Math.min(0.05, (now - leafLastTime) / 1000 || 0.016);
     leafLastTime = now;
     leafState.elapsed += dt;
 
     updateLeafAnimation(dt);
     render();
-
     leafAnimFrame = requestAnimationFrame(leafAnimLoop);
   }
 
@@ -1217,15 +1198,31 @@ body::before{
     }
   }
 
-  /* ---------- РАЗМЕР ---------- */
-  function resize(){
-    const dpr = Math.min(window.devicePixelRatio, 2);
+  /* ============================================================
+     РАЗМЕР CANVAS — надёжный, через ResizeObserver
+     ============================================================ */
+  let currentW = 0, currentH = 0;
+
+  function resizeCanvas(){
     const rect = eyepiece.getBoundingClientRect();
-    if(rect.width === 0) return;
-    canvas.width = rect.width * dpr;
-    canvas.height = rect.height * dpr;
-    canvas.style.width = rect.width + 'px';
-    canvas.style.height = rect.height + 'px';
+    const w = Math.round(rect.width);
+    const h = Math.round(rect.height);
+    if(w === 0 || h === 0) return;
+
+    // Ограничиваем DPR для мобильных — иначе тормозит
+    const isMobile = w < 500;
+    const maxDpr = isMobile ? 1.5 : 2;
+    const dpr = Math.min(window.devicePixelRatio || 1, maxDpr);
+
+    if(currentW === w && currentH === h) return;
+    currentW = w;
+    currentH = h;
+
+    canvas.width = Math.round(w * dpr);
+    canvas.height = Math.round(h * dpr);
+    canvas.style.width = w + 'px';
+    canvas.style.height = h + 'px';
+
     ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.scale(dpr, dpr);
 
@@ -1235,10 +1232,24 @@ body::before{
 
     render();
   }
-  window.addEventListener('resize', resize);
 
-  /* ---------- ПАРАМЕТРЫ ---------- */
-  let state = {
+  // Наблюдатель за размером окуляра — самый надёжный способ
+  if(window.ResizeObserver){
+    const ro = new ResizeObserver(() => {
+      currentW = 0; // форсим пересчёт
+      resizeCanvas();
+    });
+    ro.observe(eyepiece);
+  }
+  window.addEventListener('resize', () => { currentW = 0; resizeCanvas(); });
+  window.addEventListener('orientationchange', () => {
+    setTimeout(() => { currentW = 0; resizeCanvas(); }, 250);
+  });
+
+  /* ============================================================
+     СОСТОЯНИЕ
+     ============================================================ */
+  const state = {
     specimen: 'onion',
     zoom: 400,
     focus: 100,
@@ -1264,7 +1275,9 @@ body::before{
     fill.style.width = ((v - min) / (max - min) * 100) + '%';
   }
 
-  /* ---------- РЕНДЕР ---------- */
+  /* ============================================================
+     РЕНДЕР
+     ============================================================ */
   function render(){
     const w = canvas.clientWidth;
     const h = canvas.clientHeight;
@@ -1272,7 +1285,8 @@ body::before{
 
     ctx.clearRect(0, 0, w, h);
 
-    const bg = ctx.createRadialGradient(w/2, h/2, 20, w/2, h/2, Math.max(w, h) * 0.7);
+    // Фон линзы
+    const bg = ctx.createRadialGradient(w / 2, h / 2, 20, w / 2, h / 2, Math.max(w, h) * 0.7);
     bg.addColorStop(0, 'rgba(255,255,240,' + (0.15 * state.light / 100) + ')');
     bg.addColorStop(1, 'rgba(80,100,80,' + (0.1 * state.light / 100) + ')');
     ctx.fillStyle = bg;
@@ -1280,7 +1294,7 @@ body::before{
 
     const spec = SPECIMENS[state.specimen];
     if(spec && spec.draw){
-      if(state.specimen === 'leaf'){
+      if(state.specimen === 'leaf' && !leafState.initialized){
         initLeafState();
       }
 
@@ -1288,43 +1302,46 @@ body::before{
       const offX = state.offsetX;
       const offY = state.offsetY;
 
+      // Медленный слой (фон)
       ctx.save();
-      ctx.translate(w/2 + offX * 0.4, h/2 + offY * 0.4);
+      ctx.translate(w / 2 + offX * 0.4, h / 2 + offY * 0.4);
       ctx.scale(zoomScale * 0.9, zoomScale * 0.9);
-      ctx.translate(-w/2, -h/2);
+      ctx.translate(-w / 2, -h / 2);
       ctx.globalAlpha = 0.35;
       spec.draw(ctx);
       ctx.restore();
 
+      // Основной слой
       ctx.save();
-      ctx.translate(w/2 + offX, h/2 + offY);
+      ctx.translate(w / 2 + offX, h / 2 + offY);
       ctx.scale(zoomScale, zoomScale);
-      ctx.translate(-w/2, -h/2);
-
+      ctx.translate(-w / 2, -h / 2);
       spec.draw(ctx);
-
       if(spec.drawDynamic){
         spec.drawDynamic(ctx, leafState.elapsed);
       }
       ctx.restore();
 
+      // Передний слой
       if(state.specimen === 'infusoria' || state.specimen === 'bacteria'){
         ctx.save();
-        ctx.translate(w/2 + offX * 1.5, h/2 + offY * 1.5);
+        ctx.translate(w / 2 + offX * 1.5, h / 2 + offY * 1.5);
         ctx.scale(zoomScale * 1.2, zoomScale * 1.2);
-        ctx.translate(-w/2, -h/2);
+        ctx.translate(-w / 2, -h / 2);
         ctx.globalAlpha = 0.25;
         spec.draw(ctx);
         ctx.restore();
       }
     }
 
-    const vig = ctx.createRadialGradient(w/2, h/2, w*0.35, w/2, h/2, w*0.55);
+    // Виньетка
+    const vig = ctx.createRadialGradient(w / 2, h / 2, w * 0.35, w / 2, h / 2, w * 0.55);
     vig.addColorStop(0, 'rgba(0,0,0,0)');
     vig.addColorStop(1, 'rgba(0,0,0,0.6)');
     ctx.fillStyle = vig;
     ctx.fillRect(0, 0, w, h);
 
+    // CSS-фильтр
     const blur = (100 - state.focus) * 0.06;
     const bright = state.light / 100;
     const contrast = 1 + (state.light - 90) * 0.002;
@@ -1335,7 +1352,9 @@ body::before{
     }
   }
 
-  /* ---------- ОБРАБОТЧИКИ ---------- */
+  /* ============================================================
+     ОБРАБОТЧИКИ
+     ============================================================ */
 
   zoomRange.addEventListener('input', () => {
     state.zoom = +zoomRange.value;
@@ -1359,29 +1378,46 @@ body::before{
     render();
   });
 
+  /* ---------- ПЕРЕТАСКИВАНИЕ (мышь + тач) ---------- */
+
+  let activePointerId = null;
+
   eyepiece.addEventListener('pointerdown', (e) => {
     if(e.target.closest('input')) return;
+    e.preventDefault();
+    activePointerId = e.pointerId;
     state.drag = {
       startX: e.clientX,
       startY: e.clientY,
       baseX: state.offsetX,
       baseY: state.offsetY
     };
-    eyepiece.setPointerCapture(e.pointerId);
+    try { eyepiece.setPointerCapture(e.pointerId); } catch(_) {}
   });
 
   eyepiece.addEventListener('pointermove', (e) => {
-    if(!state.drag) return;
+    if(!state.drag || e.pointerId !== activePointerId) return;
+    e.preventDefault();
     state.offsetX = state.drag.baseX + (e.clientX - state.drag.startX);
     state.offsetY = state.drag.baseY + (e.clientY - state.drag.startY);
     render();
   });
 
-  eyepiece.addEventListener('pointerup', () => {
+  function endDrag(e){
+    if(e && e.pointerId !== activePointerId) return;
     state.drag = null;
-  });
-  eyepiece.addEventListener('pointercancel', () => state.drag = null);
+    activePointerId = null;
+  }
+  eyepiece.addEventListener('pointerup', endDrag);
+  eyepiece.addEventListener('pointercancel', endDrag);
+  eyepiece.addEventListener('lostpointercapture', endDrag);
 
+  // Запрет скролла страницы при таскании препарата на тач-устройствах
+  eyepiece.addEventListener('touchmove', (e) => {
+    if(state.drag) e.preventDefault();
+  }, { passive: false });
+
+  // Зум колёсиком (только desktop)
   eyepiece.addEventListener('wheel', (e) => {
     e.preventDefault();
     const delta = -e.deltaY * 0.5;
@@ -1391,17 +1427,18 @@ body::before{
     magScale.textContent = '×' + Math.round(state.zoom);
     updateKnob(zoomRange, zoomFill);
     render();
-  }, {passive:false});
+  }, { passive: false });
 
+  /* ---------- СМЕНА ПРЕПАРАТА ---------- */
   document.querySelectorAll('.slide').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.slide').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
+
       state.specimen = btn.dataset.specimen;
       state.offsetX = 0;
       state.offsetY = 0;
 
-      // Сброс/запуск анимации листа
       if(state.specimen === 'leaf'){
         leafState.initialized = false;
         leafState.elapsed = 0;
@@ -1412,12 +1449,11 @@ body::before{
         }
       }
 
-      canvas.style.transition = 'filter .4s, opacity .3s';
-      canvas.style.opacity = '0.2';
+      canvas.style.opacity = '0.15';
       setTimeout(() => {
         render();
         canvas.style.opacity = '1';
-      }, 200);
+      }, 160);
 
       const liveBadge = document.getElementById('liveBadge');
       if(liveBadge){
@@ -1442,15 +1478,23 @@ body::before{
     document.getElementById('observations').innerHTML = s.observations;
   }
 
-  /* ---------- СТАРТ ---------- */
+  /* ============================================================
+     СТАРТ
+     ============================================================ */
   updateKnob(zoomRange, zoomFill);
   updateKnob(focusRange, focusFill);
   updateKnob(lightRange, lightFill);
   updateSpecimenInfo('onion');
 
-  setTimeout(resize, 50);
-  setTimeout(resize, 300);
+  // Первый resize — после того, как браузер посчитает layout
+  requestAnimationFrame(() => {
+    resizeCanvas();
+    // Ещё раз через небольшую задержку — на случай, если шрифты/картинки догрузились
+    setTimeout(resizeCanvas, 250);
+    setTimeout(resizeCanvas, 800);
+  });
 
+  // Анимация наводки на резкость
   setTimeout(() => {
     state.focus = 30;
     focusRange.value = 30;
