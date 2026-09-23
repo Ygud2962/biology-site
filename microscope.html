@@ -22,8 +22,6 @@
   --grad:linear-gradient(135deg,#7ce8a4 0%,#d4af5a 100%);
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-
-/* ВАЖНО: html НЕ блокируем, иначе iOS не скроллит */
 html{background:var(--bg)}
 body{
   font-family:'Inter',system-ui,-apple-system,sans-serif;
@@ -31,7 +29,6 @@ body{
   color:var(--text);
   -webkit-font-smoothing:antialiased;
   min-height:100%;
-  /* НЕ ставим overflow-x:hidden здесь — это ломает touch-scroll на iOS */
 }
 button{font-family:inherit;cursor:pointer;border:none;background:transparent;color:inherit}
 a{color:inherit;text-decoration:none}
@@ -51,10 +48,11 @@ body::before{
 .top-bar{
   position:relative;
   z-index:100;
-  padding:14px 4vw;
+  padding:14px clamp(16px, 4vw, 40px);
   display:flex;
   justify-content:space-between;
   align-items:center;
+  gap:12px;
   background:rgba(11,22,17,.7);
   backdrop-filter:blur(12px);
   -webkit-backdrop-filter:blur(12px);
@@ -71,6 +69,7 @@ body::before{
   color:var(--muted);
   background:rgba(15,31,24,.6);
   white-space:nowrap;
+  flex-shrink:0;
 }
 .brand{
   font-family:'Playfair Display',serif;
@@ -82,6 +81,8 @@ body::before{
   align-items:center;
   gap:8px;
   white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
 }
 .brand::before{
   content:'';
@@ -97,12 +98,12 @@ body::before{
   position:relative;
   z-index:1;
   width:100%;
-  max-width:1400px;
+  max-width:1440px;
   margin:0 auto;
-  padding:16px 4vw 60px;
+  padding:clamp(12px, 2vw, 24px) clamp(16px, 4vw, 40px) clamp(40px, 6vw, 80px);
   display:grid;
-  grid-template-columns:240px 1fr 320px;
-  gap:20px;
+  grid-template-columns: minmax(180px, 240px) minmax(0, 1fr) minmax(260px, 340px);
+  gap:clamp(14px, 2vw, 22px);
   align-items:start;
 }
 
@@ -171,12 +172,16 @@ body::before{
 .slide.active .slide-name{color:var(--accent)}
 
 /* ============ МИКРОСКОП ============ */
+.microscope-wrap{
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+  width:100%;
+}
 .microscope{
   position:relative;
-  width:100%;
-  max-width:640px;
+  width:min(94%, 620px, 70vh);
   aspect-ratio:1 / 1;
-  margin:0 auto;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -210,7 +215,6 @@ body::before{
 }
 @keyframes scopeRotate{to{transform:rotate(360deg)}}
 
-/* ВАЖНО: touch-action: pan-y — вертикальный скролл отдан браузеру */
 .eyepiece{
   position:relative;
   width:80%;
@@ -234,7 +238,7 @@ body::before{
   position:absolute;
   inset:0;
   border-radius:50%;
-  background:radial-gradient(circle at 50% 50%, transparent 40%, rgba(0,0,0,.5) 90%, rgba(0,0,0,.85) 100%);
+  background:radial-gradient(circle at 50% 50%, transparent 38%, rgba(0,0,0,.5) 88%, rgba(0,0,0,.88) 100%);
   pointer-events:none;
   z-index:5;
 }
@@ -244,7 +248,7 @@ body::before{
   width:100%;
   height:100%;
   display:block;
-  transition:filter .3s, opacity .3s;
+  transition:filter .35s ease, opacity .3s;
   pointer-events:none;
 }
 
@@ -253,7 +257,7 @@ body::before{
   inset:0;
   pointer-events:none;
   z-index:4;
-  opacity:.55;
+  opacity:.5;
 }
 .reticle::before,
 .reticle::after{
@@ -300,6 +304,7 @@ body::before{
   display:flex;
   flex-direction:column;
   gap:12px;
+  min-width:0;
 }
 .panel-card{
   padding:16px;
@@ -317,10 +322,10 @@ body::before{
   font-weight:500;
 }
 
-/* ============ СЛАЙДЕРЫ (ПРОСТЫЕ, НАДЁЖНЫЕ) ============ */
+/* ============ СЛАЙДЕРЫ ============ */
 .knob-row{
   display:grid;
-  grid-template-columns:56px 1fr 60px;
+  grid-template-columns:52px 1fr 56px;
   align-items:center;
   gap:12px;
   margin-bottom:18px;
@@ -339,17 +344,15 @@ body::before{
   font-weight:600;
 }
 
-/* Обычный input range — работает нативно на любом мобильном */
 .knob input[type="range"]{
   -webkit-appearance:none;
   appearance:none;
   width:100%;
-  height:26px;
+  height:28px;
   background:transparent;
   outline:none;
   margin:0;
   padding:0;
-  /* Ничего не блокируем — браузер сам разберётся */
   touch-action: auto;
 }
 .knob input[type="range"]::-webkit-slider-runnable-track{
@@ -479,32 +482,38 @@ body::before{
   50%{opacity:.4;transform:scale(.7)}
 }
 
-/* ============ ПЛАНШЕТ ============ */
+/* ============================================================
+   АДАПТИВ — ПЛАНШЕТ (портрет и ландшафт до 1100px)
+   ============================================================ */
 @media (max-width:1100px){
   .stage{
-    grid-template-columns:200px 1fr;
+    grid-template-columns: minmax(160px, 200px) minmax(0, 1fr);
     grid-template-areas:
       "slides microscope"
       "info   info";
-    gap:16px;
+    gap:14px;
   }
   .slides-panel{grid-area:slides}
-  .microscope{grid-area:microscope}
+  .microscope-wrap{grid-area:microscope}
   .right-panel{
     grid-area:info;
     display:grid;
     grid-template-columns:1fr 1fr;
     gap:12px;
+    align-items:start;
   }
   .right-panel .panel-card:nth-child(4){grid-column:1/-1}
+  .microscope{width:min(96%, 560px, 60vh)}
 }
 
-/* ============ МОБИЛЬНЫЙ ============ */
+/* ============================================================
+   МОБИЛЬНЫЙ (телефоны портрет)
+   ============================================================ */
 @media (max-width:720px){
   .top-bar{padding:12px 16px}
-  .brand{font-size:11px;letter-spacing:1.5px}
+  .brand{font-size:10.5px;letter-spacing:1.5px}
   .brand::before{display:none}
-  .back-link{padding:7px 14px;font-size:12.5px}
+  .back-link{padding:7px 13px;font-size:12px}
 
   .stage{
     display:flex;
@@ -520,7 +529,7 @@ body::before{
     overflow-x:auto;
     overflow-y:hidden;
     gap:10px;
-    padding:2px 16px 10px;
+    padding:2px 16px 12px;
     margin:0 -16px;
     scroll-snap-type:x mandatory;
     -webkit-overflow-scrolling:touch;
@@ -540,24 +549,25 @@ body::before{
   .slide-name{font-size:13px}
   .slide-sub{font-size:10.5px}
 
-  .microscope{
+  .microscope-wrap{
     width:100%;
-    max-width:min(94vw, 460px);
-    margin:4px auto 0;
+    display:flex;
+    justify-content:center;
   }
-  .eyepiece{width:82%}
-  .scope-body{inset:4%}
+  .microscope{
+    width:min(94vw, 60vh, 460px);
+  }
 
   .right-panel{
     display:flex;
     flex-direction:column;
     gap:12px;
+    width:100%;
   }
   .panel-card{padding:14px}
 
-  /* Слайдеры на мобиле — крупные */
   .knob-row{
-    grid-template-columns:52px 1fr 56px;
+    grid-template-columns:50px 1fr 54px;
     gap:10px;
     margin-bottom:16px;
   }
@@ -570,25 +580,45 @@ body::before{
   }
 }
 
-@media (max-width:380px){
-  .stage{padding:12px 12px 60px}
+/* ============================================================
+   ОЧЕНЬ УЗКИЕ ЭКРАНЫ (Galaxy Fold 280px, старые устройства)
+   ============================================================ */
+@media (max-width:400px){
+  .stage{padding:12px 12px 60px;gap:12px}
   .slides-panel{margin:0 -12px;padding-left:12px;padding-right:12px}
-  .microscope{max-width:96vw}
+  .microscope{width:min(96vw, 55vh, 380px)}
   .panel-card{padding:12px}
   .specimen-info h3{font-size:17px}
+  .specimen-desc{font-size:12.5px}
+  .knob-row{grid-template-columns:46px 1fr 50px;gap:8px}
+  .knob-label{font-size:11px}
+  .knob-val{font-size:12px}
 }
 
-/* ============ ЛАНДШАФТ ============ */
-@media (max-width:900px) and (orientation:landscape) and (max-height:500px){
+/* ============================================================
+   КОРОТКИЕ ЭКРАНЫ ПО ВЫСОТЕ (например, планшет landscape)
+   ============================================================ */
+@media (max-height:600px) and (min-width:721px){
+  .stage{padding-top:10px;padding-bottom:20px}
+  .panel-card{padding:12px}
+  .panel-card h4{margin-bottom:10px}
+  .microscope{width:min(90%, 480px, 82vh)}
+  .right-panel{gap:10px}
+}
+
+/* ============================================================
+   ТЕЛЕФОН В ЛАНДШАФТЕ
+   ============================================================ */
+@media (max-width:900px) and (orientation:landscape) and (max-height:520px){
   .stage{
     display:grid;
-    grid-template-columns:1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(200px, 1fr);
     grid-template-areas:
       "microscope slides"
       "microscope info";
-    gap:14px;
+    gap:12px;
     align-items:start;
-    padding:12px 16px 40px;
+    padding:10px 16px 20px;
   }
   .slides-panel{
     grid-area:slides;
@@ -596,15 +626,54 @@ body::before{
     margin:0;
     padding:0;
     overflow-y:auto;
-    max-height:150px;
+    overflow-x:hidden;
+    max-height:130px;
+    gap:6px;
   }
-  .slide{min-width:0;max-width:none}
-  .microscope{grid-area:microscope;max-width:100%}
+  .slide{min-width:0;max-width:none;padding:8px 10px}
+  .slide-icon{width:30px;height:30px;font-size:16px;border-radius:8px}
+  .slide-name{font-size:12px}
+  .slide-sub{font-size:10px}
+  .microscope-wrap{
+    grid-area:microscope;
+    align-items:flex-start;
+  }
+  .microscope{width:min(90%, 85vh)}
   .right-panel{
     grid-area:info;
-    max-height:calc(100vh - 180px);
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    max-height:calc(100vh - 160px);
     overflow-y:auto;
+    padding-right:4px;
   }
+  .right-panel::-webkit-scrollbar{width:4px}
+  .right-panel::-webkit-scrollbar-thumb{background:rgba(124,232,164,.3);border-radius:4px}
+  .panel-card{padding:10px 12px}
+  .panel-card h4{font-size:11px;margin-bottom:8px}
+  .knob-row{grid-template-columns:44px 1fr 48px;gap:8px;margin-bottom:10px}
+  .knob input[type="range"]{height:26px}
+  .knob input[type="range"]::-webkit-slider-thumb{width:22px;height:22px;margin-top:-8px}
+  .specimen-info h3{font-size:15px}
+  .specimen-desc{font-size:11.5px;line-height:1.5}
+  .specimen-facts>div{font-size:11px;padding:5px 0}
+  .hints span{font-size:10px;padding:4px 8px}
+}
+
+/* ============================================================
+   ОГРОМНЫЕ ЭКРАНЫ (4K и ultrawide)
+   ============================================================ */
+@media (min-width:1800px){
+  .stage{
+    max-width:1600px;
+    grid-template-columns: 280px 1fr 380px;
+    gap:28px;
+  }
+  .microscope{width:min(90%, 720px, 68vh)}
+  .specimen-info h3{font-size:22px}
+  .slide-name{font-size:15px}
+  .knob-label{font-size:13px}
 }
 </style>
 </head>
@@ -656,15 +725,17 @@ body::before{
     </button>
   </div>
 
-  <div class="microscope">
-    <div class="scope-body"></div>
-    <div class="eyepiece" id="eyepiece">
-      <canvas id="cellCanvas"></canvas>
-      <div class="reticle">
-        <div class="reticle-mark"></div>
+  <div class="microscope-wrap">
+    <div class="microscope">
+      <div class="scope-body"></div>
+      <div class="eyepiece" id="eyepiece">
+        <canvas id="cellCanvas"></canvas>
+        <div class="reticle">
+          <div class="reticle-mark"></div>
+        </div>
       </div>
+      <div class="mag-scale" id="magScale">×400</div>
     </div>
-    <div class="mag-scale" id="magScale">×400</div>
   </div>
 
   <div class="right-panel">
@@ -713,9 +784,9 @@ body::before{
     <div class="panel-card">
       <h4>— Управление —</h4>
       <div class="hints">
-        <span>👆 Тащи влево-вправо — двигаешь препарат</span>
-        <span>👆 Тащи вверх-вниз — скроллишь страницу</span>
-        <span>🔍 Зум · 🎯 Фокус · 💡 Свет — слайдеры</span>
+        <span>↔️ Тащи влево-вправо — двигаешь препарат</span>
+        <span>↕️ Тащи вверх-вниз — скролл</span>
+        <span>🔍 Зум · 🎯 Фокус · 💡 Свет</span>
       </div>
     </div>
   </div>
@@ -802,7 +873,9 @@ body::before{
   const seed = (i) => ((Math.sin(i * 12.9898 + 78.233) * 43758.5453) % 1 + 1) % 1;
 
   /* ============================================================
-     РИСУНКИ
+     РИСУНКИ ПРЕПАРАТОВ
+     ВАЖНО: фоновая заливка препаратов приглушена —
+     чтобы при фокусе 100% (blur=0) не было пересвета
      ============================================================ */
   function drawOnion(c){
     const w = canvas.width, h = canvas.height;
@@ -812,7 +885,8 @@ body::before{
     const startX = -cellW * 2;
     const startY = -cellH * 2;
 
-    c.fillStyle = 'rgba(255,240,210,0.15)';
+    // Приглушённый фон (было 0.15 — стало 0.05)
+    c.fillStyle = 'rgba(255,235,200,0.05)';
     c.fillRect(-w * 6, -h * 6, w * 13, h * 13);
 
     for(let i = 0; i < cols; i++){
@@ -820,13 +894,13 @@ body::before{
         const x = startX + i * cellW;
         const y = startY + j * cellH;
 
-        c.strokeStyle = 'rgba(212,175,90,0.7)';
-        c.lineWidth = 2.5;
+        c.strokeStyle = 'rgba(212,175,90,0.65)';
+        c.lineWidth = 2.2;
         c.beginPath();
         roundRect(c, x, y, cellW - 6, cellH - 6, 6);
         c.stroke();
 
-        c.strokeStyle = 'rgba(212,175,90,0.35)';
+        c.strokeStyle = 'rgba(212,175,90,0.3)';
         c.lineWidth = 1;
         c.beginPath();
         roundRect(c, x + 4, y + 4, cellW - 14, cellH - 14, 4);
@@ -834,20 +908,20 @@ body::before{
 
         const nx = x + cellW / 2;
         const ny = y + cellH / 2;
-        c.fillStyle = 'rgba(200,230,255,0.1)';
+        c.fillStyle = 'rgba(200,230,255,0.08)';
         c.beginPath();
         c.ellipse(nx, ny, cellW / 2 - 30, cellH / 2 - 22, 0, 0, Math.PI * 2);
         c.fill();
 
-        c.fillStyle = 'rgba(180,140,230,0.85)';
+        c.fillStyle = 'rgba(180,140,230,0.8)';
         c.beginPath();
-        c.arc(nx, ny, 14, 0, Math.PI * 2);
+        c.arc(nx, ny, 13, 0, Math.PI * 2);
         c.fill();
-        c.fillStyle = 'rgba(230,200,255,0.9)';
+        c.fillStyle = 'rgba(230,200,255,0.85)';
         c.beginPath();
         c.arc(nx - 3, ny - 3, 4, 0, Math.PI * 2);
         c.fill();
-        c.fillStyle = 'rgba(230,140,180,0.9)';
+        c.fillStyle = 'rgba(230,140,180,0.85)';
         c.beginPath();
         c.arc(nx + 5, ny + 5, 3, 0, Math.PI * 2);
         c.fill();
@@ -857,7 +931,7 @@ body::before{
 
   function drawBlood(c){
     const w = canvas.width, h = canvas.height;
-    c.fillStyle = 'rgba(255,240,235,0.1)';
+    c.fillStyle = 'rgba(255,235,225,0.04)';
     c.fillRect(-w * 6, -h * 6, w * 13, h * 13);
 
     for(let i = 0; i < 200; i++){
@@ -865,21 +939,21 @@ body::before{
       const y = seed(i + 1000) * h * 3 - h;
       const r = 10 + seed(i + 2000) * 3;
 
-      c.fillStyle = 'rgba(180,30,50,0.15)';
+      c.fillStyle = 'rgba(180,30,50,0.12)';
       c.beginPath();
       c.arc(x + 2, y + 2, r + 1, 0, Math.PI * 2);
       c.fill();
 
       const grad = c.createRadialGradient(x, y, 1, x, y, r);
-      grad.addColorStop(0, 'rgba(220,80,100,0.55)');
-      grad.addColorStop(0.7, 'rgba(200,50,80,0.85)');
-      grad.addColorStop(1, 'rgba(150,20,50,0.9)');
+      grad.addColorStop(0, 'rgba(200,70,90,0.5)');
+      grad.addColorStop(0.7, 'rgba(180,45,75,0.82)');
+      grad.addColorStop(1, 'rgba(130,15,45,0.88)');
       c.fillStyle = grad;
       c.beginPath();
       c.arc(x, y, r, 0, Math.PI * 2);
       c.fill();
 
-      c.fillStyle = 'rgba(255,200,210,0.35)';
+      c.fillStyle = 'rgba(255,190,200,0.28)';
       c.beginPath();
       c.arc(x, y, r * 0.55, 0, Math.PI * 2);
       c.fill();
@@ -889,15 +963,15 @@ body::before{
       const x = (0.2 + seed(i + 3000) * 0.6) * w;
       const y = (0.2 + seed(i + 4000) * 0.6) * h;
       const r = 22;
-      c.fillStyle = 'rgba(200,220,255,0.15)';
+      c.fillStyle = 'rgba(190,215,255,0.12)';
       c.beginPath();
       c.arc(x, y, r + 6, 0, Math.PI * 2);
       c.fill();
-      c.fillStyle = 'rgba(220,230,255,0.7)';
+      c.fillStyle = 'rgba(200,215,245,0.6)';
       c.beginPath();
       c.arc(x, y, r, 0, Math.PI * 2);
       c.fill();
-      c.fillStyle = 'rgba(120,80,180,0.85)';
+      c.fillStyle = 'rgba(110,75,170,0.82)';
       c.beginPath();
       for(let a = 0; a < Math.PI * 2; a += Math.PI / 8){
         const rr = 9 + Math.sin(a * 3 + i) * 4;
@@ -912,7 +986,7 @@ body::before{
     for(let i = 0; i < 30; i++){
       const x = seed(i + 5000) * w * 3 - w;
       const y = seed(i + 6000) * h * 3 - h;
-      c.fillStyle = 'rgba(230,200,150,0.6)';
+      c.fillStyle = 'rgba(220,190,140,0.55)';
       c.beginPath();
       c.ellipse(x, y, 3.5, 2, seed(i + 7000) * Math.PI, 0, Math.PI * 2);
       c.fill();
@@ -921,7 +995,7 @@ body::before{
 
   function drawLeafWalls(c){
     const w = canvas.width, h = canvas.height;
-    c.fillStyle = 'rgba(230,245,220,0.12)';
+    c.fillStyle = 'rgba(225,240,215,0.05)';
     c.fillRect(-w * 6, -h * 6, w * 13, h * 13);
 
     const cellW = 120, cellH = 80;
@@ -935,25 +1009,25 @@ body::before{
         const x = startX + i * cellW;
         const y = startY + j * cellH;
 
-        c.strokeStyle = 'rgba(120,180,100,0.55)';
+        c.strokeStyle = 'rgba(110,170,90,0.55)';
         c.lineWidth = 2;
         c.beginPath();
         roundRect(c, x + 4, y + 4, cellW - 8, cellH - 8, 10);
         c.stroke();
 
-        c.strokeStyle = 'rgba(120,180,100,0.2)';
+        c.strokeStyle = 'rgba(110,170,90,0.18)';
         c.lineWidth = 1;
         c.beginPath();
         roundRect(c, x + 8, y + 8, cellW - 16, cellH - 16, 8);
         c.stroke();
 
-        c.fillStyle = 'rgba(180,140,220,0.65)';
+        c.fillStyle = 'rgba(170,130,210,0.6)';
         c.beginPath();
-        c.arc(x + 22, y + cellH / 2, 7, 0, Math.PI * 2);
+        c.arc(x + 22, y + cellH / 2, 6.5, 0, Math.PI * 2);
         c.fill();
-        c.fillStyle = 'rgba(220,180,255,0.85)';
+        c.fillStyle = 'rgba(210,175,245,0.8)';
         c.beginPath();
-        c.arc(x + 22, y + cellH / 2, 2.5, 0, Math.PI * 2);
+        c.arc(x + 22, y + cellH / 2, 2.3, 0, Math.PI * 2);
         c.fill();
       }
     }
@@ -976,12 +1050,12 @@ body::before{
       c.ellipse(1, 1, ch.sizeX, ch.sizeY, 0, 0, Math.PI * 2);
       c.fill();
 
-      c.fillStyle = 'rgba(55,150,75,0.94)';
+      c.fillStyle = 'rgba(50,140,70,0.92)';
       c.beginPath();
       c.ellipse(0, 0, ch.sizeX, ch.sizeY, 0, 0, Math.PI * 2);
       c.fill();
 
-      c.fillStyle = 'rgba(170,235,140,0.7)';
+      c.fillStyle = 'rgba(160,225,130,0.65)';
       c.beginPath();
       c.ellipse(-ch.sizeX * 0.32, -ch.sizeY * 0.32, ch.sizeX * 0.5, ch.sizeY * 0.42, 0, 0, Math.PI * 2);
       c.fill();
@@ -992,7 +1066,7 @@ body::before{
 
   function drawInfusoria(c){
     const w = canvas.width, h = canvas.height;
-    c.fillStyle = 'rgba(220,240,230,0.1)';
+    c.fillStyle = 'rgba(215,235,225,0.05)';
     c.fillRect(-w * 6, -h * 6, w * 13, h * 13);
 
     for(let n = 0; n < 3; n++){
@@ -1014,19 +1088,19 @@ body::before{
       c.fill();
 
       const grad = c.createRadialGradient(-20, -15, 5, 0, 0, rx);
-      grad.addColorStop(0, 'rgba(220,250,230,0.9)');
-      grad.addColorStop(0.5, 'rgba(160,220,180,0.85)');
-      grad.addColorStop(1, 'rgba(80,150,110,0.85)');
+      grad.addColorStop(0, 'rgba(210,240,220,0.85)');
+      grad.addColorStop(0.5, 'rgba(150,210,170,0.8)');
+      grad.addColorStop(1, 'rgba(75,140,105,0.82)');
       c.fillStyle = grad;
       c.beginPath();
       c.ellipse(0, 0, rx, ry, 0, 0, Math.PI * 2);
       c.fill();
 
-      c.strokeStyle = 'rgba(60,120,90,0.7)';
+      c.strokeStyle = 'rgba(60,120,90,0.65)';
       c.lineWidth = 1.5;
       c.stroke();
 
-      c.strokeStyle = 'rgba(90,140,110,0.7)';
+      c.strokeStyle = 'rgba(90,140,110,0.65)';
       c.lineWidth = 1;
       for(let a = 0; a < Math.PI * 2; a += 0.15){
         const cxs = Math.cos(a) * rx;
@@ -1037,7 +1111,7 @@ body::before{
         c.stroke();
       }
 
-      c.fillStyle = 'rgba(140,200,255,0.55)';
+      c.fillStyle = 'rgba(140,200,255,0.5)';
       c.beginPath();
       c.arc(-35, -15, 10, 0, Math.PI * 2);
       c.fill();
@@ -1045,7 +1119,7 @@ body::before{
       c.arc(30, 15, 10, 0, Math.PI * 2);
       c.fill();
 
-      c.fillStyle = 'rgba(180,120,220,0.7)';
+      c.fillStyle = 'rgba(170,115,210,0.68)';
       c.beginPath();
       c.ellipse(0, 0, 18, 13, 0, 0, Math.PI * 2);
       c.fill();
@@ -1056,7 +1130,7 @@ body::before{
 
   function drawBacteria(c){
     const w = canvas.width, h = canvas.height;
-    c.fillStyle = 'rgba(230,240,220,0.1)';
+    c.fillStyle = 'rgba(225,235,215,0.05)';
     c.fillRect(-w * 6, -h * 6, w * 13, h * 13);
 
     for(let i = 0; i < 55; i++){
@@ -1076,15 +1150,15 @@ body::before{
       c.fill();
 
       const grad = c.createLinearGradient(-len/2, 0, len/2, 0);
-      grad.addColorStop(0, 'rgba(200,230,190,0.85)');
-      grad.addColorStop(0.5, 'rgba(230,245,220,0.9)');
-      grad.addColorStop(1, 'rgba(180,210,170,0.85)');
+      grad.addColorStop(0, 'rgba(190,220,180,0.82)');
+      grad.addColorStop(0.5, 'rgba(220,238,210,0.88)');
+      grad.addColorStop(1, 'rgba(170,200,160,0.82)');
       c.fillStyle = grad;
       c.beginPath();
       c.ellipse(0, 0, len / 2, wid / 2, 0, 0, Math.PI * 2);
       c.fill();
 
-      c.strokeStyle = 'rgba(90,140,80,0.7)';
+      c.strokeStyle = 'rgba(90,140,80,0.65)';
       c.lineWidth = 1.4;
       c.stroke();
 
@@ -1105,11 +1179,11 @@ body::before{
     for(let i = 0; i < 5; i++){
       const x = seed(i + 7000) * w * 3 - w;
       const y = seed(i + 8000) * h * 3 - h;
-      c.fillStyle = 'rgba(255,255,240,0.7)';
+      c.fillStyle = 'rgba(245,245,230,0.65)';
       c.beginPath();
       c.arc(x, y, 9, 0, Math.PI * 2);
       c.fill();
-      c.strokeStyle = 'rgba(180,180,140,0.7)';
+      c.strokeStyle = 'rgba(175,175,140,0.65)';
       c.lineWidth = 1.3;
       c.stroke();
     }
@@ -1201,8 +1275,8 @@ body::before{
     const h = Math.round(rect.height);
     if(w === 0 || h === 0) return;
 
-    const isMobile = w < 500;
-    const maxDpr = isMobile ? 1.5 : 2;
+    const isSmall = w < 500;
+    const maxDpr = isSmall ? 1.5 : 2;
     const dpr = Math.min(window.devicePixelRatio || 1, maxDpr);
 
     if(currentW === w && currentH === h) return;
@@ -1244,8 +1318,7 @@ body::before{
     focus: 100,
     light: 90,
     offsetX: 0,
-    offsetY: 0,
-    drag: null
+    offsetY: 0
   };
 
   const zoomRange = document.getElementById('zoomRange');
@@ -1257,7 +1330,7 @@ body::before{
   const magScale = document.getElementById('magScale');
 
   /* ============================================================
-     РЕНДЕР
+     РЕНДЕР — с НОВОЙ формулой яркости
      ============================================================ */
   function render(){
     const w = canvas.clientWidth;
@@ -1266,9 +1339,10 @@ body::before{
 
     ctx.clearRect(0, 0, w, h);
 
+    // Фон линзы — приглушённый, не зависит от state.light (чтобы не было засветки)
     const bg = ctx.createRadialGradient(w / 2, h / 2, 20, w / 2, h / 2, Math.max(w, h) * 0.7);
-    bg.addColorStop(0, 'rgba(255,255,240,' + (0.15 * state.light / 100) + ')');
-    bg.addColorStop(1, 'rgba(80,100,80,' + (0.1 * state.light / 100) + ')');
+    bg.addColorStop(0, 'rgba(245,250,235,0.06)');
+    bg.addColorStop(1, 'rgba(15,35,25,0.35)');
     ctx.fillStyle = bg;
     ctx.fillRect(0, 0, w, h);
 
@@ -1282,14 +1356,16 @@ body::before{
       const offX = state.offsetX;
       const offY = state.offsetY;
 
+      // Дальний слой — слабое свечение контекста
       ctx.save();
       ctx.translate(w / 2 + offX * 0.4, h / 2 + offY * 0.4);
       ctx.scale(zoomScale * 0.9, zoomScale * 0.9);
       ctx.translate(-w / 2, -h / 2);
-      ctx.globalAlpha = 0.35;
+      ctx.globalAlpha = 0.3;
       spec.draw(ctx);
       ctx.restore();
 
+      // Основной слой
       ctx.save();
       ctx.translate(w / 2 + offX, h / 2 + offY);
       ctx.scale(zoomScale, zoomScale);
@@ -1300,27 +1376,34 @@ body::before{
       }
       ctx.restore();
 
+      // Передний слой (параллакс)
       if(state.specimen === 'infusoria' || state.specimen === 'bacteria'){
         ctx.save();
         ctx.translate(w / 2 + offX * 1.5, h / 2 + offY * 1.5);
         ctx.scale(zoomScale * 1.2, zoomScale * 1.2);
         ctx.translate(-w / 2, -h / 2);
-        ctx.globalAlpha = 0.25;
+        ctx.globalAlpha = 0.22;
         spec.draw(ctx);
         ctx.restore();
       }
     }
 
-    const vig = ctx.createRadialGradient(w / 2, h / 2, w * 0.35, w / 2, h / 2, w * 0.55);
+    // Виньетка
+    const vig = ctx.createRadialGradient(w / 2, h / 2, w * 0.32, w / 2, h / 2, w * 0.55);
     vig.addColorStop(0, 'rgba(0,0,0,0)');
-    vig.addColorStop(1, 'rgba(0,0,0,0.6)');
+    vig.addColorStop(1, 'rgba(0,0,0,0.7)');
     ctx.fillStyle = vig;
     ctx.fillRect(0, 0, w, h);
 
-    const blur = (100 - state.focus) * 0.06;
-    const bright = state.light / 100;
-    const contrast = 1 + (state.light - 90) * 0.002;
-    canvas.style.filter = `blur(${blur}px) brightness(${bright}) contrast(${contrast}) saturate(${1.05})`;
+    /* ========== ГЛАВНОЕ ИСПРАВЛЕНИЕ ==========
+       Было: brightness = light/100 → при 150 = 1.5 (засветка!)
+       Стало: brightness ограничен [0.55 … 1.05]
+       blur мягче: max 4.5 вместо 6
+       contrast убран, saturate нейтральный
+       ========================================= */
+    const blur = (100 - state.focus) * 0.045;
+    const brightness = 0.55 + (state.light - 30) / 120 * 0.5; // 0.55 … 1.05
+    canvas.style.filter = `blur(${blur}px) brightness(${brightness})`;
 
     if(state.specimen === 'leaf'){
       ensureLeafAnim();
@@ -1328,39 +1411,32 @@ body::before{
   }
 
   /* ============================================================
-     СЛАЙДЕРЫ — ПРОСТО, ЧЕРЕЗ 'input'
+     СЛАЙДЕРЫ
      ============================================================ */
-  function onSliderChange(range, stateKey, valEl, formatter){
-    const v = +range.value;
-    state[stateKey] = v;
-    valEl.textContent = formatter(v);
-    render();
-  }
-
   zoomRange.addEventListener('input', () => {
-    onSliderChange(zoomRange, 'zoom', zoomVal, v => '×' + v);
-    magScale.textContent = '×' + zoomRange.value;
+    state.zoom = +zoomRange.value;
+    zoomVal.textContent = '×' + state.zoom;
+    magScale.textContent = '×' + state.zoom;
+    render();
   });
   focusRange.addEventListener('input', () => {
-    onSliderChange(focusRange, 'focus', focusVal, v => v + '%');
+    state.focus = +focusRange.value;
+    focusVal.textContent = state.focus + '%';
+    render();
   });
   lightRange.addEventListener('input', () => {
-    onSliderChange(lightRange, 'light', lightVal, v => v + '%');
+    state.light = +lightRange.value;
+    lightVal.textContent = state.light + '%';
+    render();
   });
 
   /* ============================================================
      УМНОЕ ПЕРЕТАСКИВАНИЕ
-     Работает так:
-     - Если жест в основном ГОРИЗОНТАЛЬНЫЙ → таскаем препарат.
-     - Если жест в основном ВЕРТИКАЛЬНЫЙ → отдаём браузеру (скролл страницы),
-       т.к. на .eyepiece стоит touch-action: pan-y.
      ============================================================ */
   let touchState = null;
 
   eyepiece.addEventListener('pointerdown', (e) => {
-    // Игнорируем клики по слайдерам и т.п.
     if(e.target.closest('input')) return;
-
     touchState = {
       pointerId: e.pointerId,
       startX: e.clientX,
@@ -1378,16 +1454,13 @@ body::before{
     const dx = e.clientX - touchState.startX;
     const dy = e.clientY - touchState.startY;
 
-    // Пока не решили — определяем направление
     if(!touchState.decided){
-      if(Math.abs(dx) < 6 && Math.abs(dy) < 6) return; // мёртвая зона
+      if(Math.abs(dx) < 6 && Math.abs(dy) < 6) return;
       touchState.decided = true;
       if(Math.abs(dx) > Math.abs(dy)){
-        // Горизонтальный жест — начинаем таскать
         touchState.isDragging = true;
         try { eyepiece.setPointerCapture(e.pointerId); } catch(_) {}
       } else {
-        // Вертикальный — не мешаем браузеру скроллить
         touchState = null;
         return;
       }
@@ -1411,7 +1484,7 @@ body::before{
   eyepiece.addEventListener('lostpointercapture', endTouch);
 
   /* ============================================================
-     ЗУМ КОЛЁСИКОМ (desktop)
+     ЗУМ КОЛЁСИКОМ
      ============================================================ */
   eyepiece.addEventListener('wheel', (e) => {
     e.preventDefault();
@@ -1461,7 +1534,7 @@ body::before{
   });
 
   /* ============================================================
-     ИНФО О ПРЕПАРАТЕ
+     ИНФО
      ============================================================ */
   function updateSpecimenInfo(key){
     const s = SPECIMENS[key];
@@ -1483,8 +1556,8 @@ body::before{
 
   requestAnimationFrame(() => {
     resizeCanvas();
-    setTimeout(resizeCanvas, 250);
-    setTimeout(resizeCanvas, 800);
+    setTimeout(resizeCanvas, 200);
+    setTimeout(resizeCanvas, 600);
   });
 
   // Анимация наводки на резкость
