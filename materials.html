@@ -345,6 +345,56 @@
             font-size: 1rem;
         }
 
+        /* Virtual Microscope Card - Special Style */
+        .topic-card.microscope {
+            background: linear-gradient(135deg, #0b1611 0%, #1a2e22 100%);
+            color: #f0e9d8;
+            border: 2px solid rgba(124, 232, 164, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .topic-card.microscope:before {
+            background: linear-gradient(90deg, #7ce8a4, #d4af5a);
+        }
+
+        .topic-card.microscope:hover {
+            border-color: #7ce8a4;
+            box-shadow: 0 20px 50px rgba(124, 232, 164, 0.3);
+        }
+
+        .topic-card.microscope h3 {
+            color: #7ce8a4;
+        }
+
+        .topic-card.microscope > p {
+            color: #f0e9d8;
+            opacity: 0.9;
+        }
+
+        .topic-card.microscope li {
+            color: #f0e9d8;
+            border-bottom-color: rgba(124, 232, 164, 0.2);
+        }
+
+        .topic-card.microscope li:before {
+            color: #7ce8a4;
+        }
+
+        .microscope-badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background: rgba(124, 232, 164, 0.15);
+            border: 1px solid rgba(124, 232, 164, 0.4);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            color: #7ce8a4;
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
         footer {
             background: linear-gradient(135deg, var(--text), #1a1a2e);
             color: var(--white);
@@ -507,6 +557,20 @@
                     <li>Цитология</li>
                     <li>Эволюция</li>
                     <li>Экология</li>
+                </ul>
+            </a>
+
+            <!-- Виртуальный микроскоп -->
+            <a href="microscope.html" class="topic-card microscope">
+                <span class="microscope-badge">🎮 Интерактив</span>
+                <span class="topic-emoji">🔬</span>
+                <h3>Виртуальный микроскоп</h3>
+                <p>Интерактивная лаборатория для изучения клеток и микроорганизмов</p>
+                <ul>
+                    <li>Клетки кожицы лука</li>
+                    <li>Мазок крови человека</li>
+                    <li>Циклоз в листе элодеи</li>
+                    <li>Инфузория-туфелька</li>
                 </ul>
             </a>
         </div>
